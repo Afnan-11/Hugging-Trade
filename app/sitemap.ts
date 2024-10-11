@@ -1,22 +1,39 @@
-import { MetadataRoute } from "next";
+type BlogPost = {
+  slug: string;
+  created_at: string;
+};
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  return [
+type SitemapEntry = {
+  url: string;
+  lastModified: string;
+  changeFrequency:
+    | "always"
+    | "hourly"
+    | "daily"
+    | "weekly"
+    | "monthly"
+    | "yearly"
+    | "never";
+  priority?: number;
+};
+
+export default async function sitemap(): Promise<SitemapEntry[]> {
+  const baseUrl = "https://starter.rasmic.xyz";
+
+  const staticPages: SitemapEntry[] = [
     {
-      url: `https://www.huggingtrade.com/`,
+      url: baseUrl,
       lastModified: new Date().toISOString(),
+      changeFrequency: "monthly",
+      priority: 1,
     },
     {
-      url: "https://www.huggingtrade.com/pricing",
+      url: `${baseUrl}/blog`,
       lastModified: new Date().toISOString(),
-    },
-    {
-      url: "https://www.huggingtrade.com/affiliate",
-      lastModified: new Date().toISOString(),
-    },
-    {
-      url: "https://www.huggingtrade.com/contact-us",
-      lastModified: new Date().toISOString(),
+      changeFrequency: "weekly",
+      priority: 0.8,
     },
   ];
+
+  return [...staticPages];
 }

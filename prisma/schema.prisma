@@ -1,0 +1,91 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model user {
+  id                Int      @id @default(autoincrement())
+  created_time      DateTime @default(now())
+  email             String   @unique
+  first_name        String?
+  last_name         String?
+  gender            String?
+  profile_image_url String?
+  user_id           String   @unique
+  subscription      String?
+  metaapi_account_id String?
+  is_admin          Boolean  @default(false)
+  account_status    String   @default("active") // e.g., "active", "frozen", "ondue"
+  freeze_start_time DateTime?                   // Time when the account was frozen
+  payment_requests  payment_requests[]
+}
+
+
+model payment_requests {
+  id              Int      @id @default(autoincrement())
+  created_time    DateTime @default(now())
+  user            user     @relation(fields: [user_id], references: [id])
+  user_id         Int
+  month_start     DateTime
+  month_end       DateTime
+  profit_start    Float
+  profit_end      Float?
+  owed_amount     Float     @default(0) // 35% of the total profit
+  payment_status  String  @default("pending") // e.g., "pending", "ondue", "overdue", "frozen", "paid",
+  paid_at         DateTime?
+}
+
+model payments {
+  id               Int      @id @default(autoincrement())
+  created_time     DateTime @default(now())
+  stripe_id        String
+  email            String
+  amount           String
+  currency         String
+  user_id          String
+  customer_details String
+  payment_intent   String
+}
+
+model subscriptions {
+  id                        Int      @id @default(autoincrement())
+  created_time              DateTime @default(now())
+  subscription_id           String
+  stripe_user_id            String
+  status                    String
+  start_date                String
+  end_date                  String?
+  plan_id                   String
+  default_payment_method_id String?
+  email                     String
+  user_id                   String
+}
+
+model subscriptions_plans {
+  id           Int      @id @default(autoincrement())
+  created_time DateTime @default(now())
+  plan_id      String
+  name         String
+  description  String
+  amount       String
+  currency     String
+  interval     String
+}
+
+model invoices {
+  id              Int      @id @default(autoincrement())
+  created_time    DateTime @default(now())
+  invoice_id      String
+  subscription_id String
+  amount_paid     String
+  amount_due      String?
+  currency        String
+  status          String
+  email           String
+  user_id         String?
+}

@@ -1,15 +1,19 @@
-import type { Metadata } from "next";
+import Provider from "@/app/provider";
+import {ThemeProvider} from "@/components/theme-provider";
+import {Toaster} from "@/components/ui/sonner";
+import AuthWrapper from "@/components/wrapper/auth-wrapper";
+import {Analytics} from "@vercel/analytics/react";
+import {GeistSans} from "geist/font/sans";
+import type {Metadata} from "next";
 import "./globals.css";
-import NavBar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Inter } from "next/font/google";
 
+import {Inter} from "next/font/google";
+import PageWrapper from "@/components/wrapper/page-wrapper";
 
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "700"],
-  
 });
 
 export const metadata: Metadata = {
@@ -17,20 +21,40 @@ export const metadata: Metadata = {
   description: "Simple pricing, unbeatable returns.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <html lang="en">
-      <body
-        className={`${inter.className}  `}
+    <AuthWrapper>
+      <html
+        lang="en"
+        suppressHydrationWarning
       >
-        <NavBar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+        <head>
+          <link
+            rel="preload"
+            href="https://utfs.io/f/31dba2ff-6c3b-4927-99cd-b928eaa54d5f-5w20ij.png"
+            as="image"
+          />
+          <link
+            rel="preload"
+            href="https://utfs.io/f/69a12ab1-4d57-4913-90f9-38c6aca6c373-1txg2.png"
+            as="image"
+          />
+        </head>
+        <body className={GeistSans.className}>
+          <Provider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </Provider>
+          <Analytics />
+        </body>
+      </html>
+    </AuthWrapper>
   );
 }
