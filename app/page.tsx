@@ -9,45 +9,50 @@ import HomeCounter from "@/components/HomeCounter";
 import CountdownTimer from "@/components/CountdownTimer";
 import { Metadata } from "next";
 
-async function getHome() {
-  const query = `
-  *[_type == "home"][0]{
-  heroTitle,
-  heroText,
-  heroTextUnderButton,
-  sectionThreeTitle,
-  sectionThreeText,
-  sectionThreeStarsNumber,
-  sectionThreeTextUnderStarsNumber,
-  sectionThreeUsersNumber,
-  sectionThreeTextUnderUsersNumber,
-  sectionThreeTimeNumber,
-  sectionThreeTextUnderTimeNumber,
-  sliderTitle,
-  sliderText,
-  sliderAverageMonthlyIncome,
-  sectionSixTitle,
-  sectionSevenTitle,
-  sectionSevenText,
-  sectionFourteenTitle,
-  reviewsText,
-  metaTitle,
-  metaDescription,
-  keywords,
+async function getHome(): Promise<HomeTypes | null> {
+  try {
+    const query = `
+      *[_type == "home"][0]{
+        heroTitle,
+        heroText,
+        heroTextUnderButton,
+        sectionThreeTitle,
+        sectionThreeText,
+        sectionThreeStarsNumber,
+        sectionThreeTextUnderStarsNumber,
+        sectionThreeUsersNumber,
+        sectionThreeTextUnderUsersNumber,
+        sectionThreeTimeNumber,
+        sectionThreeTextUnderTimeNumber,
+        sliderTitle,
+        sliderText,
+        sliderAverageMonthlyIncome,
+        sectionSixTitle,
+        sectionSevenTitle,
+        sectionSevenText,
+        sectionFourteenTitle,
+        reviewsText,
+        metaTitle,
+        metaDescription,
+        keywords,
+      }
+    `;
+    const data: HomeTypes = await client.fetch(query);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch home data:", error);
+    return null; // Return null if an error occurs
+  }
 }
-  `;
-  const data = await client.fetch(query);
-  return data;
-}
+
 
 export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const home: HomeTypes = await getHome();
+  const home: HomeTypes | null = await getHome();
 
-  const title = home.metaTitle;
-
-  const description = home.metaDescription;
+  const title = home?.metaTitle;
+  const description = home?.metaDescription;
   const keywords = home?.keywords ? home.keywords.join(", ") : "";
 
   return {
@@ -62,7 +67,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const home: HomeTypes = await getHome();
+  const home: HomeTypes | null = await getHome();
   return (
     <div className="lg:pb-0 lg:-mt-10 lg:mb-20  overflow-hidden">
       <CountdownTimer />
@@ -83,10 +88,10 @@ export default async function Home() {
               <h1
                 className={`lg:text-h1  font-black text-black  px-5 lg:w-[994px] leading-tight `}
               >
-                {home.heroTitle}
+                {home?.heroTitle}
               </h1>
 
-              <p className="lg:w-[971px] text-pMain">{home.heroText}</p>
+              <p className="lg:w-[971px] text-pMain">{home?.heroText}</p>
 
               <div className="flex flex-col items-center">
                 <div className="relative">
@@ -106,7 +111,7 @@ export default async function Home() {
                     />
                   </div>
                 </div>
-                <p className="text-[14px] -mt-3">{home.heroTextUnderButton}</p>
+                <p className="text-[14px] -mt-3">{home?.heroTextUnderButton}</p>
               </div>
             </div>
 
@@ -144,10 +149,10 @@ export default async function Home() {
               <h1
                 className={` text-[44px] font-black text-black  w-full leading-[50px] lg:leading-none   `}
               >
-                {home.heroTitle}
+                {home?.heroTitle}
               </h1>
 
-              <p className=" text-pMobile text-center ">{home.heroText}</p>
+              <p className=" text-pMobile text-center ">{home?.heroText}</p>
 
               <div className="flex flex-col items-center justify-center w-[328px]">
                 <div className=" w-full">
@@ -167,7 +172,7 @@ export default async function Home() {
                     />
                   </div>
                 </div>
-                <p className="text-[14px] -mt-3">{home.heroTextUnderButton}</p>
+                <p className="text-[14px] -mt-3">{home?.heroTextUnderButton}</p>
               </div>
             </div>
 
@@ -334,34 +339,34 @@ export default async function Home() {
 
       <div className="lg:-mt-20">
         <HomeCounter
-          sectionThreeTitle={home.sectionThreeTitle}
-          sectionThreeText={home.sectionThreeText}
-          sectionThreeStarsNumber={home.sectionThreeStarsNumber}
+          sectionThreeTitle={home?.sectionThreeTitle || ""} 
+          sectionThreeText={home?.sectionThreeText || ""}
+          sectionThreeStarsNumber={home?.sectionThreeStarsNumber || 0}
           sectionThreeTextUnderStarsNumber={
-            home.sectionThreeTextUnderStarsNumber
+            home?.sectionThreeTextUnderStarsNumber || ""
           }
-          sectionThreeUsersNumber={home.sectionThreeUsersNumber}
+          sectionThreeUsersNumber={home?.sectionThreeUsersNumber || 0}
           sectionThreeTextUnderUsersNumber={
-            home.sectionThreeTextUnderUsersNumber
+            home?.sectionThreeTextUnderUsersNumber || ""
           }
-          sectionThreeTimeNumber={home.sectionThreeTimeNumber}
-          sectionThreeTextUnderTimeNumber={home.sectionThreeTextUnderTimeNumber}
+          sectionThreeTimeNumber={home?.sectionThreeTimeNumber || 0}
+          sectionThreeTextUnderTimeNumber={home?.sectionThreeTextUnderTimeNumber || ""}
         />
       </div>
 
       {/* -------------------------------------------------------------------------------------- */}
 
       <SliderCalculator
-        sliderTitle={home.sliderTitle}
-        sliderText={home.sliderText}
-        sliderAverageMonthlyIncome={home.sliderAverageMonthlyIncome}
+        sliderTitle={home?.sliderTitle || ""}
+        sliderText={home?.sliderText || ""}
+        sliderAverageMonthlyIncome={home?.sliderAverageMonthlyIncome || ""}
       />
 
       {/* ---------------------------------------------------------------------------- */}
 
       <div className="py-20 px-5 lg:px-0 lg:-mt-20 ">
         <h2 className="font-bold text-h2M lg:text-h2 text-center leading-10">
-          {home.sectionSixTitle}
+          {home?.sectionSixTitle}
         </h2>
 
         <div className="flex flex-col lg:flex-row justify-center items-center gap-20 pt-10 lg:pt-20">
@@ -437,10 +442,10 @@ export default async function Home() {
 
       <div className="lg:py-20 px-5 lg:px-0 xl:px-20">
         <h2 className="font-bold text-h2M lg:text-h2 text-center leading-tight lg:leading-none">
-          {home.sectionSevenTitle}
+          {home?.sectionSevenTitle}
         </h2>
         <p className="lg:text-pMain text-pMobile text-center pt-10 lg:pt-5">
-          {home.sectionSevenText}
+          {home?.sectionSevenText}
         </p>
 
         <div className="flex flex-col lg:flex-row justify-center items-center gap-5">
@@ -1089,7 +1094,7 @@ export default async function Home() {
               <h2
                 className={`  text-[30px] w-full font-bold text-white  pt-12  `}
               >
-                {home.sectionFourteenTitle}
+                {home?.sectionFourteenTitle}
               </h2>
             </div>
           </div>
@@ -1151,7 +1156,7 @@ export default async function Home() {
             <h2
               className={`   lg:text-[30px] lg:w-[470px] font-bold text-white  pt-12  `}
             >
-              {home.sectionFourteenTitle}
+              {home?.sectionFourteenTitle}
             </h2>
           </div>
         </div>

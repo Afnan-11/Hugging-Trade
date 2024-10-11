@@ -16,8 +16,6 @@ async function getPricing() {
   return data;
 }
 
-export const revalidate = 10;
-
 export default function CountdownTimer() {
   const [pricing, setPricing] = useState<PricingTypes | null>(null);
   const [timeLeft, setTimeLeft] = useState({
@@ -28,7 +26,6 @@ export default function CountdownTimer() {
   });
   const [isVisible, setIsVisible] = useState(true);
 
-  // Fetch pricing data on mount
   useEffect(() => {
     async function fetchPricing() {
       const data = await getPricing();
@@ -90,7 +87,7 @@ export default function CountdownTimer() {
 
             <div className="flex items-center justify-center lg:justify-start">
               <div className="lg:translate-x-10 translate-y-[60px] rounded-full bg-yellow-400 text-[#2563eb] font-bold py-2 px-10 text-[16px]">
-                Save up to {pricing?.discountYear ?? 0}% {/* Handle undefined pricing */}
+                Save up to {pricing?.discountYear ?? 0}%
               </div>
             </div>
 

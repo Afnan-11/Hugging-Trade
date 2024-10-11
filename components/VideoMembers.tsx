@@ -4,48 +4,55 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-async function getVideo() {
-  const query = `
-    *[_type == "video"][0] {
-      reviewsText,
-      nameVideoOne,
-      descriptionForPersonInVideoOne,
-      positionInCompanyOfFirstPerson,
-      videoFileForFirstPerson {
-        asset->{
-          _id,
-          url // Make sure 'url' is being fetched
-        }
-      },
-      nameVideoTwo,
-      descriptionForPersonInVideoTwo,
-      positionInCompanyOfSecondPerson,
-      videoFileForSecondPerson {
-        asset->{
-          _id,
-          url
-        }
-      },
-      nameVideoThree,
-      descriptionForPersonInVideoThree,
-      positionInCompanyOfThirdPerson,
-      videoFileForThirdPerson {
-        asset->{
-          _id,
-          url
+async function getVideo(): Promise<VideoSchemaTypes | null> {
+  try {
+    const query = `
+      *[_type == "video"][0] {
+        reviewsText,
+        nameVideoOne,
+        descriptionForPersonInVideoOne,
+        positionInCompanyOfFirstPerson,
+        videoFileForFirstPerson {
+          asset->{
+            _id,
+            url
+          }
+        },
+        nameVideoTwo,
+        descriptionForPersonInVideoTwo,
+        positionInCompanyOfSecondPerson,
+        videoFileForSecondPerson {
+          asset->{
+            _id,
+            url
+          }
+        },
+        nameVideoThree,
+        descriptionForPersonInVideoThree,
+        positionInCompanyOfThirdPerson,
+        videoFileForThirdPerson {
+          asset->{
+            _id,
+            url
+          }
         }
       }
-    }
-  `;
+    `;
 
-  const data = await client.fetch(query);
-  return data;
+    const data: VideoSchemaTypes = await client.fetch(query);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch video data:", error);
+    return null;
+  }
 }
 
-export const revalidate = 10;
-
 export default async function VideoMembers() {
-  const video: VideoSchemaTypes = await getVideo();
+  const video: VideoSchemaTypes | null = await getVideo();
+
+  if (!video) {
+    return <p>Video data is not available</p>; 
+  }
   return (
     <div className="lg:my-20 -mt-10 lg:-mt-0 px-5 lg:px-0">
       <div className="flex flex-col lg:flex-row justify-start items-center gap-5 lg:pl-40">

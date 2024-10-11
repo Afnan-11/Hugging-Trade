@@ -9,43 +9,49 @@ import CountdownTimer from "@/components/CountdownTimer";
 import PricingContent from "@/components/PricingContent";
 import { Metadata } from "next";
 
-async function getPricing() {
-  const query = `
-  *[_type == "pricing"][0]{
-  pricingHeroTitle,
-  pricingHeroText,
-  pricingSectionTwoTitle,
-  pricingSectionTwoText,
-  priceMonth,
-  discountMonth,
-  discountYear,
-  pricingLeftText,
-  leftListItems,
-  leftSmallTextUnderButtonOne,
-  leftSmallTextUnderButtonTwo,
-  pricingRightTitle,
-  rightListItems,
-  buttonRight,
-  textUnderRightButton,
-  sectionFourTitleOne,
-  sectionFourTitleTwo,
-  metaTitle,
-  metaDescription,
-  keywords,
+async function getPricing(): Promise<PricingTypes | null> {
+  try {
+    const query = `
+      *[_type == "pricing"][0]{
+        pricingHeroTitle,
+        pricingHeroText,
+        pricingSectionTwoTitle,
+        pricingSectionTwoText,
+        priceMonth,
+        discountMonth,
+        discountYear,
+        pricingLeftText,
+        leftListItems,
+        leftSmallTextUnderButtonOne,
+        leftSmallTextUnderButtonTwo,
+        pricingRightTitle,
+        rightListItems,
+        buttonRight,
+        textUnderRightButton,
+        sectionFourTitleOne,
+        sectionFourTitleTwo,
+        metaTitle,
+        metaDescription,
+        keywords,
+      }
+    `;
+    const data: PricingTypes = await client.fetch(query);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch pricing data:", error);
+    return null;
+  }
 }
-  `;
-  const data = await client.fetch(query);
-  return data;
-}
+
 
 export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const pricing: PricingTypes = await getPricing();
+  const pricing: PricingTypes | null = await getPricing();
 
-  const title = pricing.metaTitle;
+  const title = pricing?.metaTitle;
 
-  const description = pricing.metaDescription;
+  const description = pricing?.metaDescription;
   const keywords = pricing?.keywords ? pricing.keywords.join(", ") : "";
 
   return {
@@ -60,7 +66,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Pricing() {
-  const pricing: PricingTypes = await getPricing();
+  const pricing: PricingTypes | null = await getPricing();
   return (
     <div>
       <CountdownTimer />
@@ -88,10 +94,10 @@ export default async function Pricing() {
               />
               <div className="text-center lg:w-[1107px] space-y-5 pb-5">
                 <h1 className="text-[40px] lg:text-[48px] font-black leading-tight mt-10 lg:mt-20">
-                  {pricing.pricingHeroTitle}
+                  {pricing?.pricingHeroTitle}
                 </h1>
                 <p className="text-[22px] pt-10 lg:pt-0">
-                  {pricing.pricingHeroText}
+                  {pricing?.pricingHeroText}
                 </p>
               </div>
               <Image
@@ -184,7 +190,7 @@ export default async function Pricing() {
 
         {/* ---------------------------------------------------------------------------- */}
 
-        <PricingContent pricing={pricing} />
+        {pricing && <PricingContent pricing={pricing} />}
 
         {/* ------------------------------------------------------------------------------- */}
 
@@ -208,10 +214,10 @@ export default async function Pricing() {
               <div className=" flex flex-col justify-center items-center gap-10">
                 <div>
                   <h3 className="text-[28px] text-black text-center">
-                    {pricing.sectionFourTitleOne}
+                    {pricing?.sectionFourTitleOne}
                   </h3>
                   <h3 className="text-[28px] text-black text-center">
-                    {pricing.sectionFourTitleTwo}
+                    {pricing?.sectionFourTitleTwo}
                   </h3>
                 </div>
 

@@ -8,43 +8,47 @@ import AccordionAffiliate from "@/components/AccordionAffiliate";
 import { Metadata } from "next";
 import Testimonial from "@/components/Testimonial";
 
-async function getAffiliate() {
-  const query = `
-  *[_type == "affiliate"][0]{
-    affiliateHeroTitle,
-    affiliateHeroText,
-    affiliateReviewTitle,
-    averageUSD,
-    reviewListItems[]{
-      name,
-      position,
-      text,
-      authorImage{
-        asset->{
-          _id,
-          url
-        }
+async function getAffiliate(): Promise<AffiliateTypes | null> {
+  try {
+    const query = `
+      *[_type == "affiliate"][0]{
+        affiliateHeroTitle,
+        affiliateHeroText,
+        affiliateReviewTitle,
+        averageUSD,
+        reviewListItems[]{
+          name,
+          position,
+          text,
+          authorImage{
+            asset->{
+              _id,
+              url
+            }
+          }
+        },
+        metaTitle,
+        metaDescription,
+        keywords,
       }
-    },
-    metaTitle,
-    metaDescription,
-    keywords,
-      
+    `;
+    const data = await client.fetch(query);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch affiliate data:", error);
+    return null; // Handle error by returning null
   }
-`;
-
-  const data = await client.fetch(query);
-  return data;
 }
+
 
 export const revalidate = 10;
 
 export async function generateMetadata(): Promise<Metadata> {
-  const affiliate: AffiliateTypes = await getAffiliate();
+  const affiliate: AffiliateTypes | null = await getAffiliate();
 
-  const title = affiliate.metaTitle;
+  const title = affiliate?.metaTitle;
 
-  const description = affiliate.metaDescription;
+  const description = affiliate?.metaDescription;
   const keywords = affiliate?.keywords ? affiliate.keywords.join(", ") : "";
 
   return {
@@ -59,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Affiliate() {
-  const affiliate: AffiliateTypes = await getAffiliate();
+  const affiliate: AffiliateTypes | null = await getAffiliate();
   return (
     <div className=" mt-20 lg:-mt-7  px-5 lg:px-0  overflow-hidden">
       <div className="lg:pt-28 flex flex-col justify-start items-center lg:px-10">
@@ -76,10 +80,10 @@ export default async function Affiliate() {
           <div className="flex flex-col lg:flex-row justify-center items-center gap-5">
             <div className="w-full lg:w-[642px] lg:h-[442px] lg:space-y-10">
               <h1 className="text-[44px] lg:text-[64px] font-black lg:font-bold lg:text-left text-center leading-tight lg:leading-[60px]">
-                {affiliate.affiliateHeroTitle}
+                {affiliate?.affiliateHeroTitle}
               </h1>
               <p className="text-[23px] w-full lg:w-[631px] lg:text-left text-center py-10 lg:py-0">
-                {affiliate.affiliateHeroText}
+                {affiliate?.affiliateHeroText}
               </p>
             </div>
 
@@ -96,7 +100,7 @@ export default async function Affiliate() {
             
 
             <div className="lg:-mt-10 ">
-              <SliderAffiliate averageUSD={affiliate.averageUSD} />
+              <SliderAffiliate averageUSD={affiliate?.averageUSD || 0} />
             </div>
           </div>
 
@@ -213,69 +217,9 @@ export default async function Affiliate() {
       </div>
 
       {/* ------------------------------------------------------------------------------------- */}
-      {/* <div className="lg:px-20">
-        <div className="flex flex-col lg:flex-row lg:justify-around justify-center items-center gap-10 lg:gap-40">
-          <Image
-            src={"/Images/AffiliatePage/Vector (4).svg"}
-            alt="img"
-            width={140}
-            height={140}
-            className="hidden lg:block"
-          />
-          <h2 className="text-[50px] text-black font-bold text-center leading-tight lg:leading-none">
-            {affiliate.affiliateReviewTitle}
-          </h2>
-          <Image
-            src={"/Images/AffiliatePage/SVG (3).svg"}
-            alt="img"
-            width={140}
-            height={140}
-          />
-        </div>
+     
 
-        <div className="my-10 lg:my-20">
-          <div className="flex flex-wrap justify-center items-center gap-5 ">
-            {affiliate.reviewListItems.map((af, index) => (
-              <div
-                key={af._id || index}
-                className="w-[360px] space-y-5 border-[1px] border-[#C0C0C0] rounded-lg p-5 flex flex-col justify-between"
-              >
-                <div className="flex justify-start items-center gap-2">
-                  <ReviewStar />
-                  <ReviewStar />
-                  <ReviewStar />
-                  <ReviewStar />
-                  <ReviewStar />
-                </div>
-                <p className="text-[16px] text-left leading-[30px] flex-grow">
-                  {af.text}
-                </p>
-                <div className="flex justify-start items-center gap-3 ">
-                  <div className="w-[68px] h-[68px]">
-                    <Image
-                      src={urlFor(af.authorImage).url()}
-                      alt="img"
-                      width={200}
-                      height={200}
-                      className="rounded-full correct-image"
-                    />
-                  </div>
-                  <div>
-                    <p className="text-[16px] text-black font-bold text-left">
-                      {af.name}
-                    </p>
-                    <p className="text-[16px] text-black font-bold text-left">
-                      {af.position}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div> */}
-
-      <Testimonial affiliateReviewTitle={affiliate.affiliateReviewTitle} reviewListItems={affiliate.reviewListItems} />
+      <Testimonial affiliateReviewTitle={affiliate?.affiliateReviewTitle || ""} reviewListItems={affiliate?.reviewListItems || []} />
 
       {/* ------------------------------------------------------------------------------------- */}
 

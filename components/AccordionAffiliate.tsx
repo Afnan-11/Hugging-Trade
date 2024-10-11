@@ -5,34 +5,52 @@ import AccordionComponent from "./AccordionComponent";
 import { client } from "@/sanity/lib/client";
 import { FaqPricingTypes } from "@/types";
 
-async function getFaqAffiliate() {
+async function getFaqAffiliate(): Promise<FaqPricingTypes[]> {
   const query = `
     *[_type == "faqAffiliate"] {
-     _id,
-     question,
-     answer,
+      _id,
+      question,
+      answer,
     }
   `;
-  const data = await client.fetch(query);
+  const data: FaqPricingTypes[] = await client.fetch(query);
   return data;
 }
-
-export const revalidate = 10;
 
 export default function AccordionAffiliate() {
   const [faqs, setFaqs] = useState<FaqPricingTypes[]>([]);
   const [activeIndex, setActiveIndex] = useState<null | number>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     getFaqAffiliate()
-      .then((data) => setFaqs(data))
-      .catch((error) => console.error("Failed to fetch FAQ:", error));
+      .then((data) => {
+        setFaqs(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch FAQ:", error);
+        setError("Failed to load FAQs.");
+        setLoading(false);
+      });
   }, []);
 
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  if (loading) {
+    return <p>Loading FAQs...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (faqs.length === 0) {
+    return <p>No FAQs available at the moment.</p>;
+  }
   return (
     <div className="flex flex-col items-center justify-center gap-2 mb-10 lg:mb-40">
       {faqs.map((faq, index) => (

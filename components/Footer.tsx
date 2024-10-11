@@ -5,33 +5,36 @@ import { FooterTypes } from "@/types";
 import { urlFor } from "@/sanity/lib/image";
 import Link from "next/link";
 
-async function getFooter() {
-  const query = `
-  *[_type == "footer"] [0] {
-    address,
-    textAboveIcons,
-    _type,
-    links[] {
-      
-      url,
-      socialMediaImage{
-        asset->{
-          _id,
-          url
+async function getFooter(): Promise<FooterTypes | null> {
+  try {
+    const query = `
+    *[_type == "footer"][0] {
+      address,
+      textAboveIcons,
+      _type,
+      links[] {
+        url,
+        socialMediaImage{
+          asset->{
+            _id,
+            url
+          }
         }
       }
     }
+  `;
+    const data = await client.fetch(query);
+    return data;
+  } catch (error) {
+    console.error("Failed to fetch footer data:", error);
+    return null;
   }
-`;
-
-  const data = await client.fetch(query);
-  return data;
 }
 
 export const revalidate = 10;
 
 export default async function Footer() {
-  const footer: FooterTypes = await getFooter();
+  const footer: FooterTypes | null = await getFooter();
   return (
     <div className="lg:pl-72 lg:space-y-20 lg:mb-20 px-5 lg:px-0">
       <div className="flex flex-col justify-center items-center lg:flex-row lg:justify-start lg:items-start lg:gap-80">
@@ -49,7 +52,7 @@ export default async function Footer() {
             </Link>
           </div>
           <p className="lg:w-[215px] text-[16px] text-center lg:text-left">
-            {footer.address}
+            {footer?.address}
           </p>
         </div>
 
@@ -58,11 +61,10 @@ export default async function Footer() {
             Follow Us
           </h2>
           <p className=" text-[16px] text-center lg:text-left">
-            {footer.textAboveIcons}
-            Join our vibrant community of 600,000+ happy crypto traders.
+            {footer?.textAboveIcons}
           </p>
           <div className="flex lg:justify-start justify-center items-center gap-5">
-            {footer.links.map((foot, index) => (
+            {footer?.links.map((foot, index) => (
               <div key={foot._id || index} className="lg:w-[32px]">
                 <a href={foot.url} target="blank">
                   <Image
