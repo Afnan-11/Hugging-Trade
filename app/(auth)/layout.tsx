@@ -4,7 +4,7 @@ import SteppedProgress from "@/components/progress-steps";
 const layout = ({children}: {children: React.ReactNode}) => {
   return (
     <PageWrapper>
-      <div className="my-[5rem]">{children}</div>
+      <div className="flex items-center justify-center py-[8rem]">{children}</div>
     </PageWrapper>
   );
 };
