@@ -15,6 +15,7 @@ export type HomeTypes = {
   sliderAverageMonthlyIncome: string;
   sectionSixTitle: string;
   sectionSevenTitle: string;
+  sectionSevenSubTitleOne: string;
   sectionSevenText: string;
   sectionFourteenTitle: string;
   reviewsText: string;
@@ -37,6 +38,7 @@ export type PricingTypes = {
   priceMonth: number;
   discountMonth: number;
   discountYear: number;
+  showYearlyDiscount: boolean;
   pricingLeftText: string;
   leftListItems: Array<{ _id: string; text: string }>;
   leftSmallTextUnderButtonOne: string;
@@ -76,6 +78,7 @@ export type AffiliateTypes = {
     };
   }>;
   averageUSD: number;
+  percent: number;
   metaTitle: string;
   metaDescription: string;
   keywords: string[];

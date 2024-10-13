@@ -150,6 +150,14 @@ export const home = {
     },
 
     {
+      name: "sectionSevenSubTitleOne",
+      title: "H3 Section Seven Sub Title One",
+      description: "H3 Section Seven Sub Title One",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+
+    {
       name: "sectionFourteenTitle",
       title: "H2 Section Fourteen Title",
       description: "H2 Section Fourteen Title",

@@ -1,6 +1,5 @@
 import PageWrapper from "@/components/wrapper/page-wrapper";
 import React from "react";
-import SteppedProgress from "@/components/progress-steps";
 const layout = ({children}: {children: React.ReactNode}) => {
   return (
     <PageWrapper>

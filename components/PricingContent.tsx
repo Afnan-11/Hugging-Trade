@@ -29,15 +29,25 @@ const PricingContent: React.FC<PricingContentProps> = ({ pricing }) => {
   ).toFixed(2);
 
   // Calculate discounted yearly price and savings
-  const discountPercentageYear = pricing.discountYear; // Assuming a 40% discount for yearly
-  const originalPriceMonth = pricing.priceMonth; // Monthly price from Sanity
-  const discountedPriceYearly = (
-    originalPriceMonth *
-    (1 - discountPercentageYear / 100)
-  ).toFixed(2);
-  const savingsPerMonth = (
-    originalPriceMonth - Number(discountedPriceYearly)
-  ).toFixed(2);
+  // Assuming priceMonth and discountYear are coming from pricing object
+const discountPercentageYear = pricing.discountYear; // Yearly discount percentage from Sanity
+const originalPriceMonth = pricing.priceMonth; // Monthly price from Sanity
+
+// Calculate the regular yearly price (without discount)
+const regularYearlyPrice = originalPriceMonth * 12;
+
+// Calculate the discounted monthly price
+const discountedPriceYearly = (
+  originalPriceMonth * (1 - discountPercentageYear / 100)
+).toFixed(2);
+
+// Calculate the total discounted yearly price
+const totalDiscountedYearlyPrice = (Number(discountedPriceYearly) * 12).toFixed(2);
+
+// Calculate savings per year
+const yearlySavings = (regularYearlyPrice - Number(totalDiscountedYearlyPrice)).toFixed(2);
+
+// console.log("Yearly savings: $", yearlySavings);
 
   return (
     <div className="py-10 lg:py-40">
@@ -95,10 +105,11 @@ const PricingContent: React.FC<PricingContentProps> = ({ pricing }) => {
               )}
 
               {selectedPeriod === "year" && (
-                <div className="flex justify-center">
+                <div className="flex flex-col justify-center items-center">
                   <div className="bg-green-100 w-[320px] text-[#07c37a] p-2 rounded-[20px] text-[20px] text-center">
-                    You save ${savingsPerMonth} per month!
+                    You save ${yearlySavings} per year!
                   </div>
+                  
                 </div>
               )}
 

@@ -83,6 +83,14 @@ export const affiliate = {
     },
 
     {
+      name: "percent",
+      type: "number",
+      title: "Percent %",
+      description: "The percent % value used to calculate the affiliate income.",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+
+    {
       name: "metaTitle",
       title: "Meta Title",
       description: "Meta Title for pricing page",

@@ -1,10 +1,10 @@
 import AccordionHome from "@/components/AccordionHome";
 import SliderCalculator from "@/components/SliderCalculator";
-import Testimonial from "@/components/Testimonial";
 import { client } from "@/sanity/lib/client";
-import { AffiliateTypes, HomeTypes } from "@/types";
+import { HomeTypes } from "@/types";
 import React from "react";
 import Image from "next/image";
+import VideoMembers from "@/components/VideoMembers";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
@@ -23,40 +23,13 @@ async function getHome(): Promise<HomeTypes | null> {
   }
 }
 
-async function getAffiliate(): Promise<AffiliateTypes | null> {
-  try {
-    const query = `
-        *[_type == "affiliate"][0]{
-          affiliateReviewTitle,
-          reviewListItems[]{
-            name,
-            position,
-            text,
-            authorImage{
-              asset->{
-                _id,
-                url
-              }
-            }
-          },
-          metaTitle,
-          metaDescription,
-          keywords,
-        }
-      `;
-    const data = await client.fetch(query);
-    return data;
-  } catch (error) {
-    console.error("Failed to fetch affiliate data:", error);
-    return null;
-  }
-}
+
 
 export const revalidate = 10;
 
 export default async function InvestmentCalculator() {
   const home: HomeTypes | null = await getHome();
-  const affiliate: AffiliateTypes | null = await getAffiliate();
+  
   return (
     <div className="lg:pb-0 lg:-mt-10 lg:mb-20 overflow-hidden">
       <div className="mb-20">
@@ -68,10 +41,8 @@ export default async function InvestmentCalculator() {
       </div>
 
       <div className="px-5 lg:px-0">
-        <Testimonial
-          affiliateReviewTitle={affiliate?.affiliateReviewTitle || ""}
-          reviewListItems={affiliate?.reviewListItems || []}
-        />
+        <VideoMembers />
+       
       </div>
 
       <div className="relative pt-20 mt-20 lg:mt-0  xl:px-20">

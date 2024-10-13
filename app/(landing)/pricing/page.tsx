@@ -62,6 +62,18 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: "Hugging Trade",
     generator: "Next.js",
     publisher: "Hugging Trade",
+    alternates: {
+      canonical: "https://huggingtrade.com/pricing", 
+    },
+    openGraph: {
+      images: [
+        {
+          url: 'https://huggingtrade.com/opengraph-image.jpg',
+          width: 1200,
+          height: 628,
+        },
+      ],
+    },
   };
 }
 

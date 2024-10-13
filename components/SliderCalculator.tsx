@@ -110,8 +110,8 @@ const SliderCalculator = ({
                   const { key, ...restProps } = props;
                   return (
                     <div
-                      {...restProps}
-                      key={key}
+                      key={key} // Move this outside of the spread
+                      {...restProps} // Spread the other props
                       style={{
                         ...restProps.style,
                         backgroundColor:
@@ -123,6 +123,7 @@ const SliderCalculator = ({
                     </div>
                   );
                 }}
+                
                 renderThumb={(props) => (
                   <div
                     {...props}
@@ -167,7 +168,7 @@ const SliderCalculator = ({
                       setInitialDeposit(Number(value));
                     }
                   }}
-                  className="p-2 border rounded-xl focus:border-[#2563EB] focus:ring-[#2563EB] focus:ring-1 outline-none"
+                  className="p-2 border bg-white rounded-xl focus:border-[#2563EB] focus:ring-[#2563EB] focus:ring-1 outline-none"
                 />
               </div>
             </div>

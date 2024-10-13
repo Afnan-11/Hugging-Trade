@@ -16,7 +16,7 @@ const PeriodToggle: React.FC<PeriodToggleProps> = ({
   discountMonth
 }) => {
   return (
-    <div className="flex items-center p-0 bg-white rounded-full border border-gray-200 w-max">
+    <div className="flex z-[55] items-center p-0 bg-white rounded-full border border-gray-200 w-max">
       <button
         onClick={() => onPeriodChange("year")}
         className={`px-4 py-2 rounded-full focus:outline-none transition-colors ${

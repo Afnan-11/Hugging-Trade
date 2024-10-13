@@ -156,22 +156,22 @@ export default function Navbar() {
                     >
                       Investment Calculator
                     </Link>
-                    <Link
+                    {/* <Link
                       href="#"
                       className="m-2 block rounded-xl px-4 py-2 text-[16px] font-light text-black hover:bg-blue-50"
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
                       Blog
-                    </Link>
-                    <Link
-                      href="#"
+                    </Link> */}
+                    <a
+                      href="https://help.huggingtrade.com"
                       className="m-2 block rounded-xl px-4 py-2 text-[16px] font-light text-black hover:bg-blue-50"
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      Knowledge base
-                    </Link>
+                      Help Center
+                    </a>
                   </div>
                 </div>
               )}

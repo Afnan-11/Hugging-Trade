@@ -6,9 +6,10 @@ import { HTMLProps } from "react";
 
 interface SliderAffiliateProps {
   averageUSD: number;
+  percent: number;
 }
 
-const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD }) => {
+const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }) => {
   // The predefined values for the slider steps
   const values = useMemo(() => [10, 25, 50, 100], []);
   
@@ -18,10 +19,10 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD }) => {
 
   // Function to calculate the average income based on invited friends
   const calculateIncome = useCallback(() => {
-    // Calculate 30% of the average number multiplied by invited friends
-    const income = averageUSD * 0.3 * values[valueIndex];
+    // Calculate income based on the percent from Sanity
+    const income = averageUSD * (percent / 100) * values[valueIndex];
     setAverageIncome(income);
-  }, [valueIndex, averageUSD, values]);
+  }, [valueIndex, averageUSD, values, percent]);
 
   useEffect(() => {
     calculateIncome();

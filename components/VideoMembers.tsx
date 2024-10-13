@@ -47,6 +47,8 @@ async function getVideo(): Promise<VideoSchemaTypes | null> {
   }
 }
 
+export const revalidate = 10;
+
 export default async function VideoMembers() {
   const video: VideoSchemaTypes | null = await getVideo();
 

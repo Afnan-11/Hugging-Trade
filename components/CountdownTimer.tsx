@@ -9,7 +9,9 @@ import { PricingTypes } from "@/types";
 async function getPricing() {
   const query = `
   *[_type == "pricing"][0]{ 
+    discountMonth,
     discountYear,
+    showYearlyDiscount,
   }
   `;
   const data = await client.fetch(query);
@@ -87,7 +89,9 @@ export default function CountdownTimer() {
 
             <div className="flex items-center justify-center lg:justify-start">
               <div className="lg:translate-x-10 translate-y-[60px] rounded-full bg-yellow-400 text-[#2563eb] font-bold py-2 px-10 text-[16px]">
-                Save up to {pricing?.discountYear ?? 0}%
+              {pricing?.showYearlyDiscount
+                  ? `Save up to ${pricing?.discountYear ?? 0}% yearly!`
+                  : `Save up to ${pricing?.discountMonth ?? 0}% monthly!`}
               </div>
             </div>
 

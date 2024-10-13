@@ -54,21 +54,8 @@ export default async function ContactUs() {
             {/* <p className="16px">10145, Tallinn, Estonia</p> */}
           </div>
           <div className="lg:text-left text-center space-y-5 lg:pt-[70px]">
-            <h2 className="text-[24px] font-semibold">
-              Communities in Telegram
-            </h2>
-            <div className="flex justify-center lg:justify-start items-center  gap-3">
-              <a className="text-[#2563eb] lg:hover:text-[#3b82f6]" href="#">
-                English
-              </a>
-              <a className="text-[#2563eb] lg:hover:text-[#3b82f6]" href="#">
-                Spanish
-              </a>
-              <a className="text-[#2563eb] lg:hover:text-[#3b82f6]" href="#">
-                Russian
-              </a>
-            </div>
-            <div>
+           
+            <div className="">
               <h2 className="text-[24px] font-semibold">
                 Social media and channels
               </h2>
@@ -104,12 +91,11 @@ export default async function ContactUs() {
               <div className="space-y-2">
                 <h2 className="text-[24px] font-semibold">Customer Support</h2>
                 <p className="16px w-[345px]">
-                  Our Support Heroes are available for you everyday and will
-                  help in English, German and Russian.
+                  Our Support Heroes are available for you everyday and will help in English, German, Spanish, French, Italian and Russian.
                 </p>
               </div>
               <div className="text-[24px] text-[#2563eb] font-semibold">
-                <a href="">support@huggingtrade.com</a>
+                <p>mailto:support@huggingtrade.com</p>
               </div>
             </div>
           </div>
@@ -122,12 +108,12 @@ export default async function ContactUs() {
                   <Link href="/affiliate" className="text-[#2563eb]">
                     affiliate program
                   </Link>{" "}
-                  and always look for new cryptocurrency community members to
+                  and always look for new Hugging Trade community members to
                   join.
                 </p>
               </div>
               <div className="text-[24px] text-[#2563eb] font-semibold">
-                <a href="">support@huggingtrade.com</a>
+                <p>mailto:support@huggingtrade.com</p>
               </div>
             </div>
           </div>

@@ -30,6 +30,7 @@ async function getHome(): Promise<HomeTypes | null> {
         sectionSixTitle,
         sectionSevenTitle,
         sectionSevenText,
+        sectionSevenSubTitleOne,
         sectionFourteenTitle,
         reviewsText,
         metaTitle,
@@ -62,6 +63,19 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: "Hugging Trade",
     generator: "Next.js",
     publisher: "Hugging Trade",
+    alternates: {
+      canonical: "https://huggingtrade.com", 
+    },
+    openGraph: {
+      images: [
+        {
+          url: 'https://huggingtrade.com/opengraph-image.jpg',
+          width: 1200,
+          height: 628,
+        },
+      ],
+    },
+    
   };
 }
 
@@ -143,9 +157,9 @@ export default async function Home() {
         <div className="px-5 lg:hidden">
           <div className="pt-10">
             <div className="flex flex-col items-center justify-center gap-10 text-center lg:gap-10">
-              <h1 className={`w-full text-[44px] font-black leading-[50px] text-black lg:leading-none`}>
+              <h2 className={`w-full text-[44px] font-black leading-[50px] text-black lg:leading-none`}>
                 {home?.heroTitle}
-              </h1>
+              </h2>
 
               <p className="text-center text-pMobile">{home?.heroText}</p>
 
@@ -435,9 +449,7 @@ export default async function Home() {
 
         <div className="flex flex-col items-center justify-center gap-5 lg:flex-row">
           <div className="py-20">
-            <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">
-              Step 1: <span className="text-h3 font-bold">Effortless Setup</span>
-            </h3>
+            <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">{home?.sectionSevenSubTitleOne}</h3>
             <p className="pb-10 text-center text-pMobile lg:w-[800px] lg:text-left">
               Create your Hugging Trade account and securely link your preferred brokerage account. Your funds stay
               under your control - always.
@@ -452,7 +464,7 @@ export default async function Home() {
                   height={35}
                   className=""
                 />
-                <p className="text-pMobile">Sign up for your AutoTrade Pro account in minutes</p>
+                <p className="text-pMobile">Sign up for your Hugging Trade account in minutes</p>
               </div>
 
               <div className="flex items-center justify-start gap-5">

@@ -62,6 +62,16 @@ export const pricing = {
     },
 
     {
+      name: "showYearlyDiscount",
+      title: "Show Yearly Discount on Count Down Timer",
+      type: "boolean",
+      description: "Toggle to show the yearly discount. If unchecked, the monthly discount will be shown.",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+
+   
+
+    {
       name: "pricingLeftText",
       title: "Pricing Left Text",
       description: "Text for the second section.",
