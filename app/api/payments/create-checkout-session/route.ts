@@ -9,8 +9,8 @@ export async function POST(req: NextRequest) {
   if (subscription) {
     try {
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card", "ideal", "sofort"],
-        currency: "eur",
+        payment_method_types: ["card"],
+        currency: "usd",
         line_items: [{price: priceId, quantity: 1}],
         metadata: {userId, email, subscription, tolt_referral},
         mode: "subscription",
@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
     // One-time payment
     try {
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ["card", "ideal", "sofort", "wechat_pay"],
+        payment_method_types: ["card"],
         metadata: {
           userId: userId,
         },
