@@ -41,7 +41,10 @@ export default function DashboardTopNav() {
                 key={route.href}
                 asChild
               >
-                <Link href={route.href}>
+                <Link
+                  target={route.target}
+                  href={route.href}
+                >
                   <Button
                     variant="outline"
                     className="w-full justify-start"

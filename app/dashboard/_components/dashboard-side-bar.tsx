@@ -26,6 +26,7 @@ export default function DashboardSideBar({isAdmin = false}: {isAdmin?: boolean})
               <>
                 {index === routes.length - 1 && <Separator className="my-2" />}
                 <Link
+                  target={route.target}
                   key={route.href}
                   className={cn("flex items-center gap-2 rounded-lg px-3 py-2 transition-all hover:bg-muted", {
                     "bg-accent text-accent-foreground hover:bg-accent/90": pathname === route.href,
