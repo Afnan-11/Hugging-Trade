@@ -53,6 +53,7 @@ export const PricingCard = ({
         email: user?.emailAddresses?.[0]?.emailAddress,
         priceId,
         subscription,
+        tolt_referral: typeof window !== "undefined" && "tolt_referral" in window ? (window as any).tolt_referral : "",
       });
 
       if (data.sessionId) {

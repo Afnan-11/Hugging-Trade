@@ -11,7 +11,7 @@ import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} from "@/components/ui/card";
 import Step0 from "./step0";
-
+import {useUser} from "@clerk/nextjs";
 const formSchema = z.object({
   server: z.string().min(1, {message: "Server is required"}),
   preferred_broker: z.string().min(1, {message: "Preferred broker is required"}),
@@ -22,6 +22,8 @@ const formSchema = z.object({
 
 const Steps = () => {
   const router = useRouter();
+  const {user} = useUser();
+
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({
     preferred_broker: "",
@@ -60,6 +62,9 @@ const Steps = () => {
       const validatedData = formSchema.parse(data);
       validatedData.platform = validatedData.platform.toLocaleLowerCase();
       await axios.post("/api/metaapi/accounts/create", validatedData);
+      if (typeof window !== "undefined" && "tolt_referral" in window && "tolt" in window) {
+        (window as any).tolt.signup(user?.emailAddresses?.[0]?.emailAddress);
+      }
       toast.success("Onboarding completed successfully!");
       router.push("/dashboard");
     } catch (error) {

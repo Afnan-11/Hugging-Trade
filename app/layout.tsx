@@ -1,13 +1,13 @@
 import Provider from "@/app/provider";
-import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
+import {ThemeProvider} from "@/components/theme-provider";
+import {Toaster} from "@/components/ui/sonner";
 import AuthWrapper from "@/components/wrapper/auth-wrapper";
-import { Analytics } from "@vercel/analytics/react";
-import { GeistSans } from "geist/font/sans";
-import type { Metadata } from "next";
+import {Analytics} from "@vercel/analytics/react";
+import {GeistSans} from "geist/font/sans";
+import type {Metadata} from "next";
 import "./globals.css";
 
-import { Inter } from "next/font/google";
+import {Inter} from "next/font/google";
 import Script from "next/script";
 
 declare global {
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://huggingtrade.com"),
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <AuthWrapper>
       <html
@@ -55,6 +55,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             href="https://utfs.io/f/69a12ab1-4d57-4913-90f9-38c6aca6c373-1txg2.png"
             as="image"
           />
+          <script
+            async
+            src="https://cdn.tolt.io/tolt.js"
+            data-tolt="d4e918c1-0e8c-49fb-a33a-d22c73ee5f95"
+          ></script>
 
           <script
             type="text/javascript"

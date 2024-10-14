@@ -7,6 +7,7 @@ import {MetricsMonthlyDailyChart} from "./metrics-monthly-daily-chart";
 import {useUser} from "@clerk/nextjs";
 import {ProfitShareHistoryTable} from "@/app/dashboard/payment/profit-share/profit-share-history-table";
 import {DashboardSkeleton} from "../layout";
+
 type MetricsData = any;
 
 const fetchMetrics = async (): Promise<MetricsData> => {
@@ -24,6 +25,7 @@ export function MetricsDisplay() {
     queryFn: fetchMetrics,
   });
   const {user} = useUser();
+
   const firstName = user?.firstName;
 
   if (isLoading) return <DashboardSkeleton />;
