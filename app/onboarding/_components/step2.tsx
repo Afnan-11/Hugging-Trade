@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {z} from "zod";
@@ -10,6 +10,7 @@ type Step2Props = {
     password: string;
     server: string;
     platform: string;
+    preferred_broker: string;
   };
   setData: (data: any) => void;
   errors: z.ZodIssue[];
@@ -25,6 +26,10 @@ const Step2 = ({data, setData, errors}: Step2Props) => {
     const error = errors.find((e) => e.path[0] === field);
     return error ? error.message : "";
   };
+
+  useEffect(() => {
+    setData((prev: any) => ({...prev, platform: data.preferred_broker === "oanda" ? "MT4" : "MT5"}));
+  }, [data.preferred_broker]);
 
   return (
     <>

@@ -28,12 +28,11 @@ const Steps = () => {
     login: "",
     password: "",
     server: "",
-    platform: "MT5",
+    platform: "",
   });
   const [errors, setErrors] = useState<z.ZodIssue[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthorizedParent, setIsAuthorizedParent] = useState<boolean | null>(null);
-
   const validateStep = (step: number) => {
     let stepSchema;
     if (step === 1) {
@@ -76,7 +75,7 @@ const Steps = () => {
   };
 
   return (
-    <section className="">
+    <section className="flex items-center justify-center">
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto">
           <CardHeader>
