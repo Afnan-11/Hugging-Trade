@@ -81,7 +81,7 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
   };
 
   return (
-    <section className="mx-auto max-w-5xl">
+    <section className={currentStep === 0 ? "mx-auto max-w-5xl" : "flex items-center justify-center"}>
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto">
           <CardHeader>
