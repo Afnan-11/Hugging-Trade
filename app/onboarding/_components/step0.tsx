@@ -7,8 +7,16 @@ import {PricingCard} from "@/components/pricing-card";
 import {plans} from "@/utils/constants";
 import {checkAuthorization} from "@/app/actions/auth";
 import {Spinner} from "@/components/ui/spinner";
+import PricingContent from "@/components/PricingContent";
+import {PricingTypes} from "@/types";
 
-function Step0({setIsAuthorizedParent}: {setIsAuthorizedParent: (isAuthorized: boolean | null) => void}) {
+function Step0({
+  pricing,
+  setIsAuthorizedParent,
+}: {
+  pricing: PricingTypes | null;
+  setIsAuthorizedParent: (isAuthorized: boolean | null) => void;
+}) {
   const {user, isLoaded} = useUser();
   const router = useRouter();
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
@@ -67,17 +75,23 @@ function Step0({setIsAuthorizedParent}: {setIsAuthorizedParent: (isAuthorized: b
           </p>
         </>
       ) : (
-        <>
-          <h2 className="mb-4 text-2xl font-semibold">Select your plan</h2>
-          {plans.map((plan) => (
+        <div className="">
+          {pricing && (
+            <PricingContent
+              pricing={pricing}
+              user={user}
+              areOnlyCardsShown
+            />
+          )}
+          {/*  {plans.map((plan) => (
             <PricingCard
               key={plan.title}
               {...plan}
               isYearly={false}
               user={user}
             />
-          ))}
-        </>
+          ))} */}
+        </div>
       )}
     </>
   );

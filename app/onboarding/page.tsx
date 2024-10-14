@@ -4,8 +4,12 @@ import {redirect} from "next/navigation";
 import Steps from "./_components/steps";
 import {auth} from "@clerk/nextjs/server";
 import MockDashboard from "../dashboard/_components/mock-dashboard";
+import {getPricing} from "@/app/(landing)/pricing/page";
+import {PricingTypes} from "@/types";
+
 export default async function page() {
   const {userId} = auth();
+  const pricing: PricingTypes | null = await getPricing();
 
   if (!userId) redirect("/sign-in");
 
@@ -24,7 +28,7 @@ export default async function page() {
   return (
     <PageWrapper>
       <MockDashboard />
-      <Steps />
+      <Steps pricing={pricing} />
     </PageWrapper>
   );
 }

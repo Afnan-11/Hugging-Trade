@@ -45,6 +45,7 @@ export const PricingCard = ({
   useEffect(() => {
     setStripePromise(loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY!));
   }, []);
+
   const handleCheckout = async (priceId: string, subscription: boolean) => {
     try {
       setIsLoading(true);
@@ -76,6 +77,7 @@ export const PricingCard = ({
       return;
     }
   };
+
   return (
     <Card
       className={cn(

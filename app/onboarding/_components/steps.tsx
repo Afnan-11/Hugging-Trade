@@ -12,6 +12,7 @@ import {useRouter} from "next/navigation";
 import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} from "@/components/ui/card";
 import Step0 from "./step0";
 import {useUser} from "@clerk/nextjs";
+import {PricingTypes} from "@/types";
 const formSchema = z.object({
   server: z.string().min(1, {message: "Server is required"}),
   preferred_broker: z.string().min(1, {message: "Preferred broker is required"}),
@@ -20,7 +21,7 @@ const formSchema = z.object({
   password: z.string().min(1, {message: "Password is required"}),
 });
 
-const Steps = () => {
+const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
   const router = useRouter();
   const {user} = useUser();
 
@@ -80,7 +81,7 @@ const Steps = () => {
   };
 
   return (
-    <section className="flex items-center justify-center">
+    <section className="mx-auto max-w-5xl">
       <form onSubmit={handleSubmit}>
         <Card className="mx-auto">
           <CardHeader>
@@ -93,7 +94,12 @@ const Steps = () => {
               steps={3}
               className="mb-10"
             />
-            {currentStep === 0 && <Step0 setIsAuthorizedParent={setIsAuthorizedParent} />}
+            {currentStep === 0 && (
+              <Step0
+                pricing={pricing}
+                setIsAuthorizedParent={setIsAuthorizedParent}
+              />
+            )}
             {currentStep === 1 && (
               <Step1
                 data={data}
