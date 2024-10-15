@@ -60,6 +60,12 @@ export function MetricsDisplay() {
 }
 
 export default function Error() {
+  const openBeaconChat = () => {
+    if (typeof window !== "undefined" && "Beacon" in window) {
+      (window as any).Beacon("open");
+    }
+  };
+
   return (
     <div className="flex h-full items-center justify-center">
       <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-lg">
@@ -76,14 +82,14 @@ export default function Error() {
             assistance.
           </p>
           <div className="flex flex-col space-y-4">
-            <Button className="w-full">
-              <Link
-                className="flex items-center justify-center"
-                href="/contact-us"
-              >
+            <Button
+              className="w-full"
+              onClick={openBeaconChat}
+            >
+              <span className="flex items-center justify-center">
                 <Mail className="mr-2 h-4 w-4" />
-                Contact Support
-              </Link>
+                Chat With Support
+              </span>
             </Button>
           </div>
         </div>
