@@ -26,7 +26,9 @@ const PaymentSection: React.FC<PaymentSectionProps> = ({user, lastPaymentRequest
 
   return (
     <div className="">
-      <h1 className="mb-8 text-3xl font-bold">Profit Share Summary</h1>
+      <h1 className="pb-4 text-2xl font-bold tracking-tight text-accent md:text-3xl lg:text-4xl">
+        Profit Share Summary
+      </h1>
       <div className={`mb-8 grid gap-8 ${lastPaymentRequest.payment_status !== "pending" ? "md:grid-cols-2" : ""}`}>
         <MonthProgress
           monthStart={lastPaymentRequest.month_start}

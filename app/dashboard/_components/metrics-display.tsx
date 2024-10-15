@@ -40,7 +40,9 @@ export function MetricsDisplay() {
 
   return (
     <>
-      <h1 className="border-b py-4 text-3xl font-bold tracking-tight">Welcome {firstName}</h1>
+      <h1 className="pb-4 text-2xl font-bold tracking-tight text-accent md:text-3xl lg:text-4xl">
+        Welcome {firstName}
+      </h1>
       <div className="mt-6 flex-1 space-y-4">
         <MetricsCards metrics={metrics} />
         <div className="flex flex-col gap-4 lg:flex-row">
