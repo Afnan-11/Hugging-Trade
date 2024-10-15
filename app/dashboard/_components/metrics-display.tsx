@@ -73,13 +73,13 @@ export default function Error() {
           <AlertCircle className="mx-auto h-12 w-12 text-yellow-400" />
           <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Connection Delay</h2>
           <p className="mt-2 text-sm text-gray-600">
-            Your account's connection with your broker is taking longer than usual.
+            {`Your account's connection with your broker is taking longer than usual.`}
           </p>
         </div>
         <div className="mt-8 space-y-6">
           <p className="text-sm text-gray-500">
-            Please try again later. If the issue persists beyond 30 minutes, kindly contact our support team for
-            assistance.
+            {`Please try again later. If the issue persists beyond 30 minutes, kindly contact our support team for
+            assistance.`}
           </p>
           <div className="flex flex-col space-y-4">
             <Button
