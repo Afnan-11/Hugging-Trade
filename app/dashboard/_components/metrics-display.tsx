@@ -8,6 +8,10 @@ import {useUser} from "@clerk/nextjs";
 import {ProfitShareHistoryTable} from "@/app/dashboard/payment/profit-share/profit-share-history-table";
 import {DashboardSkeleton} from "../layout";
 
+import {AlertCircle, RefreshCcw, Mail} from "lucide-react";
+import {Button} from "@/components/ui/button";
+import Link from "next/link";
+
 type MetricsData = any;
 
 const fetchMetrics = async (): Promise<MetricsData> => {
@@ -29,13 +33,7 @@ export function MetricsDisplay() {
   const firstName = user?.firstName;
 
   if (isLoading) return <DashboardSkeleton />;
-  if (error)
-    return (
-      <p className="">
-        {`Your account's connection with your broker is taking longer than usual. Please try again later. If the issue
-        persists beyond 30 minutes, kindly contact our support team for assistance.`}
-      </p>
-    );
+  if (error) return <Error />;
   if (!metrics) return null;
 
   return (
@@ -58,5 +56,38 @@ export function MetricsDisplay() {
         </div> */}
       </div>
     </>
+  );
+}
+
+export default function Error() {
+  return (
+    <div className="flex h-full items-center justify-center">
+      <div className="w-full max-w-md space-y-8 rounded-lg bg-white p-8 shadow-lg">
+        <div className="text-center">
+          <AlertCircle className="mx-auto h-12 w-12 text-yellow-400" />
+          <h2 className="mt-6 text-3xl font-extrabold text-gray-900">Connection Delay</h2>
+          <p className="mt-2 text-sm text-gray-600">
+            Your account's connection with your broker is taking longer than usual.
+          </p>
+        </div>
+        <div className="mt-8 space-y-6">
+          <p className="text-sm text-gray-500">
+            Please try again later. If the issue persists beyond 30 minutes, kindly contact our support team for
+            assistance.
+          </p>
+          <div className="flex flex-col space-y-4">
+            <Button className="w-full">
+              <Link
+                className="flex items-center justify-center"
+                href="/contact-us"
+              >
+                <Mail className="mr-2 h-4 w-4" />
+                Contact Support
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
