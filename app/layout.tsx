@@ -145,8 +145,8 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           <Provider>
             <ThemeProvider
               attribute="class"
-              defaultTheme="system"
-              enableSystem
+              defaultTheme="light"
+              // enableSystem
               disableTransitionOnChange
             >
               {children}

@@ -63,7 +63,7 @@ export default function DashboardTopNav() {
         <div className="ml-auto flex items-center gap-2">
           <NotificationsFeed />
           <UserProfile />
-          <ModeToggle />
+          {/* <ModeToggle /> */}
         </div>
       </div>
     </header>
