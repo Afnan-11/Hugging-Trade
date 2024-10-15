@@ -60,6 +60,8 @@ export const N_OF_DAYS_BEFORE_PAYMENT_REQUEST_OVERDUE = 5;
 export const N_OF_DAYS_BEFORE_PAYMENT_REQUEST_FROZEN = 10;
 export const EXTRA_FEES_PERCENTAGE = 0.05;
 export const PROFIT_SHARE_PERCENTAGE = 0.35;
+export const REDUCED_PROFIT_SHARE_PERCENTAGE = 0.15;
+export const BALANCE_THRESHOLD = 500000;
 
 type Route = {
   href: string;

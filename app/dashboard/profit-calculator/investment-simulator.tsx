@@ -58,7 +58,7 @@ export default function InvestmentSimulation() {
 
   const calculateYAxisWidth = (maxBalance: number) => {
     const numberOfDigits = Math.floor(Math.log10(maxBalance)) + 1;
-    return Math.max(60, numberOfDigits * 10); // Minimum width of 60, then 10px per digit
+    return Math.max(90, numberOfDigits * 13);
   };
 
   const maxBalance = Math.max(...simulationData.map((data) => data.balance));

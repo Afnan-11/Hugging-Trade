@@ -11,6 +11,8 @@ import {
   N_OF_DAYS_BEFORE_PAYMENT_REQUEST_OVERDUE,
   PROFIT_SHARE_PERCENTAGE,
   STRATEGY_ID,
+  BALANCE_THRESHOLD,
+  REDUCED_PROFIT_SHARE_PERCENTAGE,
 } from "@/utils/constants";
 import {notifyUser} from "@/utils/functions";
 
@@ -82,6 +84,7 @@ async function handleFreezingAccount(user: any, lastRequest: any) {
 
 async function handleOverduePayment(user: any, lastRequest: any) {
   const profit = lastRequest.profit_end;
+
   const owedAmount = (profit - lastRequest.profit_start) * (PROFIT_SHARE_PERCENTAGE + EXTRA_FEES_PERCENTAGE);
   await Promise.all([updatePaymentRequest(lastRequest.id, profit, owedAmount, "overdue")]);
   await notifyUser(user, "payment-requests-overdue", {payment_status: "overdue"});
@@ -91,13 +94,15 @@ async function handleOnduePayment(user: any, lastRequest: any) {
   console.log(`Payment request ${lastRequest.id} for user ${user.id} is pending. Notifying user...`);
   const metrics = await getMetrics(user);
   const profit = metrics?.profit || 0;
-  const owedAmount = (profit - lastRequest.profit_start) * PROFIT_SHARE_PERCENTAGE;
+  const balance = metrics?.balance || 0;
+  const percentage = balance > BALANCE_THRESHOLD ? PROFIT_SHARE_PERCENTAGE : REDUCED_PROFIT_SHARE_PERCENTAGE;
+  const owedAmount = (profit - lastRequest.profit_start) * percentage;
 
   await updatePaymentRequest(lastRequest.id, profit, owedAmount, "ondue");
   await notifyUser(user, "payment-requests-ondue", {
     owed_amount: owedAmount,
     profit: (profit - lastRequest.profit_start).toFixed(2),
-    percentage: PROFIT_SHARE_PERCENTAGE * 100,
+    percentage: percentage * 100,
   });
   console.log("Notified user of pending payment request");
 }
