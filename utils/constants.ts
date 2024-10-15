@@ -72,7 +72,7 @@ type Route = {
 
 export const userRoutes: Route[] = [
   {href: "/dashboard", icon: HomeIcon, label: "Home"},
-  {href: "/dashboard/profit-calculator", icon: Calculator, label: "Profit Calculator"},
+  {href: "/dashboard/investment-calculator", icon: Calculator, label: "Investment Calculator"},
   {href: "/dashboard/payment/profit-share", icon: CreditCard, label: "Profit Share Payment"},
   {href: "https://affiliates.huggingtrade.com/", icon: Users, label: "Affiliate Program", target: "_blank"},
   // {href: "/dashboard/subscription", icon: Settings, label: "Subscription"},
