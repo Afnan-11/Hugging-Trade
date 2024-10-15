@@ -198,12 +198,7 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl px-3 py-2 text-black hover:bg-blue-50 lg:hidden"
           >
-            <Link
-              href={`/sign-in`}
-              className={pathname === `/sign-in` ? "text-black" : "font-medium text-black"}
-            >
-              Log in
-            </Link>
+            {userId ? <UserProfile /> : <Link href="/sign-in">Log in</Link>}
           </li>
 
           <li
@@ -212,7 +207,7 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:hidden"
           >
-            <Link href={`/pricing`}>Start 30 day free trial</Link>
+            {userId ? <Link href="/dashboard">Dashboard</Link> : <Link href="/sign-in">Start 30 day free trial</Link>}
           </li>
         </ul>
       </div>
