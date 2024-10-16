@@ -31,7 +31,7 @@ export default async function InvestmentCalculator() {
   const home: HomeTypes | null = await getHome();
   
   return (
-    <div className="lg:pb-0 lg:-mt-10 lg:mb-20 overflow-hidden">
+    <div className="lg:pb-0 lg:-mt-10 -mb-40 lg:-mb-20  overflow-hidden">
       <div className="mb-20">
         <SliderCalculator
           sliderTitle={home?.sliderTitle || ""}

@@ -116,7 +116,7 @@ export default async function VideoMembers() {
                 height={444}
                 className="rounded-2xl w-full lg:w-[250px]"
                 controls
-                autoPlay
+                // autoPlay
                 loop
                 muted
               />
@@ -143,7 +143,7 @@ export default async function VideoMembers() {
                 height={444}
                 className="rounded-2xl w-full lg:w-[250px]"
                 controls
-                autoPlay
+                // autoPlay
                 loop
                 muted
               />
@@ -169,7 +169,7 @@ export default async function VideoMembers() {
               height={444}
               className="rounded-2xl w-full lg:w-[250px]"
               controls
-              autoPlay
+              // autoPlay
               loop
               muted
             />

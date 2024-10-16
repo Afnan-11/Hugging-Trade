@@ -26,7 +26,7 @@ export const revalidate = 10;
 export default async function ContactUs() {
   const footer: FooterTypes = await getFooter();
   return (
-    <div className="lg:-mt-[40px] lg:mb-20 mb-10">
+    <div className="lg:-mt-[40px] lg:mb-20 mb-10 overflow-hidden">
       <Image
         src={"/Images/Contact Us/Vector (7).svg"}
         alt="img"
@@ -45,13 +45,13 @@ export default async function ContactUs() {
       />
       <div className="flex flex-col lg:flex-row justify-center items-center gap-10 ">
         <div className="lg:text-left text-center space-y-4">
-          <h1 className="lg:text-[64px] text-[50px] font-black">
+          <h1 className="lg:text-[64px] text-[40px] font-black">
             Let’s connect!
           </h1>
-          <div className="lg:text-left space-y-1">
+          <div className="lg:text-left space-y-1 px-5 lg:px-0">
             <h2 className="text-[24px] font-semibold">Hugging Trade</h2>
-            <p className="16px lg:w-[400px]">{footer.address}</p>
-            {/* <p className="16px">10145, Tallinn, Estonia</p> */}
+            <p className="16px lg:w-[400px] ">{footer.address}</p>
+            
           </div>
           <div className="lg:text-left text-center space-y-5 lg:pt-[70px]">
 
@@ -85,16 +85,16 @@ export default async function ContactUs() {
             </div>
           </div>
         </div>
-        <div className="space-y-5 -mt-10 lg:-mt-0">
-          <div className="bg-[#eff6ff] p-5 lg:p-0 rounded-[13px] lg:pl-20 lg:w-[609px] lg:h-[264px] flex flex-col lg:items-start items-center justify-center">
-            <div className="space-y-5">
-              <div className="space-y-2">
+        <div className="space-y-5 -mt-10 lg:-mt-0 ">
+          <div className="bg-[#eff6ff]   p-5 lg:p-0 rounded-[13px] lg:pl-20 lg:w-[609px] lg:h-[264px] flex flex-col lg:items-start items-center justify-center">
+            <div className="space-y-5 text-center lg:text-left ">
+              <div className="space-y-2 ">
                 <h2 className="text-[24px] font-semibold">Customer Support</h2>
-                <p className="16px w-[345px]">
+                <p className="16px w-[345px] px-5 lg:px-0">
                   Our Support Heroes are available for you everyday and will help in English, German, Spanish, French, Italian and Russian.
                 </p>
               </div>
-              <div className="text-[24px] text-[#2563eb] font-semibold">
+              <div className="md:text-[24px] sm:text-[20px] text-[#2563eb] font-semibold">
                 <a href="mailto:support@huggingtrade.com">
                   support@huggingtrade.com
                 </a>
@@ -102,10 +102,10 @@ export default async function ContactUs() {
             </div>
           </div>
           <div className="bg-[#eff6ff] p-5 lg:p-0 rounded-[13px] lg:pl-20 lg:w-[609px] lg:h-[264px] flex flex-col lg:items-start items-center justify-center">
-            <div className="space-y-5">
-              <div className="space-y-2">
+            <div className="space-y-5 text-center lg:text-left">
+              <div className="space-y-2 ">
                 <h2 className="text-[24px] font-semibold">Partnership</h2>
-                <p className="16px w-[345px]">
+                <p className="16px w-[345px] px-5 lg:px-0">
                   We offer a competitive{" "}
                   <Link href="/affiliate" className="text-[#2563eb]">
                     affiliate program
@@ -114,7 +114,7 @@ export default async function ContactUs() {
                   join.
                 </p>
               </div>
-              <div className="text-[24px] text-[#2563eb] font-semibold">
+              <div className="md:text-[24px] sm:text-[20px] text-[#2563eb] font-semibold">
                 <a href="mailto:support@huggingtrade.com">
                   support@huggingtrade.com
                 </a>

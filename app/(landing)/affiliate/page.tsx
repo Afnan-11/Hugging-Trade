@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import SliderAffiliate from "@/components/SliderAffiliate";
-import {client} from "@/sanity/lib/client";
-import {AffiliateTypes} from "@/types";
+import { client } from "@/sanity/lib/client";
+import { AffiliateTypes } from "@/types";
 import AccordionAffiliate from "@/components/AccordionAffiliate";
-import {Metadata} from "next";
+import { Metadata } from "next";
 import Testimonial from "@/components/Testimonial";
 
 async function getAffiliate(): Promise<AffiliateTypes | null> {
@@ -117,18 +117,20 @@ export default async function Affiliate() {
             </div>
           </div>
 
-          <div className="mt-5 flex items-center justify-start lg:-mt-5">
-            <a
-              href="https://affiliates.huggingtrade.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="block w-full lg:w-auto">
+          <div className="mt-5 flex items-center justify-center lg:justify-start lg:-mt-5 ">
+            <div className="block w-full lg:w-auto">
+              <a
+                href="https://affiliates.huggingtrade.com"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+
                 <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:w-[282.95px]">
                   Get your affiliate link
                 </div>
-              </div>
-            </a>
+
+              </a>
+            </div>
           </div>
 
           <Image
@@ -212,17 +214,19 @@ export default async function Affiliate() {
         </div>
 
         <div className="mt-10 flex items-center justify-center lg:mt-20">
-          <a
-            href="https://affiliates.huggingtrade.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <div className="block w-full lg:w-auto">
-              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:w-[282.95px]">
-                Get your affiliate link
-              </div>
-            </div>
-          </a>
+          <div className="block w-full lg:w-auto">
+            <a
+              href="https://affiliates.huggingtrade.com"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              
+                <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:w-[282.95px]">
+                  Get your affiliate link
+                </div>
+              
+            </a>
+          </div>
         </div>
 
         <Image
