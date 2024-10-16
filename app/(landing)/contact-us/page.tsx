@@ -54,7 +54,7 @@ export default async function ContactUs() {
             {/* <p className="16px">10145, Tallinn, Estonia</p> */}
           </div>
           <div className="lg:text-left text-center space-y-5 lg:pt-[70px]">
-           
+
             <div className="">
               <h2 className="text-[24px] font-semibold">
                 Social media and channels
@@ -95,7 +95,9 @@ export default async function ContactUs() {
                 </p>
               </div>
               <div className="text-[24px] text-[#2563eb] font-semibold">
-                <p>mailto:support@huggingtrade.com</p>
+                <a href="mailto:support@huggingtrade.com">
+                  support@huggingtrade.com
+                </a>
               </div>
             </div>
           </div>
@@ -113,7 +115,9 @@ export default async function ContactUs() {
                 </p>
               </div>
               <div className="text-[24px] text-[#2563eb] font-semibold">
-                <p>mailto:support@huggingtrade.com</p>
+                <a href="mailto:support@huggingtrade.com">
+                  support@huggingtrade.com
+                </a>
               </div>
             </div>
           </div>
