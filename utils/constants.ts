@@ -40,7 +40,7 @@ export const BROKER_OPTIONS = [
 export const MetaApiUrl = "https://mt-provisioning-api-v1.agiliumtrade.agiliumtrade.ai";
 export const MetaApiStatsUrl = "https://metastats-api-v1.new-york.agiliumtrade.ai";
 export const CopyFactoryUrl = "https://copyfactory-api-v1.new-york.agiliumtrade.ai";
-export const STRATEGY_ID = "B0fG";
+export const STRATEGY_ID = "O8dz";
 
 export const plans = [
   {
