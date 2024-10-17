@@ -8,6 +8,7 @@ import VideoMembers from "@/components/VideoMembers";
 import HomeCounter from "@/components/HomeCounter";
 import CountdownTimer from "@/components/CountdownTimer";
 import {Metadata} from "next";
+import Script from "next/script";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
@@ -42,7 +43,7 @@ async function getHome(): Promise<HomeTypes | null> {
     return data;
   } catch (error) {
     console.error("Failed to fetch home data:", error);
-    return null; // Return null if an error occurs
+    return null;
   }
 }
 
@@ -64,25 +65,171 @@ export async function generateMetadata(): Promise<Metadata> {
     generator: "Next.js",
     publisher: "Hugging Trade",
     alternates: {
-      canonical: "https://huggingtrade.com", 
+      canonical: "https://www.huggingtrade.com",
     },
     openGraph: {
       images: [
         {
-          url: 'https://huggingtrade.com/opengraph-image.jpg',
+          url: "https://www.huggingtrade.com/opengraph-image.jpg",
           width: 1200,
           height: 628,
         },
       ],
     },
-    
   };
 }
 
 export default async function Home() {
   const home: HomeTypes | null = await getHome();
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Corporation",
+        name: "Hugging Trade",
+        "@id": "https://huggingtrade.com",
+        url: "https://huggingtrade.com",
+        legalName: "Hugging Trade",
+        description:
+          "Hugging Trade is an automated trading platform offering hands-free investment strategies for clients worldwide. Our expert team manages trading using cautious, proven methods to deliver consistent returns while users simply connect their brokerage accounts and watch their profits grow.",
+        logo: "https://www.huggingtrade.com/HuggingPrimaryWEBSITETextAndIcon%20(1).svg",
+        foundingDate: "2021-09",
+        owns: {
+          "@type": "Product",
+          name: "Hugging Trade",
+          url: "https://huggingtrade.com/",
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "5",
+            reviewCount: "5",
+          },
+        },
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: "1 King William St.",
+          addressRegion: "London",
+          postalCode: "EC4N 7BJ",
+          addressCountry: "United Kingdom",
+        },
+        contactPoint: {
+          "@type": "ContactPoint",
+          contactType: "customer support",
+          email: "support@huggingtrade.com",
+        },
+        sameAs: [
+          "https://www.facebook.com/huggingtrade/",
+          "https://www.instagram.com/huggingtrade/",
+          "https://x.com/HuggingTrade",
+          "https://www.youtube.com/@huggingtrade",
+        ],
+        faqPage: {
+          "@type": "FAQPage",
+          mainEntity: [
+            {
+              "@type": "Question",
+              name: "Why is this better than other trading platforms or bots?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Unlike trading bots, which require manual setup and extensive backtesting, our experienced trading team delivers far higher returns without any effort on your part.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Who can use this platform?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Anyone from any country can use our platform—there are no restrictions.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Is there a money-back guarantee?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, we offer a full money-back guarantee to give you complete peace of mind.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "What brokers do you work with?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "We recommend IC Markets for most regions and Oanda for the USA and Canada. Both are highly reputable with fast withdrawals and low to no commissions.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How does it work?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Our team of seasoned traders manage your account, trading on your behalf with cautious strategies to ensure no down months. We only profit when you do.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Short on time and want to learn trading?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Hugging Trade is not aimed at those looking to learn trading. We believe in a fully managed approach where we do all the work for you while you enjoy triple returns each month.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How much can I make?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Every month, you can expect returns between 150%-200%. However, once your balance reaches $500,000, the monthly profit reduces to 50%, but could be more. Use the investment calculator on our website to calculate your projected earnings.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How do you make money?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "We charge a monthly subscription and take 35% of your profits each month. However, once your balance reaches $500,000, the monthly profit reduces to 50%, and we take 15%.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "Is my money secure?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "Yes, your funds remain with a regulated broker, and we can never access them. You’re always in control of your money.",
+              },
+            },
+            {
+              "@type": "Question",
+              name: "How does the profit sharing work?",
+              acceptedAnswer: {
+                "@type": "Answer",
+                text: "At the end of each month, we take 35% of your profits. You have 5 days to pay; if not, there’s an additional 5% penalty. After 10 days, your account will be disconnected until payment is made.",
+              },
+            },
+          ],
+        },
+      },
+      {
+        "@type": "WebSite",
+        name: "Hugging Trade",
+        url: "https://huggingtrade.com",
+        potentialAction: {
+          "@type": "SearchAction",
+          target: "https://huggingtrade.com/search?q={search_term_string}",
+          "query-input": "required name=search_term_string",
+        },
+      },
+    ],
+  };
+
   return (
     <div className="overflow-hidden lg:-mt-10 lg:mb-20 lg:pb-0">
+      <Script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}
+        id="structured-data-homepage"
+      />
+
       <CountdownTimer />
       <div>
         <div className="hidden pt-5 lg:block lg:pt-10">
@@ -105,7 +252,7 @@ export default async function Home() {
               <div className="flex flex-col items-center">
                 <div className="relative">
                   <Link
-                    href="/"
+                    href="/sign-in"
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:py-3 lg:text-[22px]">
@@ -166,7 +313,8 @@ export default async function Home() {
               <div className="flex w-[328px] flex-col items-center justify-center">
                 <div className="w-full">
                   <Link
-                    href="/"
+                    href="/sign-in"
+                    scroll={true}
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white">
@@ -420,7 +568,8 @@ export default async function Home() {
             />
 
             <Link
-              href="/"
+              href="/sign-in"
+              scroll={true}
               className="block w-full"
             >
               <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:-mt-5 lg:w-[197px]">
@@ -1073,7 +1222,8 @@ export default async function Home() {
               <p className="">All your data is secured with high-end encryption.</p>
 
               <Link
-                href="/"
+                href="/sign-in"
+                scroll={true}
                 className="z-[85] block w-full"
               >
                 <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[210px]">
@@ -1129,7 +1279,8 @@ export default async function Home() {
             <p className="">All your data is secured with high-end encryption.</p>
 
             <Link
-              href="/"
+              href="/sign-in"
+              scroll={true}
               className="z-50 block"
             >
               <div className="mr-14 mt-10 rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[210px] lg:py-3 lg:text-[20px]">

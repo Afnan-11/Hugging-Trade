@@ -1,6 +1,5 @@
 import React from "react";
 import Image from "next/image";
-import Link from "next/link";
 import SliderAffiliate from "@/components/SliderAffiliate";
 import { client } from "@/sanity/lib/client";
 import { AffiliateTypes } from "@/types";
@@ -60,12 +59,12 @@ export async function generateMetadata(): Promise<Metadata> {
     generator: "Next.js",
     publisher: "Hugging Trade",
     alternates: {
-      canonical: "https://huggingtrade.com/affiliate",
+      canonical: "https://www.huggingtrade.com/affiliate",
     },
     openGraph: {
       images: [
         {
-          url: "https://huggingtrade.com/opengraph-image.jpg",
+          url: "https://www.huggingtrade.com/opengraph-image.jpg",
           width: 1200,
           height: 628,
         },

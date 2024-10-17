@@ -28,13 +28,13 @@ export const metadata: Metadata = {
   openGraph: {
     images: [
       {
-        url: "https://huggingtrade.com/opengraph-image.jpg",
+        url: "https://www.huggingtrade.com/opengraph-image.jpg",
         width: 1200,
         height: 628,
       },
     ],
   },
-  metadataBase: new URL("https://huggingtrade.com"),
+  metadataBase: new URL("https://www.huggingtrade.com"),
 };
 
 export default function RootLayout({children}: {children: React.ReactNode}) {
@@ -98,11 +98,25 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'G-TTJRN2PBT2');
-            `,
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-TTJRN2PBT2');
+              `,
+            }}
+          />
+
+          <Script
+            id="gtm-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','GTM-MWQ5D3J4');
+              `,
             }}
           />
 
@@ -142,6 +156,14 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
           />
         </head>
         <body className={GeistSans.className}>
+          <noscript>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-MWQ5D3J4"
+              height="0"
+              width="0"
+              style={{display: "none", visibility: "hidden"}}
+            ></iframe>
+          </noscript>
           <Provider>
             <ThemeProvider
               attribute="class"

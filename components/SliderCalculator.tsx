@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import Slider from "react-slider";
-import { HTMLProps } from "react";
+import {HTMLProps} from "react";
 
 interface Props {
   sliderTitle: string;
@@ -12,11 +12,7 @@ interface Props {
   sliderAverageMonthlyIncome: string;
 }
 
-const SliderCalculator = ({
-  sliderTitle,
-  sliderText,
-  sliderAverageMonthlyIncome,
-}: Props) => {
+const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}: Props) => {
   // State for initial deposit, months, and calculated balance
   const [initialDeposit, setInitialDeposit] = useState(500);
   const [months, setMonths] = useState(2);
@@ -26,11 +22,14 @@ const SliderCalculator = ({
   const calculateBalance = useCallback(() => {
     let currentBalance = initialDeposit;
     for (let i = 0; i < months; i++) {
-      // Calculate the profit for the month based on the current balance
-      const profit = currentBalance * 2;
+      // Determine the monthly profit based on the current balance
+      let profit = currentBalance >= 500000 ? currentBalance * 0.5 : currentBalance * 2;
 
-      // Deduct 35% of the profit
-      const netProfit = profit * (1 - 0.35);
+      // Determine the platform fee based on the balance
+      let platformFee = currentBalance >= 500000 ? 0.15 : 0.35;
+
+      // Calculate the net profit after deducting the platform fee
+      const netProfit = profit * (1 - platformFee);
 
       // Update the current balance by adding the net profit to the existing balance
       currentBalance += netProfit;
@@ -42,8 +41,8 @@ const SliderCalculator = ({
     calculateBalance();
   }, [calculateBalance]);
   return (
-    <div className="flex flex-col justify-center items-center h-[772px]  gradient-pricing px-5 lg:px-0">
-      <div className="bg-white rounded-xl shadow-2xl lg:w-[1152px] lg:h-[485px] h-[720px] p-5 lg:p-0  lg:px-10">
+    <div className="gradient-pricing flex h-[772px] flex-col items-center justify-center px-5 lg:px-0">
+      <div className="h-[720px] rounded-xl bg-white p-5 shadow-2xl lg:h-[485px] lg:w-[1152px] lg:p-0 lg:px-10">
         <Image
           src={"/Images/HomePage/bg_affiliate-program-reviews_desktop.svg.svg"}
           alt="image"
@@ -57,43 +56,37 @@ const SliderCalculator = ({
           alt="image"
           width={109.39}
           height={114.2}
-          className="-mt-32 ml-auto translate-x-20 hidden lg:block"
+          className="-mt-32 ml-auto hidden translate-x-20 lg:block"
         />
 
-        <div className="  text-center  ">
+        <div className="text-center">
           <div className="space-y-5">
-            <h2 className="font-bold lg:text-h2 text-h2M leading-10 lg:leading-none px-5 lg:px-0">
-              {sliderTitle}
-            </h2>
-            <p className="text-pMobile lg:text-pMain px-5 lg:px-0">
-              {sliderText}
-            </p>
+            <h2 className="px-5 text-h2M font-bold leading-10 lg:px-0 lg:text-h2 lg:leading-none">{sliderTitle}</h2>
+            <p className="px-5 text-pMobile lg:px-0 lg:text-pMain">{sliderText}</p>
           </div>
         </div>
 
-        <div className="flex flex-col lg:flex-row justify-center items-center lg:items-start mt-10">
-          <div className="lg:w-1/2  flex flex-col  items-center justify-center lg:items-start lg:justify-start">
-            <div className="bg-[#EFF6FF] w-[400px] lg:w-[528px] rounded-xl p-2 lg:p-0">
-              <p className="lg:text-[60px] text-[35px] text-[#2563EB] font-bold text-center">
+        <div className="mt-10 flex flex-col items-center justify-center lg:flex-row lg:items-start">
+          <div className="flex flex-col items-center justify-center lg:w-1/2 lg:items-start lg:justify-start">
+            <div className="w-[400px] rounded-xl bg-[#EFF6FF] p-2 lg:w-[528px] lg:p-0">
+              <p className="text-center text-[35px] font-bold text-[#2563EB] lg:text-[60px]">
                 $
                 {balance.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
-                <span className="text-[28.13px] "> USD</span>
+                <span className="text-[28.13px]"> USD</span>
               </p>
             </div>
-            <div className="flex justify-center items-center w-full ">
-              <p className="text-[16px] text-[#6B7280] px-5 pt-3 text-center">
+            <div className="flex w-full items-center justify-center">
+              <p className="px-5 pt-3 text-center text-[16px] text-[#6B7280]">
                 {sliderAverageMonthlyIncome}
                 {/* *Average monthly income after deducting our 35% platform fee */}
               </p>
             </div>
           </div>
-          <div className="lg:w-1/2 flex flex-col items-start justify-start lg:pl-5 pt-5 lg:pt-0">
-            <p className="text-[13.78px] text-[#374151] font-medium ">
-              Investment Period: {months} months
-            </p>
+          <div className="flex flex-col items-start justify-start pt-5 lg:w-1/2 lg:pl-5 lg:pt-0">
+            <p className="text-[13.78px] font-medium text-[#374151]">Investment Period: {months} months</p>
 
             <div className="w-full max-w-md">
               <Slider
@@ -102,20 +95,16 @@ const SliderCalculator = ({
                 min={1}
                 max={12}
                 onChange={(value: number) => setMonths(value)}
-                className="w-full h-2 mt-2 bg-[#F4F4F5] rounded"
-                renderTrack={(
-                  props: HTMLProps<HTMLDivElement>,
-                  state: { index: number; value: number }
-                ) => {
-                  const { key, ...restProps } = props;
+                className="mt-2 h-2 w-full rounded bg-[#F4F4F5]"
+                renderTrack={(props: HTMLProps<HTMLDivElement>, state: {index: number; value: number}) => {
+                  const {key, ...restProps} = props;
                   return (
                     <div
                       key={key} // Move this outside of the spread
                       {...restProps} // Spread the other props
                       style={{
                         ...restProps.style,
-                        backgroundColor:
-                          state.index === 0 ? "#18181B" : "#F4F4F5",
+                        backgroundColor: state.index === 0 ? "#18181B" : "#F4F4F5",
                       }}
                       className="h-2 rounded"
                     >
@@ -123,7 +112,6 @@ const SliderCalculator = ({
                     </div>
                   );
                 }}
-                
                 renderThumb={(props) => (
                   <div
                     {...props}
@@ -140,18 +128,18 @@ const SliderCalculator = ({
                   />
                 )}
               />
-              <div className="flex justify-between items-center pl-2 pt-2">
+              <div className="flex items-center justify-between pl-2 pt-2">
                 <p>1m</p>
                 <p className="pr-6">6m</p>
                 <p>12m</p>
               </div>
             </div>
 
-            <div className="pt-3 flex items-center justify-center gap-5">
-              <div className="flex flex-col justify-start items-start gap-2 mt-3 lg:-mt-3">
+            <div className="flex items-center justify-center gap-5 pt-3">
+              <div className="mt-3 flex flex-col items-start justify-start gap-2 lg:-mt-3">
                 <label
                   htmlFor=""
-                  className="text-[13.89px] text-[#374151] font-medium mt-2"
+                  className="mt-2 text-[13.89px] font-medium text-[#374151]"
                 >
                   Enter your initial deposit
                 </label>
@@ -168,13 +156,11 @@ const SliderCalculator = ({
                       setInitialDeposit(Number(value));
                     }
                   }}
-                  className="p-2 border bg-white rounded-xl focus:border-[#2563EB] focus:ring-[#2563EB] focus:ring-1 outline-none"
+                  className="rounded-xl border bg-white p-2 outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
                 />
               </div>
             </div>
-            <p className="text-[11.81px] text-[#6B7280] font-medium mt-2">
-              * Minimum: $300
-            </p>
+            <p className="mt-2 text-[11.81px] font-medium text-[#6B7280]">* Minimum: $300</p>
           </div>
         </div>
 
@@ -183,20 +169,22 @@ const SliderCalculator = ({
           alt="image"
           width={56.54}
           height={62.71}
-          className="-mt-20  translate-y-20 translate-x-20 hidden lg:block"
+          className="-mt-20 hidden translate-x-20 translate-y-20 lg:block"
         />
 
-        <div className="flex justify-center my-10 px-10 lg:px-0">
+        <div className="my-10 flex justify-center px-10 lg:px-0">
           <div className="w-full lg:w-auto">
-            <Link href="/" className="block w-full">
-              <div className="lg:text-[20px] text-center hover:bg-[#4977db] w-full lg:w-[197px] py-3 text-white rounded-2xl bg-[#2563EB]">
+            <Link
+              href="/sign-in"
+              scroll={true}
+              className="block w-full"
+            >
+              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-white hover:bg-[#4977db] lg:w-[197px] lg:text-[20px]">
                 Start free trial
               </div>
             </Link>
 
-            <p className="text-[11.44px] text-[#6B7280]  mt-2 text-center">
-              Start with as little as $300.
-            </p>
+            <p className="mt-2 text-center text-[11.44px] text-[#6B7280]">Start with as little as $300.</p>
           </div>
         </div>
 
@@ -206,7 +194,7 @@ const SliderCalculator = ({
             alt="image"
             width={127}
             height={104.6}
-            className=" ml-auto -translate-x-36 hidden lg:block"
+            className="ml-auto hidden -translate-x-36 lg:block"
           />
         </div>
 
@@ -216,7 +204,7 @@ const SliderCalculator = ({
             alt="image"
             width={47.32}
             height={54.4}
-            className=" ml-auto -translate-x-10 translate-y-40 hidden lg:block"
+            className="ml-auto hidden -translate-x-10 translate-y-40 lg:block"
           />
         </div>
       </div>

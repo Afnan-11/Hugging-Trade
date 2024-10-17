@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import CountUp from "react-countup";
-import { useInView } from "react-intersection-observer";
+import {useInView} from "react-intersection-observer";
 
 interface Props {
   sectionThreeTitle: string;
@@ -43,7 +43,7 @@ const HomeCounter = ({
     };
   }, []);
 
-  const { ref } = useInView({
+  const {ref} = useInView({
     triggerOnce: true,
     threshold: 0.1,
     onChange: (inView) => {
@@ -54,17 +54,13 @@ const HomeCounter = ({
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center lg:py-20 gradient-home lg:mt-20 py-10 px-5"
+      className="gradient-home flex flex-col items-center px-5 py-10 lg:mt-20 lg:py-20"
     >
-      <h2 className="font-bold text-h2M lg:text-h2 text-center leading-tight">
-        {sectionThreeTitle}
-      </h2>
-      <p className="text-pMobile lg:text-pMain lg:w-[657px] text-center pt-5 lg:pt-0">
-        {sectionThreeText}
-      </p>
+      <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2">{sectionThreeTitle}</h2>
+      <p className="pt-5 text-center text-pMobile lg:w-[657px] lg:pt-0 lg:text-pMain">{sectionThreeText}</p>
 
-      <div className="flex flex-col lg:flex-row justify-center items-center gap-5 pt-10">
-        <div className="bg-white lg:w-[397.33px] w-[350px] rounded-3xl flex flex-col justify-center items-center p-5">
+      <div className="flex flex-col items-center justify-center gap-5 pt-10 lg:flex-row">
+        <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
           <Image
             src={"/Images/HomePage/star.svg fill.svg"}
             alt="image"
@@ -87,12 +83,10 @@ const HomeCounter = ({
             )}
             <span className="text-[#2563EB]">M</span>
           </p>
-          <p className="text-[22px] text-center">
-            {sectionThreeTextUnderStarsNumber}
-          </p>
+          <p className="text-center text-[22px]">{sectionThreeTextUnderStarsNumber}</p>
         </div>
 
-        <div className="bg-white lg:w-[397.33px] w-[350px] rounded-3xl flex flex-col justify-center items-center p-5">
+        <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
           <Image
             src={"/Images/HomePage/users.svg fill.svg"}
             alt="image"
@@ -110,16 +104,14 @@ const HomeCounter = ({
                 decimal="."
               />
             ) : (
-              sectionThreeUsersNumber 
+              sectionThreeUsersNumber
             )}
             <span className="text-[#2563EB]">K</span>
           </p>
-          <p className="text-[22px] text-center">
-            {sectionThreeTextUnderUsersNumber}
-          </p>
+          <p className="text-center text-[22px]">{sectionThreeTextUnderUsersNumber}</p>
         </div>
 
-        <div className="bg-white lg:w-[397.33px] w-[350px] rounded-3xl flex flex-col justify-center items-center p-5">
+        <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
           <Image
             src={"/Images/HomePage/time.svg fill.svg"}
             alt="image"
@@ -142,15 +134,17 @@ const HomeCounter = ({
             )}
             <span className="text-[#2563EB]">M</span>
           </p>
-          <p className="text-[22px] text-center">
-            {sectionThreeTextUnderTimeNumber}
-          </p>
+          <p className="text-center text-[22px]">{sectionThreeTextUnderTimeNumber}</p>
         </div>
       </div>
 
-      <div className="lg:flex lg:justify-center lg:items-center w-[250px] lg:w-auto">
-        <Link href="/" className="block w-full">
-          <div className="text-[20px] text-center hover:bg-[#4977db] w-full lg:w-[197.11px] my-10 py-3 text-white rounded-2xl bg-[#2563EB]">
+      <div className="w-[250px] lg:flex lg:w-auto lg:items-center lg:justify-center">
+        <Link
+          href="/sign-in"
+          scroll={true}
+          className="block w-full"
+        >
+          <div className="my-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[197.11px]">
             Start free trial
           </div>
         </Link>
