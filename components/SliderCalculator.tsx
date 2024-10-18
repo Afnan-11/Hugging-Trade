@@ -20,20 +20,29 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
 
   // Function to calculate the compounded balance
   const calculateBalance = useCallback(() => {
+    const data = [];
     let currentBalance = initialDeposit;
-    for (let i = 0; i < months; i++) {
-      // Determine the monthly profit based on the current balance
-      let profit = currentBalance >= 500000 ? currentBalance * 0.5 : currentBalance * 2;
 
-      // Determine the platform fee based on the balance
-      let platformFee = currentBalance >= 500000 ? 0.15 : 0.35;
+    for (let i = 1; i <= months; i++) {
+      const startingBalance = currentBalance;
 
-      // Calculate the net profit after deducting the platform fee
-      const netProfit = profit * (1 - platformFee);
+      // Calculate profit (e.g., if balance > $500,000, profit multiplier is 0.5)
+      const profit = currentBalance >= 500000 ? currentBalance * 0.5 : currentBalance * 2;
 
-      // Update the current balance by adding the net profit to the existing balance
-      currentBalance += netProfit;
+      // Calculate fee percentage (e.g., 35% for balance < $500,000)
+      const platformFeeRate = currentBalance >= 500000 ? 0.15 : 0.35;
+      const fee = profit * platformFeeRate;
+
+      // Calculate ending balance
+      const endingBalance = startingBalance + (profit - fee);
+
+      // Save data for the month
+      data.push({ month: i, startingBalance, profit, fee, endingBalance });
+
+      // Update current balance for the next iteration
+      currentBalance = endingBalance;
     }
+
     setBalance(currentBalance);
   }, [initialDeposit, months]);
 
