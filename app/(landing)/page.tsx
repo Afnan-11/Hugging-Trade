@@ -252,7 +252,7 @@ export default async function Home() {
               <div className="flex flex-col items-center">
                 <div className="relative">
                   <Link
-                    href="/sign-in"
+                    href="/pricing"
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:py-3 lg:text-[22px]">
@@ -313,7 +313,7 @@ export default async function Home() {
               <div className="flex w-[328px] flex-col items-center justify-center">
                 <div className="w-full">
                   <Link
-                    href="/sign-in"
+                    href="/pricing"
                     scroll={true}
                     className="block"
                   >
@@ -568,7 +568,7 @@ export default async function Home() {
             />
 
             <Link
-              href="/sign-in"
+              href="/pricing"
               scroll={true}
               className="block w-full"
             >
@@ -1222,7 +1222,7 @@ export default async function Home() {
               <p className="">All your data is secured with high-end encryption.</p>
 
               <Link
-                href="/sign-in"
+                href="/pricing"
                 scroll={true}
                 className="z-[85] block w-full"
               >
@@ -1279,7 +1279,7 @@ export default async function Home() {
             <p className="">All your data is secured with high-end encryption.</p>
 
             <Link
-              href="/sign-in"
+              href="/pricing"
               scroll={true}
               className="z-50 block"
             >
