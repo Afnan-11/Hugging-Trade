@@ -40,7 +40,7 @@ export async function POST(req: Request) {
     };
 
     account = await createAndDeployAccount(metaApiData);
-    const updatedUser = await Promise.all([
+    const [updatedUser, subscribed] = await Promise.all([
       updateUserWithMetaApiAccount(userId, {
         metaapi_account_id: account.id,
         metaapi_platform: data.platform,
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       subscribeToStrategy(account.id, userId, data.platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4),
     ]);
 
-    notifyUser({user_id: userId}, "message", {
+    notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "message", {
       message: "Your account has been created successfully! Thank you for your trust.",
     });
 
