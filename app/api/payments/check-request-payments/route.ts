@@ -3,14 +3,13 @@ import {PrismaClient} from "@prisma/client";
 import {MetaStats} from "metaapi.cloud-sdk/esm-node";
 import {Knock} from "@knocklabs/node";
 import axios from "axios";
-
+import {STRATEGY_ID_MT4, STRATEGY_ID_MT5} from "@/utils/constants";
 import {
   CopyFactoryUrl,
   EXTRA_FEES_PERCENTAGE,
   N_OF_DAYS_BEFORE_PAYMENT_REQUEST_FROZEN,
   N_OF_DAYS_BEFORE_PAYMENT_REQUEST_OVERDUE,
   PROFIT_SHARE_PERCENTAGE,
-  STRATEGY_ID,
   BALANCE_THRESHOLD,
   REDUCED_PROFIT_SHARE_PERCENTAGE,
 } from "@/utils/constants";
@@ -68,9 +67,9 @@ async function processUser(user: any) {
 
 async function handleFreezingAccount(user: any, lastRequest: any) {
   console.log(`Account ${user.metaapi_account_id} is frozen. Notifying user...`);
-
+  const strategyId = user.metaapi_platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4;
   await Promise.all([
-    removeSubscription(user.metaapi_account_id!),
+    removeSubscription(user.metaapi_account_id!, strategyId),
     updatePaymentRequest(lastRequest.id, lastRequest.profit_end, lastRequest.owed_amount, "frozen"),
     // prisma.user.update({
     //   where: {id: user.id},
@@ -127,10 +126,10 @@ async function updatePaymentRequest(id: number, profit: number, owedAmount: numb
   });
 }
 
-async function removeSubscription(accountId: string) {
+async function removeSubscription(accountId: string, strategyId: string) {
   try {
     const response = await axios.delete(
-      `${CopyFactoryUrl}/users/current/configuration/subscribers/${accountId}/subscriptions/${STRATEGY_ID}`,
+      `${CopyFactoryUrl}/users/current/configuration/subscribers/${accountId}/subscriptions/${strategyId}`,
       {
         headers: {
           "auth-token": process.env.METAAPI_ACCESS_KEY,

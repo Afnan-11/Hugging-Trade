@@ -1,13 +1,13 @@
 import {NextResponse} from "next/server";
 import prisma from "@/lib/db";
-import {CopyFactoryUrl, MetaApiUrl, N_OF_DAYS_BEFORE_PAYMENT_REQUEST, STRATEGY_ID} from "@/utils/constants";
+import {CopyFactoryUrl, MetaApiUrl, N_OF_DAYS_BEFORE_PAYMENT_REQUEST} from "@/utils/constants";
 import axios from "axios";
 import {auth} from "@clerk/nextjs/server";
 import MetaApi from "metaapi.cloud-sdk/esm-node";
 import {isAuthorized} from "@/app/actions/isAuthorized";
 import {Knock} from "@knocklabs/node";
 
-export async function subscribeToStrategy(accountId: any, userId: string) {
+export async function subscribeToStrategy(accountId: any, userId: string, strategyId: string) {
   console.log("accountId, userId", accountId, userId);
   if (!accountId) {
     const user = await prisma.user.findUnique({where: {user_id: userId}});
@@ -19,10 +19,10 @@ export async function subscribeToStrategy(accountId: any, userId: string) {
     const response = await axios.put(
       `${CopyFactoryUrl}/users/current/configuration/subscribers/${accountId}`,
       {
-        name: "MT5",
+        name: "Subscriber",
         subscriptions: [
           {
-            strategyId: STRATEGY_ID,
+            strategyId: strategyId,
           },
         ],
       },

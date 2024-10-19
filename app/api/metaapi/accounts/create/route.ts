@@ -1,6 +1,12 @@
 import {NextResponse} from "next/server";
 import prisma from "@/lib/db";
-import {CopyFactoryUrl, MetaApiUrl, N_OF_DAYS_BEFORE_PAYMENT_REQUEST, STRATEGY_ID} from "@/utils/constants";
+import {
+  CopyFactoryUrl,
+  MetaApiUrl,
+  N_OF_DAYS_BEFORE_PAYMENT_REQUEST,
+  STRATEGY_ID_MT4,
+  STRATEGY_ID_MT5,
+} from "@/utils/constants";
 import axios from "axios";
 import {auth} from "@clerk/nextjs/server";
 import MetaApi from "metaapi.cloud-sdk/esm-node";
@@ -23,7 +29,7 @@ export async function POST(req: Request) {
 
     const data = await req.json();
     const metaApiData = {
-      name: "MT5",
+      name: data.platform === "mt5" ? "MT5 SUBSCRIBER ACCOUNT" : "MT4 SUBSCRIBER ACCOUNT",
       login: data.login,
       password: data.password,
       server: data.server,
@@ -35,8 +41,11 @@ export async function POST(req: Request) {
 
     account = await createAndDeployAccount(metaApiData);
     const updatedUser = await Promise.all([
-      updateUserWithMetaApiAccount(userId, account.id),
-      subscribeToStrategy(account.id, userId),
+      updateUserWithMetaApiAccount(userId, {
+        metaapi_account_id: account.id,
+        metaapi_platform: data.platform,
+      }),
+      subscribeToStrategy(account.id, userId, data.platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4),
     ]);
 
     notifyUser({user_id: userId}, "message", {
@@ -84,12 +93,12 @@ async function removeAccount(accountId: string) {
   }
 }
 
-async function updateUserWithMetaApiAccount(userId: string, accountId: string) {
+async function updateUserWithMetaApiAccount(userId: string, metaApiData: any) {
   try {
     console.log("Updating user with MetaAPI account");
     const updatedUser = await prisma.user.update({
       where: {user_id: userId},
-      data: {metaapi_account_id: accountId},
+      data: metaApiData,
     });
     console.log("User updated");
 

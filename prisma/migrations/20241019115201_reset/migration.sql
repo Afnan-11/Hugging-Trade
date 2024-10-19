@@ -10,6 +10,7 @@ CREATE TABLE "user" (
     "user_id" TEXT NOT NULL,
     "subscription" TEXT,
     "metaapi_account_id" TEXT,
+    "metaapi_platform" TEXT NOT NULL,
     "is_admin" BOOLEAN NOT NULL DEFAULT false,
     "account_status" TEXT NOT NULL DEFAULT 'active',
     "freeze_start_time" TIMESTAMP(3),

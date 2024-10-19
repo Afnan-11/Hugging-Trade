@@ -5,6 +5,7 @@ export const BROKER_OPTIONS = [
   {
     value: "ic_markets",
     name: "IC Markets",
+    platform: "MT5",
     logo: "/icons/ic-markets.svg",
     rating: 4.5,
     reviews: 1000,
@@ -22,6 +23,7 @@ export const BROKER_OPTIONS = [
   {
     value: "oanda",
     name: "Oanda",
+    platform: "MT4",
     logo: "/icons/oanda.svg",
     rating: 4.5,
     reviews: 1000,
@@ -40,7 +42,9 @@ export const BROKER_OPTIONS = [
 export const MetaApiUrl = "https://mt-provisioning-api-v1.agiliumtrade.agiliumtrade.ai";
 export const MetaApiStatsUrl = "https://metastats-api-v1.new-york.agiliumtrade.ai";
 export const CopyFactoryUrl = "https://copyfactory-api-v1.new-york.agiliumtrade.ai";
-export const STRATEGY_ID = "O8dz";
+// export const STRATEGY_ID = "O8dz";
+export const STRATEGY_ID_MT4 = "j0Ne";
+export const STRATEGY_ID_MT5 = "HVHQ";
 
 export const plans = [
   {

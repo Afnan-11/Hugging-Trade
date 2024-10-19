@@ -19,6 +19,7 @@ model user {
   user_id           String   @unique
   subscription      String?
   metaapi_account_id String?
+  metaapi_platform String? 
   is_admin          Boolean  @default(false)
   account_status    String   @default("active") // e.g., "active", "frozen", "ondue"
   freeze_start_time DateTime?                   // Time when the account was frozen

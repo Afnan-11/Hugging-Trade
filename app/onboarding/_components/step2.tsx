@@ -2,8 +2,7 @@ import React, {useEffect} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {z} from "zod";
-import {Select, SelectTrigger, SelectValue, SelectContent, SelectItem} from "@/components/ui/select";
-
+import {BROKER_OPTIONS} from "@/utils/constants";
 type Step2Props = {
   data: {
     login: string;
@@ -28,7 +27,12 @@ const Step2 = ({data, setData, errors}: Step2Props) => {
   };
 
   useEffect(() => {
-    setData((prev: any) => ({...prev, platform: data.preferred_broker === "oanda" ? "MT4" : "MT5"}));
+    const platform = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker)?.platform;
+    if (platform) {
+      setData((prev: any) => ({...prev, platform: platform}));
+    } else {
+      setData((prev: any) => ({...prev, platform: "MT5"}));
+    }
   }, [data.preferred_broker]);
 
   return (
@@ -45,9 +49,6 @@ const Step2 = ({data, setData, errors}: Step2Props) => {
           {getErrorMessage("server") && <p className="text-sm text-red-500">{getErrorMessage("server")}</p>}
         </div>
         <div>
-          <Label htmlFor="platform">
-            Platform <span className="text-[10px] text-muted-foreground">Only MT5 platforms</span>
-          </Label>
           <Input
             disabled
             name="platform"

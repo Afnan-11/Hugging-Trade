@@ -1,4 +1,4 @@
-import {N_OF_DAYS_BEFORE_PAYMENT_REQUEST} from "@/utils/constants";
+import {N_OF_DAYS_BEFORE_PAYMENT_REQUEST, STRATEGY_ID_MT4, STRATEGY_ID_MT5} from "@/utils/constants";
 import {getUserWithLastPaymentRequest} from "@/app/actions/paymentRequests";
 import {createServerClient} from "@supabase/ssr";
 import {cookies} from "next/headers";
@@ -221,7 +221,8 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, supabase: Ret
           last_name,
           is_admin,
           metaapi_account_id,
-          user_id
+          user_id,
+          metaapi_platform
         )
       `,
         )
@@ -275,10 +276,18 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, supabase: Ret
       if (paymentRequestError) throw new Error("Error updating payment request");
       if (newPaymentRequestError) throw new Error("Error creating new payment request");
 
-      if (lastPaymentRequest.payment_status === "frozen") {
+      if (lastPaymentRequest.payment_status === "overdue") {
         console.log("re subscribe to strategy");
         // @ts-ignore
-        await subscribeToStrategy(lastPaymentRequest.user.metaapi_account_id, lastPaymentRequest.user.user_id);
+        const strategyId = lastPaymentRequest.user.metaapi_platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4;
+        // @ts-ignore
+        await subscribeToStrategy(
+          // @ts-ignore
+          lastPaymentRequest.user.metaapi_account_id,
+          // @ts-ignore
+          lastPaymentRequest.user.user_id,
+          strategyId,
+        );
         console.log("re subscribed to strategy");
       }
 
