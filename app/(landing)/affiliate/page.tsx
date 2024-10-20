@@ -36,7 +36,7 @@ async function getAffiliate(): Promise<AffiliateTypes | null> {
     return data;
   } catch (error) {
     console.error("Failed to fetch affiliate data:", error);
-    return null; // Handle error by returning null
+    return null; 
   }
 }
 

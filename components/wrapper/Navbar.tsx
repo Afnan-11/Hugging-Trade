@@ -217,7 +217,7 @@ export default function Navbar() {
           {userId ? <UserProfile /> : <Link href="/sign-in">Log in</Link>}
         </div>
         <div className="hidden cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:block">
-          {userId ? <Link href="/dashboard">Dashboard</Link> : <Link href="/sign-in">Start 30 day free trial</Link>}
+          <Link href="/pricing">Start 30 day free trial</Link>
         </div>
       </div>
     </nav>

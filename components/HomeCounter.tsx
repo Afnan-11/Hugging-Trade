@@ -73,7 +73,7 @@ const HomeCounter = ({
               <CountUp
                 start={0}
                 end={sectionThreeStarsNumber}
-                duration={5}
+                duration={10}
                 separator=","
                 decimals={sectionThreeStarsNumber % 1 !== 0 ? 2 : 0}
                 decimal="."
@@ -98,7 +98,7 @@ const HomeCounter = ({
               <CountUp
                 start={0}
                 end={sectionThreeUsersNumber}
-                duration={5}
+                duration={10}
                 separator=","
                 decimals={sectionThreeUsersNumber % 1 !== 0 ? 2 : 0}
                 decimal="."
@@ -124,7 +124,7 @@ const HomeCounter = ({
               <CountUp
                 start={0}
                 end={sectionThreeTimeNumber}
-                duration={5}
+                duration={10}
                 separator=","
                 decimals={sectionThreeTimeNumber % 1 !== 0 ? 2 : 0}
                 decimal="."

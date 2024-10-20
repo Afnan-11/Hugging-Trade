@@ -2,13 +2,13 @@ import Image from "next/image";
 import Link from "next/link";
 import {client} from "@/sanity/lib/client";
 import {HomeTypes} from "@/types";
-import SliderCalculator from "@/components/SliderCalculator";
-import AccordionHome from "@/components/AccordionHome";
-import VideoMembers from "@/components/VideoMembers";
 import HomeCounter from "@/components/HomeCounter";
-import CountdownTimer from "@/components/CountdownTimer";
 import {Metadata} from "next";
 import Script from "next/script";
+import CountdownTimer from "@/components/CountdownTimer";
+import SliderCalculator from "@/components/SliderCalculator";
+import VideoMembers from "@/components/VideoMembers";
+import AccordionHome from "@/components/AccordionHome";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
@@ -241,7 +241,6 @@ export default async function Home() {
                 width={1283}
                 height={723}
                 loading="eager"
-                priority
               />
             </div>
             <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center lg:gap-10">
@@ -267,6 +266,7 @@ export default async function Home() {
                       width={43}
                       height={63}
                       className="] z-50 -mt-7 ml-auto"
+                      loading="eager"
                     />
                   </div>
                 </div>
@@ -281,6 +281,7 @@ export default async function Home() {
                 width={67.32}
                 height={774}
                 className="z-50 mt-2"
+                loading="eager"
               />
             </div>
 
@@ -291,6 +292,7 @@ export default async function Home() {
                 alt="image"
                 width={174}
                 height={31}
+                loading="eager"
               />
               <p className="text-[20px]">
                 <span className="font-bold">4.9</span> out of 5 based on <span className="font-bold">592 reviews</span>
@@ -329,6 +331,7 @@ export default async function Home() {
                       width={43}
                       height={63}
                       className="z-50 -mt-7 ml-auto"
+                      loading="eager"
                     />
                   </div>
                 </div>
@@ -344,6 +347,7 @@ export default async function Home() {
                 width={174}
                 height={31}
                 className="scale-50"
+                loading="eager"
               />
               <p className="text-[20px]">
                 <span className="font-bold">4.9</span> out of 5 based on <span className="font-bold">592 reviews</span>
@@ -370,7 +374,7 @@ export default async function Home() {
               alt="img"
               width={599}
               height={96}
-              priority
+              loading="lazy"
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
@@ -387,6 +391,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Spending countless hours on market research and analysis</p>
           </div>
@@ -396,6 +401,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Making emotional decisions that lead to costly mistakes</p>
           </div>
@@ -405,6 +411,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Struggling to balance trading with your full-time job</p>
           </div>
@@ -414,6 +421,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Facing a steep learning curve and inconsistent results</p>
           </div>
@@ -425,8 +433,7 @@ export default async function Home() {
             alt="img"
             width={64.39}
             height={128.02}
-            priority
-            quality={100}
+            loading="lazy"
           />
         </div>
 
@@ -437,7 +444,7 @@ export default async function Home() {
               alt="img"
               width={676}
               height={96}
-              priority
+              loading="lazy"
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
@@ -454,17 +461,18 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
 
             <p>Expert-driven strategies outperform AI bots and manual trading</p>
           </div>
           <div className="flex items-center gap-2">
-            {/* <CircleCheck color="gray" /> */}
             <Image
               src={"/Images/HomePage/checkmark.svg.svg"}
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>No need for expensive, time-consuming courses</p>
           </div>
@@ -474,6 +482,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Hands-off approach eliminates emotional decision-making</p>
           </div>
@@ -483,6 +492,7 @@ export default async function Home() {
               alt="img"
               width={29}
               height={29}
+              loading="lazy"
             />
             <p>Aim for higher returns than traditional investments</p>
           </div>
@@ -527,6 +537,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Potential monthly returns of 150-200%</p>
               </div>
@@ -536,6 +547,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Precious time wasted on complex trading strategies</p>
               </div>
@@ -545,6 +557,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Peace of mind from stress-free, automated trading</p>
               </div>
@@ -554,6 +567,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>The lifestyle that comes with true financial freedom</p>
               </div>
@@ -565,6 +579,7 @@ export default async function Home() {
               width={81.83}
               height={63.64}
               className="-ml-20 -mt-10 hidden lg:block"
+              loading="lazy"
             />
 
             <Link
@@ -584,6 +599,7 @@ export default async function Home() {
             width={318}
             height={417.45}
             className="w-40 lg:w-[290px]"
+            loading="lazy"
           />
         </div>
       </div>
@@ -611,7 +627,7 @@ export default async function Home() {
                   alt="image"
                   width={19}
                   height={35}
-                  className=""
+                  loading="lazy"
                 />
                 <p className="text-pMobile">Sign up for your Hugging Trade account in minutes</p>
               </div>
@@ -622,7 +638,7 @@ export default async function Home() {
                   alt="image"
                   width={19}
                   height={35}
-                  className=""
+                  loading="lazy"
                 />
                 <p className="text-pMobile">Connect your preferred brokerage account securely</p>
               </div>
@@ -633,7 +649,7 @@ export default async function Home() {
                   alt="image"
                   width={19}
                   height={35}
-                  className=""
+                  loading="lazy"
                 />
                 <p className="text-pMobile">Choose your initial investment amount - $300 minimum required</p>
               </div>
@@ -646,6 +662,7 @@ export default async function Home() {
               width={305}
               height={305}
               className="-mt-20 w-40 lg:w-[305px]"
+              loading="lazy"
             />
           </div>
         </div>
@@ -657,6 +674,7 @@ export default async function Home() {
             width={137}
             height={159.23}
             className="z-50 -mb-32 ml-auto hidden -translate-x-24 lg:block"
+            loading="lazy"
           />
           <div className="flex items-center justify-center">
             <div className="w-full space-y-10 rounded-[48px] border-[1px] border-gray-200 px-10 py-10 shadow-md lg:w-[1000px]">
@@ -667,6 +685,7 @@ export default async function Home() {
                   width={42.99}
                   height={39.65}
                   className="-mt-5"
+                  loading="lazy"
                 />
                 <p className="text-center text-[25px] font-black leading-7 lg:text-[32px] lg:font-bold lg:leading-none">
                   No brokerage account yet?
@@ -678,6 +697,7 @@ export default async function Home() {
                   width={42.99}
                   height={39.65}
                   className="-mt-5"
+                  loading="lazy"
                 />
               </div>
               <p className="text-center text-pMobile font-medium lg:text-pMain">
@@ -695,6 +715,7 @@ export default async function Home() {
           width={69.45}
           height={72.31}
           className="ml-auto hidden lg:block lg:-translate-x-40"
+          loading="lazy"
         />
         <div className="flex flex-col items-center justify-center px-2 lg:flex-row">
           <div className="flex w-full flex-wrap items-center justify-center gap-2 lg:w-[490px] lg:justify-start">
@@ -705,6 +726,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#945CA4] group-hover:text-white">Limit</p>
             </div>
@@ -716,6 +738,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#2563EB] group-hover:text-white">TWAP</p>
             </div>
@@ -727,6 +750,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#029747] group-hover:text-white">Market</p>
             </div>
@@ -738,6 +762,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#2563EB] group-hover:text-white">Stop limit</p>
             </div>
@@ -749,6 +774,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#2563EB] group-hover:text-white">Scaled</p>
             </div>
@@ -760,6 +786,7 @@ export default async function Home() {
                 width={42}
                 height={42}
                 className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                loading="lazy"
               />
               <p className="text-[36px] text-[#E04515] group-hover:text-white">Stop</p>
             </div>
@@ -783,6 +810,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p className="text-pMobile">No complex strategies — just one that works.</p>
               </div>
@@ -792,6 +820,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p className="text-[20px]">Set your desired investment amount</p>
               </div>
@@ -801,6 +830,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p className="text-[20px]">Adjust your deposit anytime as your goals change.</p>
               </div>
@@ -814,6 +844,7 @@ export default async function Home() {
             width={137}
             height={159.23}
             className="z-50 -mb-32 ml-auto hidden -translate-x-44 lg:block"
+            loading="lazy"
           />
           <div className="flex items-center justify-center pr-5 lg:pr-0">
             <Image
@@ -822,6 +853,7 @@ export default async function Home() {
               width={24.07}
               height={24.93}
               className="z-50 -mt-8 -translate-x-32"
+              loading="lazy"
             />
             <div className="mt-5 w-full space-y-10 rounded-[48px] border-[1px] border-gray-200 px-5 py-5 shadow-md lg:mt-0 lg:w-[1000px] lg:px-10 lg:py-10">
               <div className="flex items-center justify-center lg:gap-5">
@@ -831,6 +863,7 @@ export default async function Home() {
                   width={42.99}
                   height={39.65}
                   className="-mt-10 lg:-mt-5"
+                  loading="lazy"
                 />
                 <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
                   Wondering about minimum investments?
@@ -842,6 +875,7 @@ export default async function Home() {
                   width={42.99}
                   height={39.65}
                   className="-mt-10 lg:-mt-5"
+                  loading="lazy"
                 />
               </div>
               <p className="text-center text-pMobile font-medium lg:text-pMain">
@@ -855,6 +889,7 @@ export default async function Home() {
             width={73.28}
             height={69.35}
             className="z-50 -mt-8 ml-auto -translate-x-14 lg:-translate-x-72"
+            loading="lazy"
           />
         </div>
       </div>
@@ -873,12 +908,12 @@ export default async function Home() {
 
           <div className="space-y-4 text-left text-[20px]">
             <div className="flex items-center gap-2">
-              {/* <CircleCheck color="#A0A3A9" /> */}
               <Image
                 src={"/Images/HomePage/checkmark.svg.svg"}
                 alt="img"
                 width={29}
                 height={29}
+                loading="lazy"
               />
               <p>Advanced algorithms execute trades automatically</p>
             </div>
@@ -888,6 +923,7 @@ export default async function Home() {
                 alt="img"
                 width={29}
                 height={29}
+                loading="lazy"
               />
               <p>Real-time performance tracking keeps you informed</p>
             </div>
@@ -897,6 +933,7 @@ export default async function Home() {
                 alt="img"
                 width={29}
                 height={29}
+                loading="lazy"
               />
               <p>Monthly payouts allow for reinvestment or withdrawal</p>
             </div>
@@ -909,6 +946,7 @@ export default async function Home() {
           width={419.6}
           height={354.5}
           className="w-64 pb-20 lg:h-[354.5] lg:w-[419.6px]"
+          loading="lazy"
         />
       </div>
 
@@ -919,6 +957,7 @@ export default async function Home() {
           width={137}
           height={159.23}
           className="z-50 -mb-32 ml-auto hidden -translate-x-44 lg:block"
+          loading="lazy"
         />
         <div className="flex items-center justify-center px-5 lg:px-0">
           <Image
@@ -927,6 +966,7 @@ export default async function Home() {
             width={41.67}
             height={43.59}
             className="z-50 -mt-8 hidden -translate-x-32 lg:block"
+            loading="lazy"
           />
           <div className="space-y-10 rounded-[48px] border-[1px] border-gray-200 px-5 py-10 shadow-md lg:w-[1000px] lg:px-10">
             <div className="flex items-center justify-center gap-5">
@@ -936,6 +976,7 @@ export default async function Home() {
                 width={42.99}
                 height={39.65}
                 className="-mt-5"
+                loading="lazy"
               />
               <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
                 Curious about accessing your profits?
@@ -947,6 +988,7 @@ export default async function Home() {
                 width={42.99}
                 height={39.65}
                 className="-mt-5"
+                loading="lazy"
               />
             </div>
             <p className="text-center text-pMobile font-medium lg:text-pMain">
@@ -960,6 +1002,7 @@ export default async function Home() {
           width={71.3}
           height={67.67}
           className="-mt-14 mr-auto translate-x-60"
+          loading="lazy"
         />
         <Image
           src={"/Images/HomePage/19.svg"}
@@ -967,6 +1010,7 @@ export default async function Home() {
           width={71.3}
           height={67.67}
           className="ml-auto mt-0 hidden -translate-x-40 pb-5 lg:-mt-8 lg:block lg:pb-0"
+          loading="lazy"
         />
       </div>
 
@@ -980,6 +1024,7 @@ export default async function Home() {
               alt="image"
               width={1282}
               height={86}
+              loading="lazy"
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-end">
@@ -1000,6 +1045,7 @@ export default async function Home() {
               alt="image"
               width={124}
               height={124}
+              loading="lazy"
             />
             <p className="pt-5 text-[28px] font-bold">Your funds are secure</p>
             <p className="w-[303px] pt-4 text-center text-[17px]">
@@ -1013,6 +1059,7 @@ export default async function Home() {
               alt="image"
               width={71}
               height={105}
+              loading="lazy"
             />
             <p className="pt-5 text-[28px] font-bold">API key is all you need</p>
             <p className="w-[303px] pt-4 text-center text-[17px]">
@@ -1026,6 +1073,7 @@ export default async function Home() {
               alt="image"
               width={108.18}
               height={96.25}
+              loading="lazy"
             />
             <p className="pt-5 text-[28px] font-bold">Fast trading servers</p>
             <p className="w-[303px] pt-4 text-center text-[17px]">
@@ -1046,6 +1094,7 @@ export default async function Home() {
             width={1282}
             height={86}
             className="hidden lg:block"
+            loading="lazy"
           />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-end">
@@ -1072,6 +1121,7 @@ export default async function Home() {
             alt="image"
             width={385}
             height={56}
+            loading="lazy"
           />
         </div>
 
@@ -1088,6 +1138,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>3-minute sign-up process</p>
               </div>
@@ -1097,6 +1148,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Accurate profit forecasting</p>
               </div>
@@ -1106,6 +1158,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Flexible investment options</p>
               </div>
@@ -1115,6 +1168,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Expert-driven trading strategies</p>
               </div>
@@ -1124,6 +1178,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p>Real-time performance tracking</p>
               </div>
@@ -1133,6 +1188,7 @@ export default async function Home() {
                   alt="img"
                   width={29}
                   height={29}
+                  loading="lazy"
                 />
                 <p className="">No long-term commitment - cancel anytime</p>
               </div>
@@ -1146,6 +1202,7 @@ export default async function Home() {
               width={1320}
               height={732}
               className="mt-5 -translate-x-[9px] pb-5 lg:mt-0 lg:-translate-x-[0px] lg:pb-0"
+              loading="lazy"
             />
           </div>
         </div>
@@ -1159,6 +1216,7 @@ export default async function Home() {
         width={115.62}
         height={113.39}
         className="z-[60] block translate-x-[20px] translate-y-[335px] lg:hidden"
+        loading="lazy"
       />
 
       <div className="-mb-[200px] -mt-20 h-[1000px] scale-75 transform lg:hidden">
@@ -1168,6 +1226,7 @@ export default async function Home() {
             alt="image"
             width={317.84}
             height={288.56}
+            loading="lazy"
           />
 
           <Image
@@ -1175,6 +1234,7 @@ export default async function Home() {
             alt="image"
             width={317.84}
             height={288.56}
+            loading="lazy"
           />
 
           <Image
@@ -1182,6 +1242,7 @@ export default async function Home() {
             alt="image"
             width={309}
             height={282}
+            loading="lazy"
           />
         </div>
         <div className="-mt-[1000px]">
@@ -1192,8 +1253,7 @@ export default async function Home() {
                 alt="img"
                 width={437}
                 height={96}
-                loading="eager"
-                priority
+                loading="lazy"
               />
             </div>
             <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
@@ -1209,6 +1269,7 @@ export default async function Home() {
                 width={176.9}
                 height={680.88}
                 className="translate-x-20 translate-y-6"
+                loading="lazy"
               />
 
               <div className="absolute inset-0 mt-[100px] flex flex-col items-center justify-center gap-80 text-[25px] font-bold">
@@ -1241,6 +1302,7 @@ export default async function Home() {
         width={102.06}
         height={106.05}
         className="w-14 -translate-y-[300px] translate-x-[300px] lg:hidden"
+        loading="lazy"
       />
 
       {/* -------------------------------------------------------------------------------------- */}
@@ -1252,8 +1314,7 @@ export default async function Home() {
               alt="img"
               width={437}
               height={96}
-              loading="eager"
-              priority
+              loading="lazy"
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
@@ -1267,6 +1328,7 @@ export default async function Home() {
             alt="image"
             width={1000}
             height={573}
+            loading="lazy"
           />
 
           <div className="absolute inset-0 mt-[50px] flex items-center justify-around px-40 text-[32px] font-bold">
