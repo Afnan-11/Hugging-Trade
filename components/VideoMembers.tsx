@@ -49,7 +49,7 @@ async function fetchVideoData(): Promise<VideoSchemaTypes | null> {
   }
 }
 
-export default async function VideoMembers() {
+export default function VideoMembers() {
   const [video, setVideo] = useState<VideoSchemaTypes | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<null | string>(null);
@@ -128,7 +128,7 @@ export default async function VideoMembers() {
               href="/pricing"
               className="block"
             >
-              <div className="w-[280.64px] hover:bg-[#2563EB] rounded-[20px] border-[2px] border-[#111827] hover:border-[#2563EB] py-3 text-center text-[22px] text-[#111827] hover:text-white">
+              <div className="w-[280.64px] rounded-[20px] border-[2px] border-[#111827] py-3 text-center text-[22px] text-[#111827] hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white">
                 Start free trial
               </div>
             </Link>

@@ -118,7 +118,7 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
             )}
           </CardContent>
           <CardFooter className="flex justify-between">
-            {currentStep >= 1 && (
+            {currentStep == 1 && (
               <Button
                 disabled={isLoading}
                 type="button"
