@@ -1,5 +1,5 @@
 # Getting Started
-#
+
 Watch me [Setting Up My Starter Kit](https://www.youtube.com/watch?v=23wVXe4bWLk) on YouTube.
 
 ## Prerequisites
