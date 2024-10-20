@@ -188,11 +188,19 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, supabase: Ret
         .eq("email", metadata?.email);
       if (invoiceError) throw new Error("Error updating invoice");
 
-      const {error: userError} = await supabase
+      const {data: userData, error: userError} = await supabase
         .from("user")
         .update({subscription: session.id})
-        .eq("user_id", metadata?.userId);
+        .eq("user_id", metadata?.userId)
+        .select()
+        .single();
       if (userError) throw new Error("Error updating user subscription");
+
+      await subscribeToStrategy(
+        userData.metaapi_account_id as string,
+        userData.user_id as string,
+        userData.metaapi_platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4,
+      );
 
       return NextResponse.json({
         status: 200,

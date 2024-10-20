@@ -1,86 +1,100 @@
-import React, {useEffect} from "react";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {z} from "zod";
-import {BROKER_OPTIONS} from "@/utils/constants";
-type Step2Props = {
-  data: {
-    login: string;
-    password: string;
-    server: string;
-    platform: string;
-    preferred_broker: string;
-  };
-  setData: (data: any) => void;
-  errors: z.ZodIssue[];
-};
+"use client";
 
-const Step2 = ({data, setData, errors}: Step2Props) => {
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const {name, value} = e.target;
-    setData((prev: any) => ({...prev, [name]: value}));
-  };
+import React, {useState, useEffect, memo} from "react";
+import {useUser} from "@clerk/nextjs";
+import {useRouter} from "next/navigation";
+import {PricingCard} from "@/components/pricing-card";
+import {plans} from "@/utils/constants";
+import {checkAuthorization} from "@/app/actions/auth";
+import {Spinner} from "@/components/ui/spinner";
+import PricingContent from "@/components/PricingContent";
+import {PricingTypes} from "@/types";
 
-  const getErrorMessage = (field: string) => {
-    const error = errors.find((e) => e.path[0] === field);
-    return error ? error.message : "";
-  };
+function Step2({
+  pricing,
+  setIsAuthorizedParent,
+}: {
+  pricing: PricingTypes | null;
+  setIsAuthorizedParent: (isAuthorized: boolean | null) => void;
+}) {
+  const {user, isLoaded} = useUser();
+  const router = useRouter();
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const [authMessage, setAuthMessage] = useState("");
 
   useEffect(() => {
-    const platform = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker)?.platform;
-    if (platform) {
-      setData((prev: any) => ({...prev, platform: platform}));
-    } else {
-      setData((prev: any) => ({...prev, platform: "MT5"}));
+    if (isLoaded && !user) {
+      router.push("/sign-in");
+    } else if (user?.id) {
+      handleAuthorization(user.id);
     }
-  }, [data.preferred_broker]);
+  }, [isLoaded, user, router]);
+
+  useEffect(() => {
+    setIsAuthorizedParent(isAuthorized);
+  }, [isAuthorized, setIsAuthorizedParent]);
+
+  async function handleAuthorization(userId: string) {
+    try {
+      const {authorized, message} = await checkAuthorization(userId);
+      setAuthMessage(message);
+      setIsAuthorized(authorized);
+    } catch (error) {
+      console.error("Error checking authorization:", error);
+      setIsAuthorized(false);
+      setAuthMessage("An error occurred while checking authorization.");
+    }
+  }
+
+  if (!isLoaded || !user) {
+    return (
+      <div>
+        Loading user data <Spinner />
+      </div>
+    );
+  }
+
+  if (isAuthorized === null) {
+    return (
+      <div>
+        Checking authorization <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
-      <h2 className="mb-4 text-2xl font-semibold">Enter your details</h2>
-      <div className="space-y-4">
-        <div>
-          <Label htmlFor="server">Server</Label>
-          <Input
-            name="server"
-            value={data.server}
-            onChange={handleInputChange}
-          />
-          {getErrorMessage("server") && <p className="text-sm text-red-500">{getErrorMessage("server")}</p>}
+      {isAuthorized ? (
+        <>
+          {authMessage && <div className="mb-4 rounded-md bg-blue-100 p-4 text-blue-700">{authMessage}</div>}
+          <h2 className="mb-3 text-3xl font-semibold tracking-tight transition-colors">Welcome to Hugging Trade 🎉</h2>
+          <p className="mb-3">
+            You have successfully subscribed to Hugging Trade.
+            <br />
+            Let&apos;s get cooking
+          </p>
+        </>
+      ) : (
+        <div className="">
+          {pricing && (
+            <PricingContent
+              pricing={pricing}
+              user={user}
+              areOnlyCardsShown
+            />
+          )}
+          {/*  {plans.map((plan) => (
+            <PricingCard
+              key={plan.title}
+              {...plan}
+              isYearly={false}
+              user={user}
+            />
+          ))} */}
         </div>
-        <div>
-          <Input
-            disabled
-            name="platform"
-            value={data.platform}
-            onChange={handleInputChange}
-          />
-          {getErrorMessage("platform") && <p className="text-sm text-red-500">{getErrorMessage("platform")}</p>}
-        </div>
-
-        <div>
-          <Label htmlFor="login">Login</Label>
-          <Input
-            name="login"
-            value={data.login}
-            onChange={handleInputChange}
-            type="number"
-          />
-          {getErrorMessage("login") && <p className="text-sm text-red-500">{getErrorMessage("login")}</p>}
-        </div>
-        <div>
-          <Label htmlFor="password">Password</Label>
-          <Input
-            name="password"
-            type="password"
-            value={data.password}
-            onChange={handleInputChange}
-          />
-          {getErrorMessage("password") && <p className="text-sm text-red-500">{getErrorMessage("password")}</p>}
-        </div>
-      </div>
+      )}
     </>
   );
-};
+}
 
-export default Step2;
+export default memo(Step2);

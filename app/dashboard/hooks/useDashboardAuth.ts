@@ -32,7 +32,7 @@ export function useDashboardAuth() {
     return {isLoading: false};
   }
 
-  if (!user.metaapi_account_id) {
+  if (!user.metaapi_account_id || !user.subscription) {
     router.push("/onboarding");
     return {isLoading: false};
   }

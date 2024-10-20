@@ -21,11 +21,11 @@ export async function POST(req: Request) {
       return NextResponse.json({success: false, error: "User not authenticated"}, {status: 401});
     }
 
-    const {authorized, message} = await isAuthorized(userId);
-    if (!authorized) {
-      console.log("User not authorized");
-      return NextResponse.json({success: false, error: message}, {status: 401});
-    }
+    // const {authorized, message} = await isAuthorized(userId);
+    // if (!authorized) {
+    //   console.log("User not authorized");
+    //   return NextResponse.json({success: false, error: message}, {status: 401});
+    // }
 
     const data = await req.json();
     const metaApiData = {
@@ -40,12 +40,11 @@ export async function POST(req: Request) {
     };
 
     account = await createAndDeployAccount(metaApiData);
-    const [updatedUser, subscribed] = await Promise.all([
+    const [updatedUser] = await Promise.all([
       updateUserWithMetaApiAccount(userId, {
         metaapi_account_id: account.id,
         metaapi_platform: data.platform,
       }),
-      subscribeToStrategy(account.id, userId, data.platform === "mt5" ? STRATEGY_ID_MT5 : STRATEGY_ID_MT4),
     ]);
 
     notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "message", {

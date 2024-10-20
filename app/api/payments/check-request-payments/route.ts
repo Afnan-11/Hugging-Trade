@@ -77,7 +77,7 @@ async function handleFreezingAccount(user: any, lastRequest: any) {
     // }),
   ]);
   console.log("Account frozen. Notifying user...");
-  // await notifyUser(user, "payment-requests-freezing", {payment_status: "frozen"});
+  await notifyUser(user, "payment-requests-frozen", {payment_status: "frozen"});
   console.log("Notified user of account freezing");
 }
 
@@ -103,7 +103,7 @@ async function handleOnduePayment(user: any, lastRequest: any) {
     profit: (profit - lastRequest.profit_start).toFixed(2),
     percentage: percentage * 100,
   });
-  console.log("Notified user of pending payment request");
+  console.log("Notified user of ondue payment request");
 }
 
 async function getMetrics(user: any) {

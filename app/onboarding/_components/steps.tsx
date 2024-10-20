@@ -3,14 +3,14 @@ import React, {useState} from "react";
 import {z} from "zod";
 import SteppedProgress from "@/components/progress-steps";
 import {toast} from "sonner";
+import Step0 from "./step0";
 import Step1 from "./step1";
-import Step2 from "./step2";
 import axios from "axios";
 import {Spinner} from "@/components/ui/spinner";
 import {Button} from "@/components/ui/button";
 import {useRouter} from "next/navigation";
 import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} from "@/components/ui/card";
-import Step0 from "./step0";
+import Step2 from "./step2";
 import {useUser} from "@clerk/nextjs";
 import {PricingTypes} from "@/types";
 const formSchema = z.object({
@@ -21,11 +21,10 @@ const formSchema = z.object({
   password: z.string().min(1, {message: "Password is required"}),
 });
 
-const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
+const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
   const router = useRouter();
-  const {user} = useUser();
 
-  const [currentStep, setCurrentStep] = useState(0);
+  const [currentStep, setCurrentStep] = useState(user.metaapi_account_id ? 2 : 0);
   const [data, setData] = useState({
     preferred_broker: "",
     login: "",
@@ -38,7 +37,7 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
   const [isAuthorizedParent, setIsAuthorizedParent] = useState<boolean | null>(null);
   const validateStep = (step: number) => {
     let stepSchema;
-    if (step === 1) {
+    if (step === 0) {
       stepSchema = formSchema.pick({preferred_broker: true});
     } else {
       stepSchema = formSchema.omit({preferred_broker: true});
@@ -66,8 +65,9 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
       if (typeof window !== "undefined" && "tolt_referral" in window && "tolt" in window) {
         (window as any).tolt.signup(user?.emailAddresses?.[0]?.emailAddress);
       }
-      toast.success("Onboarding completed successfully!");
-      router.push("/dashboard");
+      toast.success("Account created successfully! Subscribe to a plan to continue.");
+      setCurrentStep(2);
+      // router.push("/dashboard");
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors(error.issues);
@@ -79,6 +79,8 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
       setIsLoading(false);
     }
   };
+
+  console.log(currentStep);
 
   return (
     <section className={currentStep === 0 ? "mx-auto max-w-5xl" : "flex items-center justify-center"}>
@@ -96,8 +98,9 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
             />
             {currentStep === 0 && (
               <Step0
-                pricing={pricing}
-                setIsAuthorizedParent={setIsAuthorizedParent}
+                data={data}
+                setData={setData}
+                errors={errors}
               />
             )}
             {currentStep === 1 && (
@@ -109,14 +112,13 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
             )}
             {currentStep === 2 && (
               <Step2
-                data={data}
-                setData={setData}
-                errors={errors}
+                pricing={pricing}
+                setIsAuthorizedParent={setIsAuthorizedParent}
               />
             )}
           </CardContent>
           <CardFooter className="flex justify-between">
-            {currentStep > 1 && (
+            {currentStep >= 1 && (
               <Button
                 disabled={isLoading}
                 type="button"
@@ -129,13 +131,13 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
                 Back
               </Button>
             )}
-            {currentStep === 2 ? (
+            {currentStep === 1 ? (
               <Button
                 type="submit"
                 disabled={isLoading}
                 className="space-x-2"
               >
-                {isLoading && <Spinner size="sm" />} <span>Finish</span>
+                {isLoading && <Spinner size="sm" />} <span>Create Account</span>
               </Button>
             ) : (
               <Button
@@ -144,17 +146,11 @@ const Steps = ({pricing}: {pricing: PricingTypes | null}) => {
                 onClick={(e) => {
                   e.preventDefault();
                   if (currentStep === 0) {
-                    if (isAuthorizedParent) {
-                      setCurrentStep(currentStep + 1);
-                    } else {
-                      toast.error("You are not authorized to access this page");
-                    }
-                  } else if (currentStep === 1) {
-                    if (validateStep(1)) setCurrentStep(currentStep + 1);
+                    if (validateStep(0)) setCurrentStep(currentStep + 1);
                   }
                 }}
               >
-                Next
+                {currentStep === 0 ? "Next" : "Finish"}
               </Button>
             )}
           </CardFooter>
