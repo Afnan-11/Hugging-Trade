@@ -24,7 +24,7 @@ const formSchema = z.object({
 const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
   const router = useRouter();
 
-  const [currentStep, setCurrentStep] = useState(user.metaapi_account_id ? 2 : 0);
+  const [currentStep, setCurrentStep] = useState(user?.metaapi_account_id ? 2 : 0);
   const [data, setData] = useState({
     preferred_broker: "",
     login: "",
