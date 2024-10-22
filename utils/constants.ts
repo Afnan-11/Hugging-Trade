@@ -44,7 +44,7 @@ export const MetaApiStatsUrl = "https://metastats-api-v1.new-york.agiliumtrade.a
 export const CopyFactoryUrl = "https://copyfactory-api-v1.new-york.agiliumtrade.ai";
 // export const STRATEGY_ID = "O8dz";
 export const STRATEGY_ID_MT4 = "j0Ne";
-export const STRATEGY_ID_MT5 = "HVHQ";
+export const STRATEGY_ID_MT5 = "vl5S";
 
 export const plans = [
   {
