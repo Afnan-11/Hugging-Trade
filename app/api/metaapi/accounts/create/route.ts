@@ -40,12 +40,10 @@ export async function POST(req: Request) {
     };
 
     account = await createAndDeployAccount(metaApiData);
-    const [updatedUser] = await Promise.all([
-      updateUserWithMetaApiAccount(userId, {
-        metaapi_account_id: account.id,
-        metaapi_platform: data.platform,
-      }),
-    ]);
+    const updatedUser = await updateUserWithMetaApiAccount(userId, {
+      metaapi_account_id: account.id,
+      metaapi_platform: data.platform,
+    });
 
     notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "message", {
       message: "Your account has been created successfully! Thank you for your trust.",

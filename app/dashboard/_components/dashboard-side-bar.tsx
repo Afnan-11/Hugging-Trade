@@ -23,7 +23,7 @@ export default function DashboardSideBar({isAdmin = false}: {isAdmin?: boolean})
         <div className="flex-1 overflow-auto py-2">
           <nav className="grid items-start px-4 text-sm font-medium">
             {routes.map((route, index) => (
-              <>
+              <div key={route.href}>
                 {index === routes.length - 1 && <Separator className="my-2" />}
                 <Link
                   target={route.target}
@@ -38,7 +38,7 @@ export default function DashboardSideBar({isAdmin = false}: {isAdmin?: boolean})
                   </div>
                   {route.label}
                 </Link>
-              </>
+              </div>
             ))}
           </nav>
         </div>
