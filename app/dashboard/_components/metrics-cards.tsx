@@ -60,13 +60,13 @@ export function MetricsCards({metrics}: MetricsCardsProps) {
         icon={<TrendingUpIcon className="h-4 w-4 text-muted-foreground" />}
       />
       <MetricCard
-        title="This Month Profit"
+        title="This Month’s Profit"
         value={`${metrics?.paymentRequests?.thisMonthPaymentRequest.payment_status === "pending" ? "Pending" : metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_end - metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_start + "$"}`}
         description={`${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_start).toLocaleDateString("en-US", {month: "long", day: "numeric"})} - ${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_end).toLocaleDateString("en-US", {month: "long", day: "numeric"})}`}
         icon={<DollarSignIcon className="h-4 w-4 text-muted-foreground" />}
       />
       <MetricCard
-        title="Profit amount due"
+        title="Profit Amount Due"
         value={`${metrics?.paymentRequests?.thisMonthPaymentRequest.payment_status == "pending" ? "Pending" : metrics?.paymentRequests?.thisMonthPaymentRequest?.owed_amount + "$"}`}
         description={`${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_start).toLocaleDateString("en-US", {month: "long", day: "numeric"})} - ${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_end).toLocaleDateString("en-US", {month: "long", day: "numeric"})}`}
         icon={<DollarSignIcon className="h-4 w-4 text-muted-foreground" />}
