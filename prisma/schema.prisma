@@ -24,6 +24,7 @@ model user {
   account_status    String   @default("active") // e.g., "active", "frozen", "ondue"
   freeze_start_time DateTime?                   // Time when the account was frozen
   payment_requests  payment_requests[]
+  source            String?    // e.g., "instagram", "tiktok", "twitter", "google", "referral", "other"
 }
 
 

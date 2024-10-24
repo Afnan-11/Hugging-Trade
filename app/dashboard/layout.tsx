@@ -1,14 +1,22 @@
 "use client";
+import {useState, useEffect, ReactNode} from "react";
 import NotAuthorized from "@/components/not-authorized";
-import {ReactNode} from "react";
 import DashboardSideBar from "./_components/dashboard-side-bar";
 import DashboardTopNav from "./_components/dashbord-top-nav";
 import {ProfitShareOverlay} from "./_components/profit-share-overlay";
 import {useDashboardAuth} from "./hooks/useDashboardAuth";
 import {Skeleton} from "@/components/ui/skeleton";
+import {SourceModal} from "./_components/source-modal";
 
 export default function DashboardLayout({children}: {children: ReactNode}) {
   const {authorized, user, lastPaymentRequest, message, isLoading} = useDashboardAuth();
+  const [showSourceModal, setShowSourceModal] = useState(false);
+
+  useEffect(() => {
+    if (user && user?.source === null) {
+      setShowSourceModal(true);
+    }
+  }, [user]);
 
   if (!authorized && !isLoading) {
     return <NotAuthorized />;
@@ -27,6 +35,10 @@ export default function DashboardLayout({children}: {children: ReactNode}) {
           />
         )}
       </div>
+      <SourceModal
+        showSourceModal={showSourceModal}
+        setShowSourceModal={setShowSourceModal}
+      />
     </>
   );
 }
