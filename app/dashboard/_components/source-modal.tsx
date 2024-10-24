@@ -74,7 +74,7 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
             Discover Your Path to Us
           </DialogTitle>
           <DialogDescription className="text-lg">
-            We're curious! Help us understand how you found your way to our digital doorstep.
+            {`We're curious! Help us understand how you found your way to our digital doorstep.`}
           </DialogDescription>
         </DialogHeader>
 

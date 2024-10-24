@@ -13,6 +13,7 @@ interface User {
   last_name: string | null;
   created_time: string;
   is_admin: boolean;
+  source: string | null;
 }
 
 const fetchUsers = async (): Promise<User[]> => {

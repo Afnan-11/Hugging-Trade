@@ -76,7 +76,7 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
             href={selectedBroker?.url || "#"}
             className="hover:underline"
           >
-            Can't find your details? Contact {selectedBroker?.name} Support
+            {`Can't find your details? Contact ${selectedBroker?.name} Support`}
           </Link>
         </div>
       </div>
