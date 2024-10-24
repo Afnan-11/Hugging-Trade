@@ -13,6 +13,7 @@ import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} f
 import Step2 from "./step2";
 import {useUser} from "@clerk/nextjs";
 import {PricingTypes} from "@/types";
+import {Wallet} from "lucide-react";
 const formSchema = z.object({
   server: z.string().min(1, {message: "Server is required"}),
   preferred_broker: z.string().min(1, {message: "Preferred broker is required"}),
@@ -135,14 +136,14 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="space-x-2"
+                className="space-x-2 bg-accent hover:bg-accent/80"
               >
                 {isLoading && <Spinner size="sm" />} <span>Create Account</span>
               </Button>
             ) : (
               <Button
                 type="button"
-                className="ml-auto mr-0"
+                className="ml-auto mr-0 bg-accent hover:bg-accent/80"
                 onClick={(e) => {
                   e.preventDefault();
                   if (currentStep === 0) {
@@ -150,7 +151,14 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
                   }
                 }}
               >
-                {currentStep === 0 ? "Next" : "Finish"}
+                {currentStep === 0 ? (
+                  <>
+                    <Wallet className="mr-2 h-4 w-4" />
+                    Confirm Deposit
+                  </>
+                ) : (
+                  "Finish"
+                )}
               </Button>
             )}
           </CardFooter>

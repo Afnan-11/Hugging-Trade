@@ -19,6 +19,7 @@ export const BROKER_OPTIONS = [
       "24/7 customer support",
     ],
     trustFactors: ["True ECN broker", "Segregated client funds", "Negative balance protection"],
+    guideLink: "https://help.huggingtrade.com/article/9-ic-markets",
   },
   {
     value: "oanda",
@@ -36,6 +37,7 @@ export const BROKER_OPTIONS = [
       "Advanced charting and analysis tools",
     ],
     trustFactors: ["20+ years of experience", "Fully regulated in USA and Canada", "Bank-grade security measures"],
+    guideLink: "https://help.huggingtrade.com/article/16-how-to-create-and-set-up-your-oanda-brokerage-account",
   },
 ];
 

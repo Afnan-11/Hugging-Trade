@@ -1,8 +1,11 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {z} from "zod";
+import {Alert, AlertDescription} from "@/components/ui/alert";
+import {InfoIcon} from "lucide-react";
 import {BROKER_OPTIONS} from "@/utils/constants";
+import Link from "next/link";
 type Step1Props = {
   data: {
     login: string;
@@ -16,6 +19,7 @@ type Step1Props = {
 };
 
 const Step1 = ({data, setData, errors}: Step1Props) => {
+  const [selectedBroker, setSelectedBroker] = useState<(typeof BROKER_OPTIONS)[0] | null>(null);
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const {name, value} = e.target;
     setData((prev: any) => ({...prev, [name]: value}));
@@ -26,8 +30,12 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
     return error ? error.message : "";
   };
 
+  console.log({selectedBroker});
+
   useEffect(() => {
-    const platform = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker)?.platform;
+    const broker = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker);
+    const platform = broker?.platform;
+    setSelectedBroker(broker!);
     if (platform) {
       setData((prev: any) => ({...prev, platform: platform}));
     } else {
@@ -37,7 +45,41 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
 
   return (
     <>
-      <h2 className="mb-4 text-2xl font-semibold">Enter your details</h2>
+      <div className="mb-8 w-full max-w-2xl">
+        <h1 className="text-2xl font-semibold text-gray-700">Connect your IC Markets MT5 Account</h1>
+
+        <Alert className="mt-4 border border-blue-200 bg-blue-50">
+          <InfoIcon className="h-4 w-4 text-blue-500" />
+          <AlertDescription className="text-blue-700">
+            Please enter your {selectedBroker?.name}
+            <strong> LIVE </strong>
+            trading account details below. Demo accounts are not supported.
+          </AlertDescription>
+        </Alert>
+
+        <div className="mt-4">
+          <h2 className="text-lg font-semibold text-gray-700">
+            You can find your {selectedBroker?.platform} login details:
+          </h2>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-gray-600">
+            <li>
+              In your {selectedBroker?.name} client portal under {selectedBroker?.platform} accounts
+            </li>
+            <li>In the welcome email from {selectedBroker?.name}</li>
+          </ul>
+        </div>
+
+        <div className="mt-4 flex items-center space-x-2 text-blue-600">
+          <InfoIcon className="h-4 w-4" />
+          <Link
+            target="_blank"
+            href={selectedBroker?.url || "#"}
+            className="hover:underline"
+          >
+            Can't find your details? Contact {selectedBroker?.name} Support
+          </Link>
+        </div>
+      </div>
       <div className="space-y-4">
         <div>
           <Label htmlFor="server">Server</Label>

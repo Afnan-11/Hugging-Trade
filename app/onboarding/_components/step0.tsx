@@ -13,7 +13,9 @@ import {
 import Image from "next/image";
 import {Card, CardContent, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
 import {ScrollArea} from "@/components/ui/scroll-area";
-import {Star, CheckCircle, Shield} from "lucide-react";
+import {Star, CheckCircle, Shield, Info, ExternalLink} from "lucide-react";
+import Link from "next/link";
+
 type Step1Props = {
   data: any;
   setData: (data: any) => void;
@@ -21,8 +23,6 @@ type Step1Props = {
 };
 
 const Step0 = ({data, setData, errors}: Step1Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
   const getErrorMessage = (field: string) => {
     const error = errors.find((e) => e.path[0] === field);
     return error ? error.message : "";
@@ -30,15 +30,6 @@ const Step0 = ({data, setData, errors}: Step1Props) => {
 
   const handleBrokerSelection = (broker: (typeof BROKER_OPTIONS)[0]) => {
     setData({...data, preferred_broker: broker.value});
-    setIsModalOpen(true);
-  };
-
-  const confirmBrokerSelection = () => {
-    const selectedBroker = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker);
-    if (selectedBroker) {
-      setIsModalOpen(false);
-      window.open(selectedBroker.url, "_blank");
-    }
   };
 
   return (
@@ -57,30 +48,6 @@ const Step0 = ({data, setData, errors}: Step1Props) => {
       {getErrorMessage("preferred_broker") && (
         <p className="mt-2 text-sm text-red-500">{getErrorMessage("preferred_broker")}</p>
       )}
-
-      <Dialog
-        open={isModalOpen}
-        onOpenChange={() => {}} // This prevents the dialog from closing when clicking outside
-      >
-        <DialogContent hideCloseButton>
-          <DialogHeader>
-            <DialogTitle>Confirm Broker Selection</DialogTitle>
-            <DialogDescription>
-              You will be redirected to {BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker)?.name}{" "}
-              to deposit funds. Do you want to proceed?
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button
-              variant="destructive"
-              onClick={() => setIsModalOpen(false)}
-            >
-              Already deposited
-            </Button>
-            <Button onClick={confirmBrokerSelection}>Confirm</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };
@@ -97,24 +64,35 @@ type BrokerProps = {
     benefits: string[];
     trustFactors: string[];
     url: string;
+    guideLink: string;
   };
 } & {onClick: () => void; isSelected: boolean};
 
 function BrokerCard({broker, onClick, isSelected}: BrokerProps) {
-  const {name, logo, countries, rating, reviews, benefits, trustFactors, url} = broker;
+  const {name, logo, countries, rating, reviews, benefits, trustFactors, url, guideLink} = broker;
   return (
     <Card className={`rounded-none shadow-none ${isSelected ? "border-2 border-primary" : ""}`}>
-      <CardHeader>
-        <div className="flex items-center space-x-4">
-          <Image
-            src={logo}
-            alt={`${name} logo`}
-            width={100}
-            height={40}
-            className="invert dark:invert-0"
-          />
-
-          <CardTitle className="text-2xl font-bold">{name}</CardTitle>
+      <CardHeader className="flex flex-col space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center space-x-4">
+            <Image
+              src={logo}
+              alt={`${name} logo`}
+              width={100}
+              height={40}
+              className="invert dark:invert-0"
+            />
+            <CardTitle className="text-2xl font-bold">{name}</CardTitle>
+          </div>
+          <Link
+            href={url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center rounded-md px-3 py-2 text-sm font-medium text-secondary-foreground transition-colors duration-200 ease-in-out hover:bg-secondary/80"
+          >
+            Visit Website
+            <ExternalLink className="ml-2 h-4 w-4" />
+          </Link>
         </div>
         <div className="flex items-center space-x-1">
           {Array.from({length: 5}).map((_, i) => (
@@ -166,9 +144,23 @@ function BrokerCard({broker, onClick, isSelected}: BrokerProps) {
           </div>
         </ScrollArea>
       </CardContent>
-      <CardFooter>
+      <CardFooter className="flex-wrap gap-2">
         <Button
-          className="w-full"
+          variant="secondary"
+          className="flex-1"
+        >
+          <Link
+            href={guideLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center"
+          >
+            <Info className="mr-2 h-4 w-4" />
+            Broker Setup Guide
+          </Link>
+        </Button>
+        <Button
+          className="flex-1"
           onClick={onClick}
         >
           Sign Up with {name}
