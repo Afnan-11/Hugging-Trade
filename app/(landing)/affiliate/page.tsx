@@ -205,10 +205,10 @@ export default async function Affiliate() {
                 height={32}
               />
               <h3 className="text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">
-                Earn 30% commission
+                Earn 35% commission
               </h3>
             </div>
-            <p className="text-[16px] lg:text-left">Get paid for every package your referred users purchase.</p>
+            <p className="text-[16px] lg:text-left">Get paid for every plan your referred users purchase.</p>
           </div>
         </div>
 
