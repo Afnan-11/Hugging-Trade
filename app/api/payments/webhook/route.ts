@@ -158,9 +158,7 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, supabase: Ret
     });
 
     try {
-      await notifyUser({user_id: setupIntentData?.metadata?.user_id}, "message", {
-        message: "Default payment method updated successfully",
-      });
+      await notifyUser({user_id: setupIntentData?.metadata?.user_id}, "credit-card-updated", {});
     } catch (error) {
       console.error("Error notifying user", error);
       return NextResponse.json({
