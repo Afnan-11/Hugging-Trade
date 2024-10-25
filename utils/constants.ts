@@ -1,4 +1,4 @@
-import {HomeIcon, Settings, Calculator, CreditCard, Users} from "lucide-react";
+import {HomeIcon, Settings, Calculator, CreditCard, Users, HelpCircle} from "lucide-react";
 
 export const TITLE_TAILWIND_CLASS = "text-2xl sm:text-2xl md:text-3xl lg:text-4xl";
 export const BROKER_OPTIONS = [
@@ -77,6 +77,12 @@ type Route = {
 };
 
 export const userRoutes: Route[] = [
+  {
+    href: "https://help.huggingtrade.com/article/17-getting-started",
+    icon: HelpCircle,
+    label: "Getting Started",
+    target: "_blank",
+  },
   {href: "/dashboard", icon: HomeIcon, label: "Portfolio"},
   {href: "/dashboard/investment-calculator", icon: Calculator, label: "Investment Calculator"},
   {href: "/dashboard/payment/profit-share", icon: CreditCard, label: "Profit Share Payment"},
