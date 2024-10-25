@@ -12,18 +12,19 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import {Label} from "@/components/ui/label";
-import {X, Video, Instagram, Twitter, Search, Users, HelpCircle} from "lucide-react";
+import {X, Video, Instagram, Search, Users, HelpCircle} from "lucide-react";
 import {Input} from "@/components/ui/input";
 import {userUpdateFields} from "@/app/actions/userUpdateFields";
 import {toast} from "sonner";
 import {useUser} from "@clerk/nextjs";
+import Image from "next/image";
 
-type SourceOption = "TikTok" | "Instagram" | "Twitter" | "Google" | "Referral" | "Other";
+type SourceOption = "TikTok" | "Instagram" | "X" | "Google" | "Referral" | "Other";
 
-const sourceOptions: Array<{value: SourceOption; icon: React.ElementType}> = [
+const sourceOptions: Array<{value: SourceOption; icon: React.ElementType | string}> = [
   {value: "TikTok", icon: Video},
   {value: "Instagram", icon: Instagram},
-  {value: "Twitter", icon: Twitter},
+  {value: "X", icon: "/x-social-media-black-icon.png"},
   {value: "Google", icon: Search},
   {value: "Referral", icon: Users},
   {value: "Other", icon: HelpCircle},
@@ -76,7 +77,7 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
             {`Hey ${user?.firstName}, how did you hear about us?`}
           </DialogTitle>
           <DialogDescription className="text-lg">
-            {`We're curious! Help us understand how you found your way to our digital doorstep.`}
+            {`Let us know where you found us! Your feedback helps us grow and expand our community.`}
           </DialogDescription>
         </DialogHeader>
 
@@ -93,7 +94,16 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
                 }`}
                 onClick={() => setSelectedSource(option.value)}
               >
-                <option.icon className="h-8 w-8" />
+                {typeof option.icon === "string" ? (
+                  <Image
+                    src={option.icon}
+                    alt={option.value}
+                    width={32}
+                    height={32}
+                  />
+                ) : (
+                  <option.icon className="h-8 w-8" />
+                )}
                 <Label>{option.value}</Label>
               </Button>
               {selectedSource === "Other" && option.value === "Other" && (

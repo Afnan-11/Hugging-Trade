@@ -13,7 +13,7 @@ export default function UserSourceChart({users}: UserSourceChartProps = {users: 
   const platformColors: Record<string, string> = {
     instagram: "#E1306C",
     facebook: "#1877F2",
-    twitter: "#1DA1F2",
+    x: "#000000",
     linkedin: "#0A66C2",
     tiktok: "#000000",
     youtube: "#FF0000",
