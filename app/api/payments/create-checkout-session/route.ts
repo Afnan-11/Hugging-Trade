@@ -14,6 +14,9 @@ export async function POST(req: NextRequest) {
         line_items: [{price: priceId, quantity: 1}],
         metadata: {userId, email, subscription, tolt_referral},
         mode: "subscription",
+        subscription_data: {
+          trial_period_days: 30,
+        },
         success_url: `${process.env.FRONTEND_URL}/onboarding?session_id={CHECKOUT_SESSION_ID}`,
         cancel_url: `${process.env.FRONTEND_URL}/cancel`,
         allow_promotion_codes: true,
