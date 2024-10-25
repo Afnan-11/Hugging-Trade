@@ -16,6 +16,7 @@ import {X, Video, Instagram, Twitter, Search, Users, HelpCircle} from "lucide-re
 import {Input} from "@/components/ui/input";
 import {userUpdateFields} from "@/app/actions/userUpdateFields";
 import {toast} from "sonner";
+import {useUser} from "@clerk/nextjs";
 
 type SourceOption = "TikTok" | "Instagram" | "Twitter" | "Google" | "Referral" | "Other";
 
@@ -34,6 +35,7 @@ type SourceModalProps = {
 };
 
 export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalProps) {
+  const {user} = useUser();
   const [selectedSource, setSelectedSource] = useState<SourceOption | null>(null);
   const [otherSource, setOtherSource] = useState("");
 
@@ -71,7 +73,7 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
       <DialogContent className="overflow-hidden sm:max-w-[550px]">
         <DialogHeader>
           <DialogTitle className="bg-gradient-to-r from-primary/60 to-primary bg-clip-text text-2xl font-bold text-transparent">
-            Discover Your Path to Us
+            {`Hey ${user?.firstName}, how did you hear about us?`}
           </DialogTitle>
           <DialogDescription className="text-lg">
             {`We're curious! Help us understand how you found your way to our digital doorstep.`}

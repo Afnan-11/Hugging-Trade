@@ -45,9 +45,7 @@ export async function POST(req: Request) {
       metaapi_platform: data.platform,
     });
 
-    await notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "message", {
-      message: "Your account has been created successfully! Thank you for your trust.",
-    });
+    await notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "welcome", {});
 
     return NextResponse.json({success: true, user: updatedUser});
   } catch (error) {
