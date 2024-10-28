@@ -1,11 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {Checkbox} from "@/components/ui/checkbox";
 import {z} from "zod";
 import {Alert, AlertDescription} from "@/components/ui/alert";
 import {InfoIcon} from "lucide-react";
 import {BROKER_OPTIONS} from "@/utils/constants";
 import Link from "next/link";
+
 type Step1Props = {
   data: {
     login: string;
@@ -42,6 +44,12 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
       setData((prev: any) => ({...prev, platform: "MT5"}));
     }
   }, [data.preferred_broker]);
+
+  const getLeverageText = (brokerValue?: string) => {
+    if (brokerValue === "ic_markets") return "I confirm my account leverage is set to 1:100";
+    if (brokerValue === "oanda") return "I confirm my account leverage is set to 1:50";
+    return "";
+  };
 
   return (
     <>
@@ -120,6 +128,31 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
           />
           {getErrorMessage("password") && <p className="text-sm text-red-500">{getErrorMessage("password")}</p>}
         </div>
+        {getLeverageText(data.preferred_broker) && (
+          <div className="flex items-start space-x-2">
+            <Checkbox
+              id="leverageConfirmed"
+              // checked={data.leverageConfirmed}
+              // onCheckedChange={(checked) => {
+              //   setData((prev: any) => ({
+              //     ...prev,
+              //     leverageConfirmed: checked,
+              //   }));
+              // }}
+              required
+              aria-required="true"
+            />
+            <div className="grid gap-1.5 leading-none">
+              <Label
+                htmlFor="leverageConfirmed"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {getLeverageText(data.preferred_broker)}
+                <span className="ml-1 text-red-500">*</span>
+              </Label>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
