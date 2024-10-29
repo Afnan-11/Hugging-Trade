@@ -75,9 +75,18 @@ async function handleSubscriptionEvent(
       }
     }
   } else {
+    let shouldCreate = type === "created";
+
+    if (subscription.status == "trialing" && type === "updated") {
+      // this because on trial we event.updated before event.created
+      shouldCreate = true;
+    } else if (subscription.status == "trialing" && type === "created") {
+      if (!subscriptionData.user_id) delete subscriptionData.user_id;
+      shouldCreate = false;
+    }
     ({data, error} = await supabase
       .from("subscriptions")
-      [type === "created" ? "insert" : "update"](type === "created" ? [subscriptionData] : subscriptionData)
+      [shouldCreate ? "insert" : "update"](shouldCreate ? [subscriptionData] : subscriptionData)
       .match({subscription_id: subscription.id})
       .select());
     console.log("data", data);
