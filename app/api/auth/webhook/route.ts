@@ -1,5 +1,6 @@
 import {userCreate} from "@/app/actions/userCreate";
 import {userUpdate} from "@/app/actions/userUpdate";
+import {notifyUser} from "@/utils/functions";
 import {WebhookEvent} from "@clerk/nextjs/server";
 import {headers} from "next/headers";
 import {NextResponse} from "next/server";
@@ -63,6 +64,15 @@ export async function POST(req: Request) {
           profile_image_url: payload?.data?.profile_image_url,
           user_id: payload?.data?.id,
         });
+        await notifyUser(
+          {
+            user_id: payload?.data?.id,
+            email: payload?.data?.email_addresses?.[0]?.email_address,
+            name: payload?.data?.first_name,
+          },
+          "welcome",
+          {},
+        );
 
         return NextResponse.json({
           status: 200,

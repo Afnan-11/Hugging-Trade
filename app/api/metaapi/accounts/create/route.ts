@@ -11,7 +11,6 @@ import axios from "axios";
 import {auth} from "@clerk/nextjs/server";
 import MetaApi from "metaapi.cloud-sdk/esm-node";
 import {isAuthorized} from "@/app/actions/isAuthorized";
-import {notifyUser, subscribeToStrategy} from "@/utils/functions";
 
 export async function POST(req: Request) {
   let account;
@@ -44,8 +43,6 @@ export async function POST(req: Request) {
       metaapi_account_id: account.id,
       metaapi_platform: data.platform,
     });
-
-    await notifyUser({user_id: userId, email: updatedUser.email, name: updatedUser.first_name}, "welcome", {});
 
     return NextResponse.json({success: true, user: updatedUser});
   } catch (error) {

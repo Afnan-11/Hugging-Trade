@@ -58,7 +58,7 @@ export async function notifyUser(user: any, workflow: string, data: any) {
       {
         id: user.user_id,
         email: user.email,
-        name: user.first_name || "",
+        name: user?.name || user?.first_name || "",
       },
     ],
   });
