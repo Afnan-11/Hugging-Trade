@@ -18,6 +18,7 @@ import {userUpdateFields} from "@/app/actions/userUpdateFields";
 import {toast} from "sonner";
 import {useUser} from "@clerk/nextjs";
 import Image from "next/image";
+import {Spinner} from "@/components/ui/spinner";
 
 type SourceOption = "TikTok" | "Instagram" | "X" | "Google" | "Referral" | "Other";
 
@@ -39,8 +40,10 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
   const {user} = useUser();
   const [selectedSource, setSelectedSource] = useState<SourceOption | null>(null);
   const [otherSource, setOtherSource] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     if (selectedSource) {
       const source = selectedSource === "Other" ? otherSource : selectedSource;
       try {
@@ -49,6 +52,7 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
         console.error("Error updating user fields:", error);
         toast.error("Error updating user fields");
       } finally {
+        setIsLoading(false);
         setShowSourceModal(false);
       }
     }
@@ -56,14 +60,17 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
 
   const handleClose = async () => {
     if (!selectedSource) {
+      setIsLoading(true);
       try {
         await userUpdateFields([{key: "source", value: "not-selected"}]);
       } catch (error) {
         console.error("Error updating user fields:", error);
         toast.error("Error updating user fields");
+      } finally {
+        setIsLoading(false);
+        setShowSourceModal(false);
       }
     }
-    setShowSourceModal(false);
   };
 
   return (
@@ -120,10 +127,10 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
         <DialogFooter className="flex flex-col space-y-4">
           <Button
             onClick={handleSubmit}
-            disabled={!selectedSource}
+            disabled={!selectedSource || isLoading}
             className="w-full bg-accent text-accent-foreground hover:bg-accent/80"
           >
-            Submit
+            Submit {isLoading && <Spinner className="ml-2 h-4 w-4 animate-spin" />}
           </Button>
         </DialogFooter>
       </DialogContent>
