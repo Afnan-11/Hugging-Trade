@@ -1,5 +1,6 @@
 "use client";
 import {useState, useEffect, ReactNode} from "react";
+import {usePathname} from "next/navigation";
 import NotAuthorized from "@/components/not-authorized";
 import DashboardSideBar from "./_components/dashboard-side-bar";
 import DashboardTopNav from "./_components/dashbord-top-nav";
@@ -9,14 +10,15 @@ import {Skeleton} from "@/components/ui/skeleton";
 import {SourceModal} from "./_components/source-modal";
 
 export default function DashboardLayout({children}: {children: ReactNode}) {
+  const pathname = usePathname();
   const {authorized, user, lastPaymentRequest, message, isLoading} = useDashboardAuth();
   const [showSourceModal, setShowSourceModal] = useState(false);
 
   useEffect(() => {
-    if (user && user?.source === null) {
+    if (user && user?.source === null && pathname === "/dashboard") {
       setShowSourceModal(true);
     }
-  }, [user]);
+  }, [user, pathname]);
 
   if (!authorized && !isLoading) {
     return <NotAuthorized />;
