@@ -33,7 +33,7 @@ export const isAuthorized = async (userId: string): Promise<{authorized: boolean
         message: error.message,
       };
 
-    if (data && data[0]?.status === "active") {
+    if (data && (data[0]?.status === "active" || data[0]?.status === "trialing")) {
       return {
         authorized: true,
         message: "User is subscribed",
