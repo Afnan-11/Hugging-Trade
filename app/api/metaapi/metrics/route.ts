@@ -36,6 +36,20 @@ export async function GET() {
 
     const metrics = await metaStats.getMetrics(accountId, true);
 
+    if (!user.didResetProfit) {
+      user.payment_requests[0].profit_start = metrics.profit;
+      await Promise.all([
+        prisma.user.update({
+          where: {id: user.id},
+          data: {didResetProfit: true},
+        }),
+        prisma.payment_requests.update({
+          where: {id: user.payment_requests[0].id},
+          data: {profit_start: metrics.profit},
+        }),
+      ]);
+    }
+
     // Extract relevant data from the metrics
     const dashboardData = {
       balance: metrics.balance,

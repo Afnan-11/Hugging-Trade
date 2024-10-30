@@ -25,6 +25,7 @@ model user {
   freeze_start_time DateTime?                   // Time when the account was frozen
   payment_requests  payment_requests[]
   source            String?    // e.g., "instagram", "tiktok", "twitter", "google", "referral", "other"
+  didResetProfit  Boolean? @default(false) // when creating account check if the user has previous profit before creating an account with us
 }
 
 
