@@ -128,17 +128,27 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
           />
           {getErrorMessage("password") && <p className="text-sm text-red-500">{getErrorMessage("password")}</p>}
         </div>
+        <div className="flex items-start space-x-2">
+          <Checkbox
+            id="noTradesConfirmed"
+            required
+            aria-required="true"
+          />
+          <div className="grid gap-1.5 leading-none">
+            <Label
+              htmlFor="noTradesConfirmed"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              I confirm that this account is new, has no previous trades, and I will refrain from making any trades
+              after account creation
+              <span className="ml-1 text-red-500">*</span>
+            </Label>
+          </div>
+        </div>
         {getLeverageText(data.preferred_broker) && (
           <div className="flex items-start space-x-2">
             <Checkbox
               id="leverageConfirmed"
-              // checked={data.leverageConfirmed}
-              // onCheckedChange={(checked) => {
-              //   setData((prev: any) => ({
-              //     ...prev,
-              //     leverageConfirmed: checked,
-              //   }));
-              // }}
               required
               aria-required="true"
             />
