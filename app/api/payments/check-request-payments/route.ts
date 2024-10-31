@@ -46,7 +46,7 @@ async function getUsers() {
 async function resetProfit(user: any) {
   console.log(`Resetting profit for user ${user.id}`);
   const metrics = await getMetrics(user);
-  user.payment_requests[0].profit_start = metrics.profit;
+  user.payment_requests[0].profit_start = metrics.profit || 0;
   await Promise.all([
     prisma.user.update({
       where: {id: user.id},
@@ -54,7 +54,7 @@ async function resetProfit(user: any) {
     }),
     prisma.payment_requests.update({
       where: {id: user.payment_requests[0].id},
-      data: {profit_start: metrics.profit},
+      data: {profit_start: metrics.profit || 0},
     }),
   ]);
 }
