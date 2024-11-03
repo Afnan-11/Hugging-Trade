@@ -11,7 +11,9 @@ const calculateCumulativeProfit = (data: any[]) => {
   let cumulativeProfit = 0;
   if (!data) return [];
   return data.map((item) => {
-    cumulativeProfit += item.profit;
+    if (item.profit !== undefined) {
+      cumulativeProfit += item.profit;
+    }
     return {...item, cumulativeProfit};
   });
 };
@@ -33,10 +35,14 @@ const calculateAnnualData = (monthlyData: any[]) => {
 
 const calculateYAxisDomain = (data: {cumulativeProfit: number}[]) => {
   const maxProfit = Math.max(...data.map((item) => item.cumulativeProfit));
+  console.log("data", data);
   let yMax: number;
   let tickCount: number;
 
-  if (maxProfit < 1000) {
+  if (!maxProfit) {
+    yMax = 100;
+    tickCount = 100;
+  } else if (maxProfit < 1000) {
     yMax = Math.ceil(maxProfit / 500) * 500;
     tickCount = yMax / 500;
   } else if (maxProfit < 10000) {
@@ -71,7 +77,7 @@ export function MetricsMonthlyDailyChart({monthlyAnalytics, dailyGrowth}: {month
   }, [view, cumulativeDailyData, cumulativeMonthlyData, cumulativeAnnualData]);
 
   const {yMax, tickCount} = useMemo(() => calculateYAxisDomain(data), [data]);
-
+  console.log({yMax, tickCount});
   return (
     <Card className="flex-1">
       <CardHeader>
@@ -111,7 +117,7 @@ export function MetricsMonthlyDailyChart({monthlyAnalytics, dailyGrowth}: {month
               tick={{fill: "hsl(var(--foreground))"}}
               stroke="hsl(var(--foreground))"
               tickFormatter={formatCurrency}
-              width={60}
+              width={80}
               tickMargin={5}
               domain={[0, yMax]}
               tickCount={tickCount}

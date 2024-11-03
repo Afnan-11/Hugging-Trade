@@ -7,8 +7,8 @@ export const BROKER_OPTIONS = [
     name: "IC Markets",
     platform: "MT5",
     logo: "/icons/ic-markets.svg",
-    rating: 4.5,
-    reviews: 1000,
+    rating: 5,
+    reviews: 37291,
     countries: "United Kingdom, Europe, Asia, Africa, Oceania, Americas",
     url: "https://www.icmarkets.com/global/en/open-trading-account/live",
     benefits: [
@@ -26,8 +26,8 @@ export const BROKER_OPTIONS = [
     name: "Oanda",
     platform: "MT4",
     logo: "/icons/oanda.svg",
-    rating: 4.5,
-    reviews: 1000,
+    rating: 5,
+    reviews: 5792,
     countries: "USA, Canada",
     url: "https://www.oanda.com/apply/",
     benefits: [

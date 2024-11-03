@@ -44,6 +44,7 @@ function getMonthlyProfits(monthlyAnalytics: MonthlyAnalytics[]) {
 
 export function MetricsCards({metrics}: MetricsCardsProps) {
   const monthlyProfits = getMonthlyProfits(metrics.monthlyAnalytics);
+  const profitEnd = metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_end || metrics?.profit;
 
   return (
     <div className="grid flex-1 gap-4 md:grid-cols-4">
@@ -61,7 +62,7 @@ export function MetricsCards({metrics}: MetricsCardsProps) {
       />
       <MetricCard
         title="This Month’s Profit"
-        value={`${metrics?.paymentRequests?.thisMonthPaymentRequest.payment_status === "pending" ? "Pending" : metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_end - metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_start + "$"}`}
+        value={`${(profitEnd - metrics?.paymentRequests?.thisMonthPaymentRequest?.profit_start).toLocaleString() + "$"}`}
         description={`${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_start).toLocaleDateString("en-US", {month: "long", day: "numeric"})} - ${new Date(metrics?.paymentRequests?.thisMonthPaymentRequest?.month_end).toLocaleDateString("en-US", {month: "long", day: "numeric"})}`}
         icon={<DollarSignIcon className="h-4 w-4 text-muted-foreground" />}
       />

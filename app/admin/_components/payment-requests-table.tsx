@@ -15,6 +15,9 @@ interface PaymentRequest {
   profit_end: number | null;
   owed_amount: number | null;
   payment_status: string | null;
+  user: {
+    user_id: number;
+  };
 }
 
 const fetchPaymentRequests = async (): Promise<PaymentRequest[]> => {
@@ -36,7 +39,10 @@ export default function PaymentRequestsTable() {
 
   const filteredPaymentRequests = useMemo(() => {
     return paymentRequests?.filter((request) =>
-      [request.user_id.toString(), request.payment_status].join(" ").toLowerCase().includes(filter.toLowerCase()),
+      [request.user_id.toString(), request.payment_status, request.user.user_id]
+        .join(" ")
+        .toLowerCase()
+        .includes(filter.toLowerCase()),
     );
   }, [paymentRequests, filter]);
 
@@ -55,6 +61,7 @@ export default function PaymentRequestsTable() {
         <TableHeader>
           <TableRow>
             <TableHead>User ID</TableHead>
+
             <TableHead>Month Start</TableHead>
             <TableHead>Month End</TableHead>
             <TableHead>Profit Start</TableHead>
@@ -67,7 +74,7 @@ export default function PaymentRequestsTable() {
         <TableBody>
           {filteredPaymentRequests?.map((request) => (
             <TableRow key={request.id}>
-              <TableCell>{request.user_id}</TableCell>
+              <TableCell>{request?.user?.user_id}</TableCell>
               <TableCell>{new Date(request.month_start).toLocaleDateString()}</TableCell>
               <TableCell>{new Date(request.month_end).toLocaleDateString()}</TableCell>
               <TableCell>${request.profit_start.toFixed(2)}</TableCell>

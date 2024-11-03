@@ -189,11 +189,14 @@ async function handleCheckoutSessionCompleted(event: Stripe.Event, supabase: Ret
     try {
       await stripe.subscriptions.update(subscriptionId as string, {metadata});
 
-      const {error: invoiceError} = await supabase
-        .from("invoices")
-        .update({user_id: metadata?.userId})
-        .eq("email", metadata?.email);
-      if (invoiceError) throw new Error("Error updating invoice");
+      if (metadata?.userId) {
+        console.log("updating invoice");
+        const {error: invoiceError} = await supabase
+          .from("invoices")
+          .update({user_id: metadata?.userId})
+          .eq("email", metadata?.email);
+        if (invoiceError) throw new Error("Error updating invoice");
+      }
 
       const {data: userData, error: userError} = await supabase
         .from("user")

@@ -47,7 +47,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="sticky top-0 z-[55] w-full bg-white bg-opacity-30 px-4 py-2 backdrop-blur-md lg:flex lg:items-center lg:justify-between lg:px-20">
+    <nav className="sticky top-0 z-[30] w-full bg-white bg-opacity-30 px-4 py-2 backdrop-blur-md lg:flex lg:items-center lg:justify-between lg:px-20">
       <div className="lg:flex lg:items-center lg:justify-start">
         <div className="flex items-center justify-between gap-20 md:gap-96 lg:gap-0">
           <Link

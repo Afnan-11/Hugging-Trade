@@ -406,7 +406,7 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                 </div>
 
                 <Link
-                  href="/sign-in"
+                  href="/sign-up"
                   className="block w-full lg:w-auto"
                 >
                   <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[348px]">

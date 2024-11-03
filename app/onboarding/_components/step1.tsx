@@ -54,7 +54,9 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
   return (
     <>
       <div className="mb-8 w-full max-w-2xl">
-        <h1 className="text-2xl font-semibold text-gray-700">Connect your IC Markets MT5 Account</h1>
+        <h1 className="text-2xl font-semibold text-gray-700">
+          Connect your {selectedBroker?.name} {selectedBroker?.platform} Account
+        </h1>
 
         <Alert className="mt-4 border border-blue-200 bg-blue-50">
           <InfoIcon className="h-4 w-4 text-blue-500" />
@@ -128,17 +130,47 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
           />
           {getErrorMessage("password") && <p className="text-sm text-red-500">{getErrorMessage("password")}</p>}
         </div>
+        <div className="flex items-start space-x-2">
+          <Checkbox
+            id="noTradesConfirmed"
+            required
+            aria-required="true"
+          />
+          <div className="grid gap-1.5 leading-none">
+            <Label
+              htmlFor="noTradesConfirmed"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              I confirm this is a newly created account, with no previous trades, and agree to leave trading activity to
+              Hugging Trade
+              <span className="ml-1 text-red-500">*</span>
+            </Label>
+          </div>
+        </div>
+
+        {data.preferred_broker === "oanda" && (
+          <div className="flex items-start space-x-2">
+            <Checkbox
+              id="spread-only"
+              required
+              aria-required="true"
+            />
+            <div className="grid gap-1.5 leading-none">
+              <Label
+                htmlFor="spread-only"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                I confirm that I have selected the Spread-Only pricing option, where the commission is included in the
+                spread
+                <span className="ml-1 text-red-500">*</span>
+              </Label>
+            </div>
+          </div>
+        )}
         {getLeverageText(data.preferred_broker) && (
           <div className="flex items-start space-x-2">
             <Checkbox
               id="leverageConfirmed"
-              // checked={data.leverageConfirmed}
-              // onCheckedChange={(checked) => {
-              //   setData((prev: any) => ({
-              //     ...prev,
-              //     leverageConfirmed: checked,
-              //   }));
-              // }}
               required
               aria-required="true"
             />

@@ -20,6 +20,13 @@ export async function GET() {
     }
 
     const paymentRequests = await prisma.payment_requests.findMany({
+      include: {
+        user: {
+          select: {
+            user_id: true,
+          },
+        },
+      },
       orderBy: {
         created_time: "desc",
       },

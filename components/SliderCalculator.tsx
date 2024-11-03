@@ -186,7 +186,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
         <div className="my-10 flex justify-center px-10 lg:px-0">
           <div className="w-full lg:w-auto">
             <Link
-              href="/sign-in"
+              href="/sign-up"
               scroll={true}
               className="block w-full"
             >

@@ -43,12 +43,32 @@ async function getUsers() {
   });
 }
 
+async function resetProfit(user: any) {
+  console.log(`Resetting profit for user ${user.id}`);
+  const metrics = await getMetrics(user);
+  user.payment_requests[0].profit_start = metrics.profit || 0;
+  await Promise.all([
+    prisma.user.update({
+      where: {id: user.id},
+      data: {didResetProfit: true},
+    }),
+    prisma.payment_requests.update({
+      where: {id: user.payment_requests[0].id},
+      data: {profit_start: metrics.profit || 0},
+    }),
+  ]);
+}
+
 async function processUser(user: any) {
   const lastRequest = user.payment_requests[0];
   if (!lastRequest) {
     console.log(`No payment requests found for user ${user.id}`);
     return;
   }
+  if (!user.didResetProfit) {
+    await resetProfit(user);
+  }
+
   const now = new Date();
   const frozenDate = new Date(
     lastRequest.month_end.getTime() + N_OF_DAYS_BEFORE_PAYMENT_REQUEST_FROZEN * 24 * 60 * 60 * 1000,
