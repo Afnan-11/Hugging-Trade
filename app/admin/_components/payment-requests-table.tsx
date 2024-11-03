@@ -39,7 +39,10 @@ export default function PaymentRequestsTable() {
 
   const filteredPaymentRequests = useMemo(() => {
     return paymentRequests?.filter((request) =>
-      [request.user_id.toString(), request.payment_status].join(" ").toLowerCase().includes(filter.toLowerCase()),
+      [request.user_id.toString(), request.payment_status, request.user.user_id]
+        .join(" ")
+        .toLowerCase()
+        .includes(filter.toLowerCase()),
     );
   }, [paymentRequests, filter]);
 

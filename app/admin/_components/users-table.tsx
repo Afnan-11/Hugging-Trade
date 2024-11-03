@@ -37,7 +37,10 @@ export default function UsersTable() {
   const filteredAndSortedUsers = useMemo(() => {
     return users
       ?.filter((user) =>
-        [user.email, user.first_name, user.last_name].join(" ").toLowerCase().includes(filter.toLowerCase()),
+        [user.email, user.first_name, user.last_name, user.user_id]
+          .join(" ")
+          .toLowerCase()
+          .includes(filter.toLowerCase()),
       )
       .sort((a, b) => {
         if (a.is_admin === b.is_admin) return 0;

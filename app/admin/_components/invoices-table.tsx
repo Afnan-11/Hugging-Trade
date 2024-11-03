@@ -37,7 +37,10 @@ export default function InvoicesTable() {
 
   const filteredInvoices = useMemo(() => {
     return invoices?.filter((invoice) =>
-      [invoice.invoice_id, invoice.email, invoice.status].join(" ").toLowerCase().includes(filter.toLowerCase()),
+      [invoice.invoice_id, invoice.email, invoice.status, invoice?.userId]
+        .join(" ")
+        .toLowerCase()
+        .includes(filter.toLowerCase()),
     );
   }, [invoices, filter]);
 
