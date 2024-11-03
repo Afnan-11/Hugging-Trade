@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Slider from "react-slider";
 import { HTMLProps } from "react";
+import {useTranslations} from "next-intl";
 
 interface SliderAffiliateProps {
   averageUSD: number;
@@ -16,6 +17,8 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }
   // State for the current index of invited friends and calculated income
   const [valueIndex, setValueIndex] = useState<number>(values.indexOf(50));
   const [averageIncome, setAverageIncome] = useState(0);
+
+  const t = useTranslations("SliderAffiliate");
 
   // Function to calculate the average income based on invited friends
   const calculateIncome = useCallback(() => {
@@ -32,7 +35,7 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }
     <div className="flex flex-col justify-center items-center ">
       <div className="bg-[#EFF6FF] p-10 lg:w-[505px] lg:h-[466px] rounded-xl">
         <h2 className="text-[32px] font-bold lg:text-left text-center">
-          Your average monthly income:
+        {t("yourAverage")}
         </h2>
         <div className="text-center  mt-10">
           <p className="text-[100px] text-black font-bold leading-[60px] lg:leading-none">
@@ -44,7 +47,7 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }
         <div className="flex justify-center items-center  mt-10">
           <div className="w-full max-w-md">
             <p className="text-[18px] font-bold text-left pb-4">
-              Number of invited friends
+            {t("numberOfFriends")}
             </p>
             <Slider
               value={valueIndex}
@@ -98,7 +101,7 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }
               ))}
             </div>
             <p className="text-[16px] text-[#6B7280] pt-5 text-center lg:text-left">
-              * Based on average affiliate&apos;s performance
+            {t("basedOn")}
             </p>
           </div>
         </div>

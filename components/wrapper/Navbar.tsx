@@ -1,18 +1,22 @@
 "use client";
 
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {usePathname} from "next/navigation";
-import {ChevronDown, ChevronUp, Menu as MenuIcon, XCircle} from "lucide-react";
-import {useAuth} from "@clerk/nextjs";
-import {UserProfile} from "../user-profile";
+import { usePathname } from "next/navigation";
+import { ChevronDown, ChevronUp, Menu as MenuIcon, XCircle } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { UserProfile } from "../user-profile";
+import LanguageSwitcher from "../LanguageSwitcher";
+import {useTranslations} from "next-intl";
 
 export default function Navbar() {
   const user = useAuth();
   const userId = user?.userId;
   const [Navbar, setNavbar] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+
+  const t = useTranslations("NavBar");
 
   const pathname = usePathname();
 
@@ -53,7 +57,7 @@ export default function Navbar() {
             }}
           >
             <Image
-              src={"/HuggingPrimaryWEBSITETextAndIcon (1).svg"}
+              src={"/logo.svg"}
               alt="img"
               width={283}
               height={23}
@@ -81,9 +85,8 @@ export default function Navbar() {
         </div>
 
         <ul
-          className={`flex h-[80vh] flex-col items-center justify-center gap-6 bg-opacity-50 text-center text-xl font-semibold text-[#111827] lg:flex lg:h-0 lg:w-auto lg:flex-row lg:items-center lg:justify-center lg:gap-10 lg:pb-0 lg:pt-1 lg:text-[16px] ${
-            Navbar ? "block" : "hidden"
-          }`}
+          className={`flex h-[80vh] flex-col items-center justify-center gap-6 bg-opacity-50 text-center text-xl font-semibold text-[#111827] lg:flex lg:h-0 lg:w-auto lg:flex-row lg:items-center lg:justify-center lg:gap-10 lg:pb-0 lg:pt-1 lg:text-[16px] ${Navbar ? "block" : "hidden"
+            }`}
         >
           <li>
             <div className="relative z-50 inline-block text-left">
@@ -91,7 +94,7 @@ export default function Navbar() {
                 className="flex cursor-pointer items-center justify-start rounded-xl px-3 py-2 hover:bg-blue-50"
                 onClick={() => toggleDropdown("company")}
               >
-                <button className="flex justify-center font-medium text-black focus:outline-none">Company</button>
+                <button className="flex justify-center font-medium text-black focus:outline-none"> {t("company")}</button>
                 {openDropdown === "company" ? <ChevronUp /> : <ChevronDown />}
               </div>
 
@@ -111,7 +114,7 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      Affiliate program
+                       {t("affiliateProgram")}
                     </Link>
 
                     <Link
@@ -120,7 +123,7 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      Contact info
+                       {t("contactInfo")}
                     </Link>
                   </div>
                 </div>
@@ -134,7 +137,7 @@ export default function Navbar() {
                 className="flex cursor-pointer items-center justify-start rounded-xl px-3 py-2 hover:bg-blue-50"
                 onClick={() => toggleDropdown("resources")}
               >
-                <button className="flex justify-center font-medium text-black focus:outline-none">Resources</button>
+                <button className="flex justify-center font-medium text-black focus:outline-none"> {t("resources")}</button>
                 {openDropdown === "resources" ? <ChevronUp /> : <ChevronDown />}
               </div>
 
@@ -154,7 +157,7 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      Investment Calculator
+                       {t("investmentCalculator")}
                     </Link>
                     {/* <Link
                       href="#"
@@ -170,7 +173,7 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      Help Center
+                      {t("helpCenter")}
                     </a>
                   </div>
                 </div>
@@ -188,8 +191,14 @@ export default function Navbar() {
               href={`/pricing`}
               className={pathname === `/pricing` ? "text-black" : "font-medium text-black"}
             >
-              Pricing
+              {t("pricing")}
             </Link>
+          </li>
+
+
+
+          <li className=" lg:hidden inline-block">
+            <LanguageSwitcher />
           </li>
 
           <li
@@ -198,7 +207,7 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl px-3 py-2 text-black hover:bg-blue-50 lg:hidden"
           >
-            {userId ? <UserProfile /> : <Link href="/sign-in">Log in</Link>}
+            {userId ? <UserProfile /> : <Link href="/sign-in">{t("logIn")}</Link>}
           </li>
 
           <li
@@ -207,17 +216,20 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:hidden"
           >
-            {userId ? <Link href="/dashboard">Dashboard</Link> : <Link href="/sign-in">Start 30 day free trial</Link>}
+            {userId ? <Link href="/dashboard">{t("dashboard")}</Link> : <Link href="/sign-in">{t("startDayFreeTrial")}</Link>}
           </li>
         </ul>
       </div>
 
-      <div className="flex items-center justify-center gap-5">
+      <div className="flex items-center justify-center gap-5 lg:gap-1">
+        <div className="hidden lg:block">
+          <LanguageSwitcher />
+        </div>
         <div className="hidden cursor-pointer rounded-xl px-3 py-2 text-black hover:bg-blue-50 lg:block">
-          {userId ? <UserProfile /> : <Link href="/sign-in">Log in</Link>}
+          {userId ? <UserProfile /> : <Link href="/sign-in">{t("logIn")}</Link>}
         </div>
         <div className="hidden cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:block">
-          {userId ? <Link href="/dashboard">Dashboard</Link> : <Link href="/sign-in">Start 30 day free trial</Link>}
+          {userId ? <Link href="/dashboard">{t("dashboard")}</Link> : <Link href="/sign-in">{t("startDayFreeTrial")}</Link>}
         </div>
       </div>
     </nav>

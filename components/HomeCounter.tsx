@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, {useState, useEffect} from "react";
 import CountUp from "react-countup";
 import {useInView} from "react-intersection-observer";
+import {useTranslations} from 'next-intl';
 
 interface Props {
   sectionThreeTitle: string;
@@ -29,6 +30,8 @@ const HomeCounter = ({
 }: Props) => {
   const [isDesktop, setIsDesktop] = useState(false);
   const [startCounting, setStartCounting] = useState(false);
+
+  const t = useTranslations('HomePage');
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -144,8 +147,8 @@ const HomeCounter = ({
           scroll={true}
           className="block w-full"
         >
-          <div className="my-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[197.11px]">
-            Start free trial
+          <div className="my-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[348px]">
+          {t("startFreeTrial")}
           </div>
         </Link>
       </div>

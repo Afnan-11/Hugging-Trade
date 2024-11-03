@@ -9,7 +9,7 @@ export const Logo = ({className}: {className?: string}) => {
       className={className}
     >
       <Image
-        src={"/HuggingPrimaryWEBSITETextAndIcon (1).svg"}
+        src={"/logo.svg"}
         alt="Hugging Trade"
         width={200}
         height={23}

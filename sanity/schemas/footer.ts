@@ -5,13 +5,17 @@ export const footer = {
   title: "FOOTER",
   type: "document",
   fields: [
+    
+
     {
       name: "address",
-      title: "Address",
-      description: "Address",
+      title: "Address (English)",
+      description: "Address in English",
       type: "string",
-      validation: (Rule: Rule) => Rule.required().error("Required"),
+      validation: (Rule: Rule) => Rule.required().error("Address in English is required"),
     },
+   
+    
 
     {
       name: "links",
@@ -55,12 +59,55 @@ export const footer = {
           .min(1)
           .error("At least one social media link is required"),
     },
+   
+
     {
       name: "textAboveIcons",
-      title: "Text Above Icons",
-      description: "Text Above Icons",
+      title: "Text Above Icons (English)",
+      description: "Text Above Icons in English",
       type: "string",
       validation: (Rule: Rule) => Rule.required().error("Required"),
     },
+    
+    {
+      name: "textAboveIcons_de",
+      title: "Text Above Icons (German)",
+      description: "Text Above Icons in German",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+    
+    {
+      name: "textAboveIcons_es",
+      title: "Text Above Icons (Spanish)",
+      description: "Text Above Icons in Spanish",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+    
+    {
+      name: "textAboveIcons_fr",
+      title: "Text Above Icons (French)",
+      description: "Text Above Icons in French",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+    
+    {
+      name: "textAboveIcons_it",
+      title: "Text Above Icons (Italian)",
+      description: "Text Above Icons in Italian",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+    
+    {
+      name: "textAboveIcons_pt",
+      title: "Text Above Icons (Portuguese)",
+      description: "Text Above Icons in Portuguese",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Required"),
+    },
+    
   ],
 };

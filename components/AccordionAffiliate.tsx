@@ -3,22 +3,32 @@
 import React, { useState, useEffect } from "react";
 import AccordionComponent from "./AccordionComponent";
 import { client } from "@/sanity/lib/client";
-import { FaqPricingTypes } from "@/types";
+import { FaqAffiliateTypes } from "@/types";
 
-async function getFaqAffiliate(): Promise<FaqPricingTypes[]> {
+async function getFaqAffiliate(): Promise<FaqAffiliateTypes[]> {
   const query = `
     *[_type == "faqAffiliate"] {
       _id,
       question,
+      question_de,
+      question_es,
+      question_fr,
+      question_it,
+      question_pt,
       answer,
+      answer_de,
+      answer_es,
+      answer_fr,
+      answer_it,
+      answer_pt,
     }
   `;
-  const data: FaqPricingTypes[] = await client.fetch(query);
+  const data: FaqAffiliateTypes[] = await client.fetch(query);
   return data;
 }
 
-export default function AccordionAffiliate() {
-  const [faqs, setFaqs] = useState<FaqPricingTypes[]>([]);
+export default function AccordionAffiliate({locale}: {locale: string}) {
+  const [faqs, setFaqs] = useState<FaqAffiliateTypes[]>([]);
   const [activeIndex, setActiveIndex] = useState<null | number>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -40,6 +50,11 @@ export default function AccordionAffiliate() {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
+  const getLocalizedText = (faq: FaqAffiliateTypes, field: "question" | "answer") => {
+    const localizedField = `${field}_${locale}` as keyof FaqAffiliateTypes;
+    return faq[localizedField] || faq[field];
+  };
+
   if (loading) {
     return <p>Loading FAQs...</p>;
   }
@@ -56,8 +71,8 @@ export default function AccordionAffiliate() {
       {faqs.map((faq, index) => (
         <AccordionComponent
           key={faq._id}
-          title={faq.question}
-          content={faq.answer}
+          title={getLocalizedText(faq, "question")}
+          content={getLocalizedText(faq, "answer")}
           isOpen={activeIndex === index}
           onToggle={() => toggleAccordion(index)}
         />

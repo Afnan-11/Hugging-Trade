@@ -9,6 +9,9 @@ import "./globals.css";
 
 import {Inter} from "next/font/google";
 import Script from "next/script";
+import { routing } from "@/i18n/routing";
+
+type Locale = (typeof routing.locales)[number];
 
 declare global {
   interface Window {
@@ -37,11 +40,20 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://www.huggingtrade.com"),
 };
 
-export default function RootLayout({children}: {children: React.ReactNode}) {
+export default function RootLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: {
+    locale: Locale;
+  };
+}) {
+  const locale = params.locale || 'en';
   return (
     <AuthWrapper>
       <html
-        lang="en"
+        lang={locale}
         suppressHydrationWarning
       >
         <head>

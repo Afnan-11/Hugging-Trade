@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import {useTranslations} from "next-intl";
 
 interface PeriodToggleProps {
   selectedPeriod: "year" | "month";
@@ -15,8 +16,9 @@ const PeriodToggle: React.FC<PeriodToggleProps> = ({
   discountYear,
   discountMonth
 }) => {
+  const t = useTranslations("PricingPage");
   return (
-    <div className="flex z-[55] items-center p-0 bg-white rounded-full border border-gray-200 w-max">
+    <div className="flex  items-center p-0 bg-white rounded-full border border-gray-200 w-max">
       <button
         onClick={() => onPeriodChange("year")}
         className={`px-4 py-2 rounded-full focus:outline-none transition-colors ${
@@ -25,7 +27,7 @@ const PeriodToggle: React.FC<PeriodToggleProps> = ({
             : "text-black"
         }`}
       >
-        12 months <span className="text-[#F7C23B]">Save {discountYear}%</span>
+        {t("months")} <span className="text-[#F7C23B]">{t("save")} {discountYear}%</span>
       </button>
 
       <button
@@ -36,7 +38,7 @@ const PeriodToggle: React.FC<PeriodToggleProps> = ({
             : "text-black"
         }`}
       >
-        1 month <span className="text-[#F7C23B]">Save {discountMonth}%</span>
+        {t("month1")} <span className="text-[#F7C23B]">{t("save")} {discountMonth}%</span>
       </button>
     </div>
   );

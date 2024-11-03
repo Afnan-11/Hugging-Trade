@@ -1,3 +1,6 @@
+const createNextIntlPlugin = require('next-intl/plugin');
+const withNextIntl = createNextIntlPlugin();
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -38,5 +41,31 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/logo.svg',
+        destination: '/logo.svg',
+      },
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/_next/:path*',
+        destination: '/_next/:path*',
+      },
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/Images/:path*',
+        destination: '/Images/:path*',
+      },
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/styles/:path*',
+        destination: '/styles/:path*',
+      },
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/favicon.ico',
+        destination: '/favicon.ico',
+      },
+    ];
+  },
 };
-module.exports = nextConfig;
+
+module.exports = withNextIntl(nextConfig);
+

@@ -81,6 +81,7 @@ function Step2({
               pricing={pricing}
               user={user}
               areOnlyCardsShown
+              locale="en"
             />
           )}
           {/*  {plans.map((plan) => (

@@ -1,8 +1,13 @@
 import PageWrapper from "@/components/wrapper/page-wrapper";
 import React from "react";
-const layout = ({children}: {children: React.ReactNode}) => {
+import { routing } from "@/i18n/routing";
+
+type Locale = (typeof routing.locales)[number];
+
+
+const layout = ({children, params}: {children: React.ReactNode, params: {locale: Locale}}) => {
   return (
-    <PageWrapper>
+    <PageWrapper params={params}>
       <div className="flex min-h-[80vh] items-center justify-center py-[8rem]">{children}</div>
     </PageWrapper>
   );

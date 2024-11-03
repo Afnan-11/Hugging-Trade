@@ -64,6 +64,7 @@
     "metaapi.cloud-sdk": "^27.2.0",
     "mini-svg-data-uri": "^1.4.4",
     "next": "latest",
+    "next-intl": "^3.23.5",
     "next-sanity": "^9.5.0",
     "next-themes": "^0.3.0",
     "prettier-plugin-tailwindcss": "^0.6.8",

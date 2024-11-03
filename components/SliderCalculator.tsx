@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, {useCallback, useEffect, useState} from "react";
 import Slider from "react-slider";
 import {HTMLProps} from "react";
+import {useTranslations} from "next-intl";
 
 interface Props {
   sliderTitle: string;
@@ -17,6 +18,8 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
   const [initialDeposit, setInitialDeposit] = useState(500);
   const [months, setMonths] = useState(2);
   const [balance, setBalance] = useState(0);
+
+  const t = useTranslations("HomePage");
 
   // Function to calculate the compounded balance
   const calculateBalance = useCallback(() => {
@@ -37,7 +40,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
       const endingBalance = startingBalance + (profit - fee);
 
       // Save data for the month
-      data.push({ month: i, startingBalance, profit, fee, endingBalance });
+      data.push({month: i, startingBalance, profit, fee, endingBalance});
 
       // Update current balance for the next iteration
       currentBalance = endingBalance;
@@ -50,8 +53,8 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
     calculateBalance();
   }, [calculateBalance]);
   return (
-    <div className="gradient-pricing flex h-[772px] flex-col items-center justify-center px-5 lg:px-0">
-      <div className="h-[720px] rounded-xl bg-white p-5 shadow-2xl lg:h-[485px] lg:w-[1152px] lg:p-0 lg:px-10">
+    <div className="gradient-pricing flex lg:h-[775px] flex-col items-center justify-center px-5 lg:px-0">
+      <div className="h-[780px] rounded-xl bg-white p-5 shadow-2xl lg:h-[490px] lg:w-[1152px] lg:p-0 lg:px-10">
         <Image
           src={"/Images/HomePage/bg_affiliate-program-reviews_desktop.svg.svg"}
           alt="image"
@@ -88,14 +91,13 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
               </p>
             </div>
             <div className="flex w-full items-center justify-center">
-              <p className="px-5 pt-3 text-center text-[16px] text-[#6B7280]">
-                {sliderAverageMonthlyIncome}
-                {/* *Average monthly income after deducting our 35% platform fee */}
-              </p>
+              <p className="px-5 pt-3 text-center text-[16px] text-[#6B7280]">{sliderAverageMonthlyIncome}</p>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start pt-5 lg:w-1/2 lg:pl-5 lg:pt-0">
-            <p className="text-[13.78px] font-medium text-[#374151]">Investment Period: {months} months</p>
+            <p className="text-[13.78px] font-medium text-[#374151]">
+              {t("investmentPeriod")} {months} {t("months")}
+            </p>
 
             <div className="w-full max-w-md">
               <Slider
@@ -109,8 +111,8 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
                   const {key, ...restProps} = props;
                   return (
                     <div
-                      key={key} // Move this outside of the spread
-                      {...restProps} // Spread the other props
+                      key={key}
+                      {...restProps}
                       style={{
                         ...restProps.style,
                         backgroundColor: state.index === 0 ? "#18181B" : "#F4F4F5",
@@ -150,7 +152,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
                   htmlFor=""
                   className="mt-2 text-[13.89px] font-medium text-[#374151]"
                 >
-                  Enter your initial deposit
+                  {t("deposit")}
                 </label>
                 <input
                   type="number"
@@ -169,7 +171,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
                 />
               </div>
             </div>
-            <p className="mt-2 text-[11.81px] font-medium text-[#6B7280]">* Minimum: $300</p>
+            <p className="mt-2 text-[11.81px] font-medium text-[#6B7280]">{t("minDeposit")}</p>
           </div>
         </div>
 
@@ -188,12 +190,12 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
               scroll={true}
               className="block w-full"
             >
-              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-white hover:bg-[#4977db] lg:w-[197px] lg:text-[20px]">
-                Start free trial
+              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:text-[20px]">
+                {t("startFreeTrial")}
               </div>
             </Link>
 
-            <p className="mt-2 text-center text-[11.44px] text-[#6B7280]">Start with as little as $300.</p>
+            <p className="mt-2 text-center text-[11.44px] text-[#6B7280]">{t("minDeposit2")}</p>
           </div>
         </div>
 

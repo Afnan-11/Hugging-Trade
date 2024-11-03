@@ -1,43 +1,140 @@
 import Image from "next/image";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
-import { HomeTypes } from "@/types";
+import {client} from "@/sanity/lib/client";
+import {HomeTypes} from "@/types";
 import HomeCounter from "@/components/HomeCounter";
-import { Metadata } from "next";
+import {Metadata} from "next";
 import Script from "next/script";
 import CountdownTimer from "@/components/CountdownTimer";
 import SliderCalculator from "@/components/SliderCalculator";
 import VideoMembers from "@/components/VideoMembers";
 import AccordionHome from "@/components/AccordionHome";
+import {getTranslations} from "next-intl/server";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
     const query = `
       *[_type == "home"][0]{
-        heroTitle,
-        heroText,
-        heroTextUnderButton,
-        sectionThreeTitle,
-        sectionThreeText,
-        sectionThreeStarsNumber,
-        sectionThreeTextUnderStarsNumber,
-        sectionThreeUsersNumber,
-        sectionThreeTextUnderUsersNumber,
-        sectionThreeTimeNumber,
-        sectionThreeTextUnderTimeNumber,
-        sliderTitle,
-        sliderText,
-        sliderAverageMonthlyIncome,
-        sectionSixTitle,
-        sectionSevenTitle,
-        sectionSevenText,
-        sectionSevenSubTitleOne,
-        sectionFourteenTitle,
-        reviewsText,
-        metaTitle,
-        metaDescription,
-        keywords,
-      }
+  heroTitle,
+  heroTitle_de,
+  heroTitle_es,
+  heroTitle_fr,
+  heroTitle_it,
+  heroTitle_pt,
+  heroText,
+  heroText_de,
+  heroText_es,
+  heroText_fr,
+  heroText_it,
+  heroText_pt,
+  heroTextUnderButton,
+  heroTextUnderButton_de,
+  heroTextUnderButton_es,
+  heroTextUnderButton_fr,
+  heroTextUnderButton_it,
+  heroTextUnderButton_pt,
+  sectionThreeTitle,
+  sectionThreeTitle_de,
+  sectionThreeTitle_es,
+  sectionThreeTitle_fr,
+  sectionThreeTitle_it,
+  sectionThreeTitle_pt,
+  sectionThreeText,
+  sectionThreeText_de,
+  sectionThreeText_es,
+  sectionThreeText_fr,
+  sectionThreeText_it,
+  sectionThreeText_pt,
+  sectionThreeStarsNumber,
+  sectionThreeTextUnderStarsNumber,
+  sectionThreeTextUnderStarsNumber_de,
+  sectionThreeTextUnderStarsNumber_es,
+  sectionThreeTextUnderStarsNumber_fr,
+  sectionThreeTextUnderStarsNumber_it,
+  sectionThreeTextUnderStarsNumber_pt,
+  sectionThreeUsersNumber,
+  sectionThreeTextUnderUsersNumber,
+  sectionThreeTextUnderUsersNumber_de,
+  sectionThreeTextUnderUsersNumber_es,
+  sectionThreeTextUnderUsersNumber_fr,
+  sectionThreeTextUnderUsersNumber_it,
+  sectionThreeTextUnderUsersNumber_pt,
+  sectionThreeTimeNumber,
+  sectionThreeTextUnderTimeNumber,
+  sectionThreeTextUnderTimeNumber_de,
+  sectionThreeTextUnderTimeNumber_es,
+  sectionThreeTextUnderTimeNumber_fr,
+  sectionThreeTextUnderTimeNumber_it,
+  sectionThreeTextUnderTimeNumber_pt,
+  sliderTitle,
+  sliderTitle_de,
+  sliderTitle_es,
+  sliderTitle_fr,
+  sliderTitle_it,
+  sliderTitle_pt,
+  sliderText,
+  sliderText_de,
+  sliderText_es,
+  sliderText_fr,
+  sliderText_it,
+  sliderText_pt,
+  sliderAverageMonthlyIncome,
+  sliderAverageMonthlyIncome_de,
+  sliderAverageMonthlyIncome_es,
+  sliderAverageMonthlyIncome_fr,
+  sliderAverageMonthlyIncome_it,
+  sliderAverageMonthlyIncome_pt,
+  sectionSixTitle,
+  sectionSixTitle_de,
+  sectionSixTitle_es,
+  sectionSixTitle_fr,
+  sectionSixTitle_it,
+  sectionSixTitle_pt,
+  sectionSevenTitle,
+  sectionSevenTitle_de,
+  sectionSevenTitle_es,
+  sectionSevenTitle_fr,
+  sectionSevenTitle_it,
+  sectionSevenTitle_pt,
+  sectionSevenText,
+  sectionSevenText_de,
+  sectionSevenText_es,
+  sectionSevenText_fr,
+  sectionSevenText_it,
+  sectionSevenText_pt,
+  sectionSevenSubTitleOne,
+  sectionSevenSubTitleOne_de,
+  sectionSevenSubTitleOne_es,
+  sectionSevenSubTitleOne_fr,
+  sectionSevenSubTitleOne_it,
+  sectionSevenSubTitleOne_pt,
+  sectionFourteenTitle,
+  sectionFourteenTitle_de,
+  sectionFourteenTitle_es,
+  sectionFourteenTitle_fr,
+  sectionFourteenTitle_it,
+  sectionFourteenTitle_pt,
+  reviewsText,
+  reviewsText_de,
+  reviewsText_es,
+  reviewsText_fr,
+  reviewsText_it,
+  reviewsText_pt,
+  metaTitle,
+  metaTitle_de,
+  metaTitle_es,
+  metaTitle_fr,
+  metaTitle_it,
+  metaTitle_pt,
+  metaDescription,
+  metaDescription_de,
+  metaDescription_es,
+  metaDescription_fr,
+  metaDescription_it,
+  metaDescription_pt,
+  keywords
+}
+
     `;
     const data: HomeTypes = await client.fetch(query);
     return data;
@@ -49,11 +146,36 @@ async function getHome(): Promise<HomeTypes | null> {
 
 export const revalidate = 10;
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({params}: {params: {locale: string}}): Promise<Metadata> {
   const home: HomeTypes | null = await getHome();
+  const locale = params.locale;
 
-  const title = home?.metaTitle;
-  const description = home?.metaDescription;
+  const title =
+    locale === "en"
+      ? home?.metaTitle
+      : locale === "de"
+        ? home?.metaTitle_de
+        : locale === "es"
+          ? home?.metaTitle_es
+          : locale === "fr"
+            ? home?.metaTitle_fr
+            : locale === "it"
+              ? home?.metaTitle_it
+              : home?.metaTitle_pt;
+
+  const description =
+    locale === "en"
+      ? home?.metaDescription
+      : locale === "de"
+        ? home?.metaDescription_de
+        : locale === "es"
+          ? home?.metaDescription_es
+          : locale === "fr"
+            ? home?.metaDescription_fr
+            : locale === "it"
+              ? home?.metaDescription_it
+              : home?.metaDescription_pt;
+
   const keywords = home?.keywords ? home.keywords.join(", ") : "";
 
   return {
@@ -64,8 +186,17 @@ export async function generateMetadata(): Promise<Metadata> {
     creator: "Hugging Trade",
     generator: "Next.js",
     publisher: "Hugging Trade",
+
     alternates: {
-      canonical: "https://www.huggingtrade.com",
+      canonical: `https://www.huggingtrade.com/${locale}`,
+      languages: {
+        en: "https://www.huggingtrade.com/en",
+        de: "https://www.huggingtrade.com/de",
+        es: "https://www.huggingtrade.com/es",
+        fr: "https://www.huggingtrade.com/fr",
+        it: "https://www.huggingtrade.com/it",
+        pt: "https://www.huggingtrade.com/pt",
+      },
     },
     openGraph: {
       images: [
@@ -73,14 +204,18 @@ export async function generateMetadata(): Promise<Metadata> {
           url: "https://www.huggingtrade.com/opengraph-image.jpg",
           width: 1200,
           height: 628,
+          alt: "Hugging Trade Open Graph Image",
         },
       ],
     },
   };
 }
 
-export default async function Home() {
+export default async function Home({params}: {params: {locale: string}}) {
   const home: HomeTypes | null = await getHome();
+  const t = await getTranslations("HomePage");
+
+  const locale = params.locale;
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -226,13 +361,12 @@ export default async function Home() {
     <div className="overflow-hidden lg:-mt-10 lg:mb-20 lg:pb-0">
       <Script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}
         id="structured-data-homepage"
       />
 
-      {/* <div className="lg:flex justify-center"> */}
-        <CountdownTimer />
-      {/* </div> */}
+      <CountdownTimer />
+
       <div>
         <div className="hidden pt-5 lg:block lg:pt-10">
           <div className="relative -mt-20">
@@ -246,18 +380,44 @@ export default async function Home() {
               />
             </div>
             <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center lg:gap-10">
-              <h1 className={`px-5 font-black leading-tight text-black lg:w-[994px] lg:text-h1`}>{home?.heroTitle}</h1>
+              <h1
+                className={`px-5 font-black leading-tight text-black lg:text-h1 ${locale === "en" ? "lg:w-[994px]" : "lg:w-[1400px]"} `}
+              >
+                {locale === "en"
+                  ? home?.heroTitle
+                  : locale === "de"
+                    ? home?.heroTitle_de
+                    : locale === "es"
+                      ? home?.heroTitle_es
+                      : locale === "fr"
+                        ? home?.heroTitle_fr
+                        : locale === "it"
+                          ? home?.heroTitle_it
+                          : home?.heroTitle_pt}
+              </h1>
 
-              <p className="text-pMain lg:w-[971px]">{home?.heroText}</p>
+              <p className="text-pMain lg:w-[971px]">
+                {locale === "en"
+                  ? home?.heroText
+                  : locale === "de"
+                    ? home?.heroText_de
+                    : locale === "es"
+                      ? home?.heroText_es
+                      : locale === "fr"
+                        ? home?.heroText_fr
+                        : locale === "it"
+                          ? home?.heroText_it
+                          : home?.heroText_pt}
+              </p>
 
               <div className="flex flex-col items-center">
-                <div className="relative z-[55]">
+                <div className="relative">
                   <Link
                     href="/sign-in"
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:py-3 lg:text-[22px]">
-                      Start free trial
+                      {t("startFreeTrial")}
                     </div>
                   </Link>
 
@@ -272,7 +432,19 @@ export default async function Home() {
                     />
                   </div>
                 </div>
-                <p className="-mt-3 text-[14px]">{home?.heroTextUnderButton}</p>
+                <p className="-mt-3 text-[14px]">
+                  {locale === "en"
+                    ? home?.heroTextUnderButton
+                    : locale === "de"
+                      ? home?.heroTextUnderButton_de
+                      : locale === "es"
+                        ? home?.heroTextUnderButton_es
+                        : locale === "fr"
+                          ? home?.heroTextUnderButton_fr
+                          : locale === "it"
+                            ? home?.heroTextUnderButton_it
+                            : home?.heroTextUnderButton_pt}
+                </p>
               </div>
             </div>
 
@@ -288,7 +460,7 @@ export default async function Home() {
             </div>
 
             <div className="-mt-20 flex -translate-y-20 justify-center gap-2">
-              <p className="text-[20px]">Excellent</p>
+              <p className="text-[20px]">{t("excellent")}</p>
               <Image
                 src={"/Images/HomePage/Frame 1261155460.svg"}
                 alt="image"
@@ -297,7 +469,10 @@ export default async function Home() {
                 loading="eager"
               />
               <p className="text-[20px]">
-                <span className="font-bold">4.9</span> out of 5 based on <span className="font-bold">592 reviews</span>
+                <span className="font-bold">4.9 </span>
+                {t("outOfFive")}
+
+                <span className="font-bold"> {t("reviews")}</span>
               </p>
             </div>
           </div>
@@ -309,10 +484,32 @@ export default async function Home() {
           <div className="pt-10">
             <div className="flex flex-col items-center justify-center gap-10 text-center lg:gap-10">
               <h2 className={`w-full text-[44px] font-black leading-[50px] text-black lg:leading-none`}>
-                {home?.heroTitle}
+                {locale === "en"
+                  ? home?.heroTitle
+                  : locale === "de"
+                    ? home?.heroTitle_de
+                    : locale === "es"
+                      ? home?.heroTitle_es
+                      : locale === "fr"
+                        ? home?.heroTitle_fr
+                        : locale === "it"
+                          ? home?.heroTitle_it
+                          : home?.heroTitle_pt}
               </h2>
 
-              <p className="text-center text-pMobile">{home?.heroText}</p>
+              <p className="text-center text-pMobile">
+                {locale === "en"
+                  ? home?.heroText
+                  : locale === "de"
+                    ? home?.heroText_de
+                    : locale === "es"
+                      ? home?.heroText_es
+                      : locale === "fr"
+                        ? home?.heroText_fr
+                        : locale === "it"
+                          ? home?.heroText_it
+                          : home?.heroText_pt}
+              </p>
 
               <div className="flex w-[328px] flex-col items-center justify-center">
                 <div className="w-full">
@@ -322,7 +519,7 @@ export default async function Home() {
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white">
-                      Start free trial
+                      {t("startFreeTrial")}
                     </div>
                   </Link>
 
@@ -337,12 +534,24 @@ export default async function Home() {
                     />
                   </div>
                 </div>
-                <p className="-mt-3 text-[14px]">{home?.heroTextUnderButton}</p>
+                <p className="-mt-3 text-[14px]">
+                  {locale === "en"
+                    ? home?.heroTextUnderButton
+                    : locale === "de"
+                      ? home?.heroTextUnderButton_de
+                      : locale === "es"
+                        ? home?.heroTextUnderButton_es
+                        : locale === "fr"
+                          ? home?.heroTextUnderButton_fr
+                          : locale === "it"
+                            ? home?.heroTextUnderButton_it
+                            : home?.heroTextUnderButton_pt}
+                </p>
               </div>
             </div>
 
             <div className="mt-5 flex w-full flex-col items-center justify-center lg:-mt-5 lg:flex-row lg:gap-2">
-              <p className="text-[20px]">Excellent</p>
+              <p className="text-[20px]">{t("excellent")}</p>
               <Image
                 src={"/Images/HomePage/Frame 1261155460.svg"}
                 alt="image"
@@ -351,8 +560,9 @@ export default async function Home() {
                 className="scale-50"
                 loading="eager"
               />
-              <p className="text-[20px]">
-                <span className="font-bold">4.9</span> out of 5 based on <span className="font-bold">592 reviews</span>
+              <p className="text-center text-[20px]">
+                <span className="font-bold">4.9</span> {t("outOfFive")}{" "}
+                <span className="font-bold">{t("reviews")}</span>
               </p>
             </div>
           </div>
@@ -363,10 +573,10 @@ export default async function Home() {
 
       <div className="flex flex-col items-center px-5 py-10 pt-20 lg:px-0">
         <h2 className="w-full pb-7 text-center text-h2M font-bold leading-[50px] lg:w-[700px] lg:pb-0 lg:text-h2 lg:leading-none">
-          The Hidden Pitfalls of Traditional Trading Methods
+          {t("countdownTitle")}
         </h2>
         <p className="w-full text-center text-pMobile lg:w-[600px] lg:pt-10 lg:text-pMain">
-          Discover why conventional approaches are holding you back from true financial freedom.
+          {t("countdownDescription")}
         </p>
 
         <div className="relative">
@@ -381,7 +591,7 @@ export default async function Home() {
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
             <h3 className={`pt-14 text-[20px] font-bold text-white lg:w-[470px] lg:text-[30px]`}>
-              Why DIY Trading is Costing You Time and Money
+              {t("pitfallsTitle")}
             </h3>
           </div>
         </div>
@@ -395,7 +605,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Spending countless hours on market research and analysis</p>
+            <p>{t("pitfall1")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -405,7 +615,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Making emotional decisions that lead to costly mistakes</p>
+            <p>{t("pitfall2")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -415,7 +625,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Struggling to balance trading with your full-time job</p>
+            <p>{t("pitfall3")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -425,7 +635,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Facing a steep learning curve and inconsistent results</p>
+            <p>{t("pitfall4")}</p>
           </div>
         </div>
 
@@ -450,9 +660,7 @@ export default async function Home() {
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-            <h3 className="pt-14 text-[20px] font-bold text-white lg:w-[470px] lg:text-[30px]">
-              Hugging Trade vs. Conventional Trading Solutions
-            </h3>
+            <h3 className="pt-14 text-[20px] font-bold text-white lg:w-[570px] lg:text-[30px]">{t("benefitsTitle")}</h3>
           </div>
         </div>
 
@@ -466,7 +674,7 @@ export default async function Home() {
               loading="lazy"
             />
 
-            <p>Expert-driven strategies outperform AI bots and manual trading</p>
+            <p>{t("benefit1")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -476,7 +684,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>No need for expensive, time-consuming courses</p>
+            <p>{t("benefit2")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -486,7 +694,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Hands-off approach eliminates emotional decision-making</p>
+            <p>{t("benefit3")}</p>
           </div>
           <div className="flex items-center gap-2">
             <Image
@@ -496,7 +704,7 @@ export default async function Home() {
               height={29}
               loading="lazy"
             />
-            <p>Aim for higher returns than traditional investments</p>
+            <p>{t("benefit4")}</p>
           </div>
         </div>
       </div>
@@ -505,33 +713,141 @@ export default async function Home() {
 
       <div className="lg:-mt-20">
         <HomeCounter
-          sectionThreeTitle={home?.sectionThreeTitle || ""}
-          sectionThreeText={home?.sectionThreeText || ""}
+          sectionThreeTitle={
+            locale === "en"
+              ? home?.sectionThreeTitle || ""
+              : locale === "de"
+                ? home?.sectionThreeTitle_de || ""
+                : locale === "es"
+                  ? home?.sectionThreeTitle_es || ""
+                  : locale === "fr"
+                    ? home?.sectionThreeTitle_fr || ""
+                    : locale === "it"
+                      ? home?.sectionThreeTitle_it || ""
+                      : home?.sectionThreeTitle_pt || ""
+          }
+          sectionThreeText={
+            locale === "en"
+              ? home?.sectionThreeText || ""
+              : locale === "de"
+                ? home?.sectionThreeText_de || ""
+                : locale === "es"
+                  ? home?.sectionThreeText_es || ""
+                  : locale === "fr"
+                    ? home?.sectionThreeText_fr || ""
+                    : locale === "it"
+                      ? home?.sectionThreeText_it || ""
+                      : home?.sectionThreeText_pt || ""
+          }
           sectionThreeStarsNumber={home?.sectionThreeStarsNumber || 0}
-          sectionThreeTextUnderStarsNumber={home?.sectionThreeTextUnderStarsNumber || ""}
+          sectionThreeTextUnderStarsNumber={
+            locale === "en"
+              ? home?.sectionThreeTextUnderStarsNumber || ""
+              : locale === "de"
+                ? home?.sectionThreeTextUnderStarsNumber_de || ""
+                : locale === "es"
+                  ? home?.sectionThreeTextUnderStarsNumber_es || ""
+                  : locale === "fr"
+                    ? home?.sectionThreeTextUnderStarsNumber_fr || ""
+                    : locale === "it"
+                      ? home?.sectionThreeTextUnderStarsNumber_it || ""
+                      : home?.sectionThreeTextUnderStarsNumber_pt || ""
+          }
           sectionThreeUsersNumber={home?.sectionThreeUsersNumber || 0}
-          sectionThreeTextUnderUsersNumber={home?.sectionThreeTextUnderUsersNumber || ""}
+          sectionThreeTextUnderUsersNumber={
+            locale === "en"
+              ? home?.sectionThreeTextUnderUsersNumber || ""
+              : locale === "de"
+                ? home?.sectionThreeTextUnderUsersNumber_de || ""
+                : locale === "es"
+                  ? home?.sectionThreeTextUnderUsersNumber_es || ""
+                  : locale === "fr"
+                    ? home?.sectionThreeTextUnderUsersNumber_fr || ""
+                    : locale === "it"
+                      ? home?.sectionThreeTextUnderUsersNumber_it || ""
+                      : home?.sectionThreeTextUnderUsersNumber_pt || ""
+          }
           sectionThreeTimeNumber={home?.sectionThreeTimeNumber || 0}
-          sectionThreeTextUnderTimeNumber={home?.sectionThreeTextUnderTimeNumber || ""}
+          sectionThreeTextUnderTimeNumber={
+            locale === "en"
+              ? home?.sectionThreeTextUnderTimeNumber || ""
+              : locale === "de"
+                ? home?.sectionThreeTextUnderTimeNumber_de || ""
+                : locale === "es"
+                  ? home?.sectionThreeTextUnderTimeNumber_es || ""
+                  : locale === "fr"
+                    ? home?.sectionThreeTextUnderTimeNumber_fr || ""
+                    : locale === "it"
+                      ? home?.sectionThreeTextUnderTimeNumber_it || ""
+                      : home?.sectionThreeTextUnderTimeNumber_pt || ""
+          }
         />
       </div>
 
       {/* -------------------------------------------------------------------------------------- */}
 
       <SliderCalculator
-        sliderTitle={home?.sliderTitle || ""}
-        sliderText={home?.sliderText || ""}
-        sliderAverageMonthlyIncome={home?.sliderAverageMonthlyIncome || ""}
+        sliderTitle={
+          locale === "en"
+            ? home?.sliderTitle || ""
+            : locale === "de"
+              ? home?.sliderTitle_de || ""
+              : locale === "es"
+                ? home?.sliderTitle_es || ""
+                : locale === "fr"
+                  ? home?.sliderTitle_fr || ""
+                  : locale === "it"
+                    ? home?.sliderTitle_it || ""
+                    : home?.sliderTitle_pt || ""
+        }
+        sliderText={
+          locale === "en"
+            ? home?.sliderText || ""
+            : locale === "de"
+              ? home?.sliderText_de || ""
+              : locale === "es"
+                ? home?.sliderText_es || ""
+                : locale === "fr"
+                  ? home?.sliderText_fr || ""
+                  : locale === "it"
+                    ? home?.sliderText_it || ""
+                    : home?.sliderText_pt || ""
+        }
+        sliderAverageMonthlyIncome={
+          locale === "en"
+            ? home?.sliderAverageMonthlyIncome || ""
+            : locale === "de"
+              ? home?.sliderAverageMonthlyIncome_de || ""
+              : locale === "es"
+                ? home?.sliderAverageMonthlyIncome_es || ""
+                : locale === "fr"
+                  ? home?.sliderAverageMonthlyIncome_fr || ""
+                  : locale === "it"
+                    ? home?.sliderAverageMonthlyIncome_it || ""
+                    : home?.sliderAverageMonthlyIncome_pt || ""
+        }
       />
 
       {/* ---------------------------------------------------------------------------- */}
 
       <div className="px-5 py-20 lg:-mt-20 lg:px-0">
-        <h2 className="text-center text-h2M font-bold leading-10 lg:text-h2">{home?.sectionSixTitle}</h2>
+        <h2 className="text-center text-h2M font-bold leading-10 lg:text-h2">
+          {locale === "en"
+            ? home?.sectionSixTitle
+            : locale === "de"
+              ? home?.sectionSixTitle_de
+              : locale === "es"
+                ? home?.sectionSixTitle_es
+                : locale === "fr"
+                  ? home?.sectionSixTitle_fr
+                  : locale === "it"
+                    ? home?.sectionSixTitle_it
+                    : home?.sectionSixTitle_pt}
+        </h2>
 
         <div className="flex flex-col items-center justify-center gap-20 pt-10 lg:flex-row lg:pt-20">
           <div>
-            <p className="text-pMobile">Here&apos;s what you&apos;re missing by not using Hugging Trade:</p>
+            <p className="text-pMobile">{t("costText")}</p>
             <div className="space-y-3 pt-10 text-left text-pMobile">
               <div className="flex items-center gap-2">
                 <Image
@@ -541,7 +857,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Potential monthly returns of 150-200%</p>
+                <p>{t("costText1")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -551,7 +867,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Precious time wasted on complex trading strategies</p>
+                <p>{t("costText2")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -561,7 +877,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Peace of mind from stress-free, automated trading</p>
+                <p>{t("costText3")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -571,7 +887,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>The lifestyle that comes with true financial freedom</p>
+                <p>{t("costText4")}</p>
               </div>
             </div>
 
@@ -589,8 +905,8 @@ export default async function Home() {
               scroll={true}
               className="block w-full"
             >
-              <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:-mt-5 lg:w-[197px]">
-                Start free trial
+              <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:-mt-5 lg:w-[348px]">
+                {t("startFreeTrial")}
               </div>
             </Link>
           </div>
@@ -610,17 +926,48 @@ export default async function Home() {
 
       <div className="px-5 lg:px-0 lg:py-20 xl:px-20">
         <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">
-          {home?.sectionSevenTitle}
+          {locale === "en"
+            ? home?.sectionSevenTitle
+            : locale === "de"
+              ? home?.sectionSevenTitle_de
+              : locale === "es"
+                ? home?.sectionSevenTitle_es
+                : locale === "fr"
+                  ? home?.sectionSevenTitle_fr
+                  : locale === "it"
+                    ? home?.sectionSevenTitle_it
+                    : home?.sectionSevenTitle_pt}
         </h2>
-        <p className="pt-10 text-center text-pMobile lg:pt-5 lg:text-pMain">{home?.sectionSevenText}</p>
+        <p className="pt-10 text-center text-pMobile lg:pt-5 lg:text-pMain">
+          {locale === "en"
+            ? home?.sectionSevenText
+            : locale === "de"
+              ? home?.sectionSevenText_de
+              : locale === "es"
+                ? home?.sectionSevenText_es
+                : locale === "fr"
+                  ? home?.sectionSevenText_fr
+                  : locale === "it"
+                    ? home?.sectionSevenText_it
+                    : home?.sectionSevenText_pt}
+        </p>
 
         <div className="flex flex-col items-center justify-center gap-5 lg:flex-row">
           <div className="py-20">
-            <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">{home?.sectionSevenSubTitleOne}</h3>
-            <p className="pb-10 text-center text-pMobile lg:w-[800px] lg:text-left">
-              Create your Hugging Trade account and securely link your preferred brokerage account. Your funds stay
-              under your control - always.
-            </p>
+            <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">
+              {locale === "en"
+                ? home?.sectionSevenSubTitleOne
+                : locale === "de"
+                  ? home?.sectionSevenSubTitleOne_de
+                  : locale === "es"
+                    ? home?.sectionSevenSubTitleOne_es
+                    : locale === "fr"
+                      ? home?.sectionSevenSubTitleOne_fr
+                      : locale === "it"
+                        ? home?.sectionSevenSubTitleOne_it
+                        : home?.sectionSevenSubTitleOne_pt}
+            </h3>
+            <p className="pb-10 text-center text-pMobile lg:w-[800px] lg:text-left">{t("investmentStep")}</p>
 
             <div className="space-y-5">
               <div className="flex items-center justify-start gap-5">
@@ -631,7 +978,7 @@ export default async function Home() {
                   height={35}
                   loading="lazy"
                 />
-                <p className="text-pMobile">Sign up for your Hugging Trade account in minutes</p>
+                <p className="text-pMobile">{t("investmentStep1")}</p>
               </div>
 
               <div className="flex items-center justify-start gap-5">
@@ -642,7 +989,7 @@ export default async function Home() {
                   height={35}
                   loading="lazy"
                 />
-                <p className="text-pMobile">Connect your preferred brokerage account securely</p>
+                <p className="text-pMobile">{t("investmentStep2")}</p>
               </div>
 
               <div className="flex items-center justify-start gap-5">
@@ -653,7 +1000,7 @@ export default async function Home() {
                   height={35}
                   loading="lazy"
                 />
-                <p className="text-pMobile">Choose your initial investment amount - $300 minimum required</p>
+                <p className="text-pMobile">{t("investmentStep3")}</p>
               </div>
             </div>
           </div>
@@ -690,7 +1037,7 @@ export default async function Home() {
                   loading="lazy"
                 />
                 <p className="text-center text-[25px] font-black leading-7 lg:text-[32px] lg:font-bold lg:leading-none">
-                  No brokerage account yet?
+                  {t("investmentReminder")}
                 </p>
 
                 <Image
@@ -702,9 +1049,7 @@ export default async function Home() {
                   loading="lazy"
                 />
               </div>
-              <p className="text-center text-pMobile font-medium lg:text-pMain">
-                We&apos;ll guide you through setting up with one of our trusted partners.
-              </p>
+              <p className="text-center text-pMobile font-medium lg:text-pMain">{t("investmentGuide")}</p>
             </div>
           </div>
         </div>
@@ -795,18 +1140,12 @@ export default async function Home() {
           </div>
           <div className="px-5 pt-10 lg:px-0 lg:pt-0">
             <h3 className="pb-3 text-center text-h3 font-bold leading-tight lg:text-left lg:leading-none">
-              Step 2: <span className="text-h3 font-bold">Customize Your Investment Strategy</span>
+              {t("step2Title")}
             </h3>
-            <p className="pt-5 text-center text-pMobile lg:w-[775px] lg:text-left">
-              Invest any amount you&apos;re comfortable with. Our system adapts to your goals, whether you&apos;re
-              starting small or thinking big.
-            </p>
-            <p className="py-6 text-center text-pMobile lg:text-left">
-              The longer you invest, the more profit you can earn.
-            </p>
+            <p className="pt-5 text-center text-pMobile lg:w-[775px] lg:text-left">{t("step2Description")}</p>
+            <p className="py-6 text-center text-pMobile lg:text-left">{t("step2Reminder")}</p>
             <div className="space-y-3 text-left text-pMobile">
               <div className="flex items-center gap-2">
-                {/* <CircleCheck color="#A0A3A9" /> */}
                 <Image
                   src={"/Images/HomePage/checkmark.svg.svg"}
                   alt="img"
@@ -814,7 +1153,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p className="text-pMobile">No complex strategies — just one that works.</p>
+                <p className="text-pMobile">{t("step2Reminder1")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -824,7 +1163,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p className="text-[20px]">Set your desired investment amount</p>
+                <p className="text-[20px]">{t("step2Reminder2")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -834,7 +1173,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p className="text-[20px]">Adjust your deposit anytime as your goals change.</p>
+                <p className="text-[20px]">{t("step2Reminder3")}</p>
               </div>
             </div>
           </div>
@@ -868,7 +1207,7 @@ export default async function Home() {
                   loading="lazy"
                 />
                 <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
-                  Wondering about minimum investments?
+                  {t("step2Reminder4")}
                 </p>
 
                 <Image
@@ -880,9 +1219,7 @@ export default async function Home() {
                   loading="lazy"
                 />
               </div>
-              <p className="text-center text-pMobile font-medium lg:text-pMain">
-                Start small and scale up as you see results. $300 recommended.
-              </p>
+              <p className="text-center text-pMobile font-medium lg:text-pMain">{t("step2Reminder5")}</p>
             </div>
           </div>
           <Image
@@ -900,13 +1237,8 @@ export default async function Home() {
 
       <div className="mt-10 flex flex-col items-center justify-center px-5 lg:mt-20 lg:flex-row lg:gap-40 lg:px-0">
         <div className="">
-          <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">
-            Step 3: <span className="text-h3 font-bold">Watch Your Wealth Grow</span>
-          </h3>
-          <p className="pb-10 text-center text-pMobile lg:w-[640px] lg:text-left">
-            Relax as our expert traders work for you. We combine deep market insights with technical analysis to target
-            150-200% monthly returns.
-          </p>
+          <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">{t("step3Title")}</h3>
+          <p className="pb-10 text-center text-pMobile lg:w-[640px] lg:text-left">{t("step3Description")}</p>
 
           <div className="space-y-4 text-left text-[20px]">
             <div className="flex items-center gap-2">
@@ -917,7 +1249,7 @@ export default async function Home() {
                 height={29}
                 loading="lazy"
               />
-              <p>Advanced algorithms execute trades automatically</p>
+              <p>{t("step3Description1")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Image
@@ -927,7 +1259,7 @@ export default async function Home() {
                 height={29}
                 loading="lazy"
               />
-              <p>Real-time performance tracking keeps you informed</p>
+              <p>{t("step3Description2")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Image
@@ -937,7 +1269,7 @@ export default async function Home() {
                 height={29}
                 loading="lazy"
               />
-              <p>Monthly payouts allow for reinvestment or withdrawal</p>
+              <p>{t("step3Description3")}</p>
             </div>
           </div>
         </div>
@@ -981,7 +1313,7 @@ export default async function Home() {
                 loading="lazy"
               />
               <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
-                Curious about accessing your profits?
+                {t("investmentProfits")}
               </p>
 
               <Image
@@ -993,9 +1325,7 @@ export default async function Home() {
                 loading="lazy"
               />
             </div>
-            <p className="text-center text-pMobile font-medium lg:text-pMain">
-              Enjoy monthly payouts - reinvest or withdraw, it&apos;s your choice.
-            </p>
+            <p className="text-center text-pMobile font-medium lg:text-pMain">{t("investmentPayouts")}</p>
           </div>
         </div>
         <Image
@@ -1030,14 +1360,17 @@ export default async function Home() {
             />
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-end">
-            <h2 className="text-center text-h2M font-bold lg:w-[500px] lg:text-h2">
-              Secure<span className="text-[#2563EB]">.</span>Fast
-              <span className="text-[#2563EB]">.</span>Easy
+            <h2
+              className={`text-center font-bold lg:w-[500px] lg:text-h2 ${locale === "en" ? "text-h2M" : "text-[30px]"}`}
+            >
+              {t("secure")}
+              <span className="text-[#2563EB]">.</span>
+              {t("fast")}
+              <span className="text-[#2563EB]">.</span>
+              {t("easy")}
               <span className="text-[#2563EB]">.</span>
             </h2>
-            <p className="text-center text-pMobile lg:pt-1 lg:text-pMain">
-              Our platform executes trades, while keeping all information confidential.
-            </p>
+            <p className="text-center text-pMobile lg:pt-1 lg:text-pMain">{t("secureFastEasyDescription")}</p>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center gap-5 pt-10 lg:flex-row">
@@ -1049,10 +1382,8 @@ export default async function Home() {
               height={124}
               loading="lazy"
             />
-            <p className="pt-5 text-[28px] font-bold">Your funds are secure</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">
-              Hugging Trade doesn&apos;t have access to funds on your brokerage account and cannot withdraw them.
-            </p>
+            <p className="text-[28px] font-bold">{t("secureFundsTitle")}</p>
+            <p className="w-[303px] pt-4 text-center text-[17px]">{t("secureFundsDescription")}</p>
           </div>
 
           <div className="flex h-[370px] w-[397.33px] flex-col items-center justify-center rounded-3xl bg-white p-5">
@@ -1063,10 +1394,8 @@ export default async function Home() {
               height={105}
               loading="lazy"
             />
-            <p className="pt-5 text-[28px] font-bold">API key is all you need</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">
-              Simply connect your brokerage account using a secure API connection and get started.
-            </p>
+            <p className="pt-5 text-[28px] font-bold">{t("apiKeyTitle")}</p>
+            <p className="w-[303px] pt-4 text-center text-[17px]">{t("apiKeyDescription")}</p>
           </div>
 
           <div className="flex h-[370px] w-[397.33px] flex-col items-center justify-center rounded-3xl bg-white p-5">
@@ -1077,15 +1406,13 @@ export default async function Home() {
               height={96.25}
               loading="lazy"
             />
-            <p className="pt-5 text-[28px] font-bold">Fast trading servers</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">
-              Our servers are located close to popular exchanges to ensure stable and fast order execution.
-            </p>
+            <p className="pt-5 text-[28px] font-bold">{t("fastTradingTitle")}</p>
+            <p className="w-[303px] pt-4 text-center text-[17px]">{t("fastTradingDescription")}</p>
           </div>
         </div>
       </div>
       {/* --------------------------------------------------------------------------------------------- */}
-      <VideoMembers />
+      <VideoMembers locale={locale} />
       {/* ------------------------------------------------------------------------------------------------- */}
 
       <div className="relative mt-20 pt-20 lg:mt-0 xl:px-20">
@@ -1100,24 +1427,19 @@ export default async function Home() {
           />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-end">
-          <h2 className="pb-10 text-center text-h2M font-bold lg:text-h2">FAQ</h2>
+          <h2 className="pb-10 text-center text-h2M font-bold lg:text-h2">{t("faqTitle")}</h2>
         </div>
       </div>
 
       <div className="px-5 lg:px-0">
-        <AccordionHome />
+        <AccordionHome locale={locale} />
       </div>
       {/* ------------------------------------------------------------------------------------------------------ */}
 
       <div className="mx-5 -mt-20 mb-10 rounded-2xl bg-[#F3F4F6] lg:mx-20 lg:my-10 lg:-mt-0 lg:rounded-[56px]">
         <div className="flex flex-col items-center justify-center gap-5 px-5 py-10 pb-20 lg:px-0">
-          <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">
-            One Dashboard. Many Trading Tools
-          </h2>
-          <p className="text-center text-pMobile text-[#374151] lg:w-[868px] lg:text-pMain">
-            Hugging Trade goes beyond expert trading, offering automated trading and actionable analytics in a
-            multi-functional platform.
-          </p>
+          <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">{t("toolsTitle")}</h2>
+          <p className="text-center text-pMobile text-[#374151] lg:w-[868px] lg:text-pMain">{t("toolsDescription")}</p>
           <Image
             src={"/Images/HomePage/Tablist.svg"}
             alt="image"
@@ -1130,7 +1452,7 @@ export default async function Home() {
         <div className="flex flex-col items-center justify-center px-5 lg:flex-row lg:px-0 lg:pl-32">
           <div className="lg:-mt-[120px]">
             <h3 className="pb-10 text-center text-[25px] font-bold lg:w-[500px] lg:text-left lg:text-[20px]">
-              Manage portfolio performance and maximize returns with all-in-one dashboard:
+              {t("sliderTitle")}
             </h3>
 
             <div className="space-y-2 text-left text-pMobile">
@@ -1142,7 +1464,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>3-minute sign-up process</p>
+                <p>{t("sliderItem1")}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Image
@@ -1152,7 +1474,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Accurate profit forecasting</p>
+                <p>{t("sliderItem2")}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Image
@@ -1162,7 +1484,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Flexible investment options</p>
+                <p>{t("sliderItem3")}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Image
@@ -1172,7 +1494,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Expert-driven trading strategies</p>
+                <p>{t("sliderItem4")}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Image
@@ -1182,7 +1504,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p>Real-time performance tracking</p>
+                <p>{t("sliderItem5")}</p>
               </div>
               <div className="flex items-center gap-4">
                 <Image
@@ -1192,7 +1514,7 @@ export default async function Home() {
                   height={29}
                   loading="lazy"
                 />
-                <p className="">No long-term commitment - cancel anytime</p>
+                <p className="">{t("sliderItem6")}</p>
               </div>
             </div>
           </div>
@@ -1259,7 +1581,19 @@ export default async function Home() {
               />
             </div>
             <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-              <h2 className={`w-full pt-12 text-[30px] font-bold text-white`}>{home?.sectionFourteenTitle}</h2>
+              <h2 className={`w-full pt-12 text-[30px] font-bold text-white`}>
+                {locale === "en"
+                  ? home?.sectionFourteenTitle
+                  : locale === "de"
+                    ? home?.sectionFourteenTitle_de
+                    : locale === "es"
+                      ? home?.sectionFourteenTitle_es
+                      : locale === "fr"
+                        ? home?.sectionFourteenTitle_fr
+                        : locale === "it"
+                          ? home?.sectionFourteenTitle_it
+                          : home?.sectionFourteenTitle_pt}
+              </h2>
             </div>
           </div>
 
@@ -1275,14 +1609,14 @@ export default async function Home() {
               />
 
               <div className="absolute inset-0 mt-[100px] flex flex-col items-center justify-center gap-80 text-[25px] font-bold">
-                <p className="-translate-y-5">Sign Up</p>
-                <p className="">Connect</p>
-                <p className="-translate-y-7">Start trading</p>
+                <p className="-translate-y-5">{t("signUp")}</p>
+                <p className="">{t("connect")}</p>
+                <p className="-translate-y-7">{t("startTrading")}</p>
               </div>
             </div>
 
             <div className="mt-20 flex flex-col items-center">
-              <p className="">All your data is secured with high-end encryption.</p>
+              <p>{t("secureDataTitle")}</p>
 
               <Link
                 href="/sign-in"
@@ -1290,7 +1624,7 @@ export default async function Home() {
                 className="z-[85] block w-full"
               >
                 <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[210px]">
-                  Start free trial
+                  {t("startFreeTrial")}
                 </div>
               </Link>
             </div>
@@ -1320,7 +1654,19 @@ export default async function Home() {
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-            <h2 className={`pt-12 font-bold text-white lg:w-[470px] lg:text-[30px]`}>{home?.sectionFourteenTitle}</h2>
+            <h2 className={`pt-12 font-bold text-white lg:w-[470px] lg:text-[30px]`}>
+              {locale === "en"
+                ? home?.sectionFourteenTitle
+                : locale === "de"
+                  ? home?.sectionFourteenTitle_de
+                  : locale === "es"
+                    ? home?.sectionFourteenTitle_es
+                    : locale === "fr"
+                      ? home?.sectionFourteenTitle_fr
+                      : locale === "it"
+                        ? home?.sectionFourteenTitle_it
+                        : home?.sectionFourteenTitle_pt}
+            </h2>
           </div>
         </div>
 
@@ -1334,21 +1680,21 @@ export default async function Home() {
           />
 
           <div className="absolute inset-0 mt-[50px] flex items-center justify-around px-40 text-[32px] font-bold">
-            <p>Sign Up</p>
-            <p>Connect</p>
-            <p>Start trading</p>
+            <p>{t("signUp")}</p>
+            <p>{t("connect")}</p>
+            <p>{t("startTrading")}</p>
           </div>
 
           <div className="-mt-[300px] flex flex-col items-center gap-1">
-            <p className="">All your data is secured with high-end encryption.</p>
+            <p>{t("secureDataTitle")}</p>
 
             <Link
               href="/sign-in"
               scroll={true}
               className="z-50 block"
             >
-              <div className="mr-14 mt-10 rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[210px] lg:py-3 lg:text-[20px]">
-                Start free trial
+              <div className="mr-14 mt-10 rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:py-3 lg:text-[20px]">
+                {t("startFreeTrial")}
               </div>
             </Link>
           </div>

@@ -4,6 +4,7 @@ import {client} from "@/sanity/lib/client";
 import {FooterTypes} from "@/types";
 import {urlFor} from "@/sanity/lib/image";
 import Link from "next/link";
+import {getTranslations} from "next-intl/server";
 
 async function getFooter(): Promise<FooterTypes | null> {
   try {
@@ -11,6 +12,11 @@ async function getFooter(): Promise<FooterTypes | null> {
     *[_type == "footer"][0] {
       address,
       textAboveIcons,
+      textAboveIcons_de,
+      textAboveIcons_es,
+      textAboveIcons_fr,
+      textAboveIcons_it,
+      textAboveIcons_pt,
       _type,
       links[] {
         url,
@@ -33,8 +39,10 @@ async function getFooter(): Promise<FooterTypes | null> {
 
 export const revalidate = 10;
 
-export default async function Footer() {
+export default async function Footer({locale}: {locale: string}) {
   const footer: FooterTypes | null = await getFooter();
+  const t = await getTranslations("Footer");
+  
   return (
     <div className="px-5 lg:mb-20 lg:space-y-20 lg:px-0 lg:pl-72">
       <div className="flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-start lg:gap-80">
@@ -42,7 +50,7 @@ export default async function Footer() {
           <div className="lg:mr-auto">
             <Link href={`/`}>
               <Image
-                src={"/HuggingPrimaryWEBSITETextAndIcon (1).svg"}
+                src={"/logo.svg"}
                 alt="img"
                 width={250}
                 height={23}
@@ -55,8 +63,22 @@ export default async function Footer() {
         </div>
 
         <div className="mt-5 space-y-5 lg:mt-0">
-          <h2 className="text-center text-[20px] font-bold lg:text-left">Follow Us</h2>
-          <p className="text-center text-[16px] lg:text-left">{footer?.textAboveIcons}</p>
+          <h2 className="text-center text-[20px] font-bold lg:text-left">{t("follow")}</h2>
+          <p className="text-center text-[16px] lg:text-left">
+            {/* {footer?.textAboveIcons} */}
+            {locale === "en"
+                  ? footer?.textAboveIcons
+                  : locale === "de"
+                    ? footer?.textAboveIcons_de
+                    : locale === "es"
+                      ? footer?.textAboveIcons_es
+                      : locale === "fr"
+                        ? footer?.textAboveIcons_fr
+                        : locale === "it"
+                          ? footer?.textAboveIcons_it
+                          : footer?.textAboveIcons_pt}
+            
+            </p>
           <div className="flex items-center justify-center gap-5 lg:justify-start">
             {footer?.links.map((foot, index) => (
               <div
@@ -83,55 +105,55 @@ export default async function Footer() {
 
       <div className="mb-20 flex flex-col justify-start gap-10 pt-10 lg:mb-0 lg:flex-row lg:items-center lg:gap-60">
         <div className="space-y-2 lg:h-40">
-          <h3 className="text-[20px] font-bold">Resources</h3>
+          <h3 className="text-[20px] font-bold">{t("resources")}</h3>
           <div className="flex flex-col space-y-2">
             <a
               href="https://help.huggingtrade.com "
               className="hover:text-[#2563EB]"
               target="_blank"
             >
-              Help Center
+              {t("helpCenter")}
             </a>
             <Link
               href={"/investment-calculator"}
               className="hover:text-[#2563EB]"
             >
-              Investment Calculator
+              {t("investmentCalculator")}
             </Link>
           </div>
         </div>
         <div className="space-y-2 lg:h-40">
-          <h3 className="text-[20px] font-bold">Company</h3>
+          <h3 className="text-[20px] font-bold">{t("company")}</h3>
 
           <div className="flex flex-col space-y-2">
             <Link
               href={"/affiliate"}
               className="hover:text-[#2563EB]"
             >
-              Affiliate program
+              {t("affiliateProgram")}
             </Link>
             <Link
               href={"/contact-us"}
               className="hover:text-[#2563EB]"
             >
-              Contact info
+              {t("contactInfo")}
             </Link>
           </div>
         </div>
         <div className="space-y-2 lg:h-40">
-          <h3 className="text-[20px] font-bold">Legal</h3>
+          <h3 className="text-[20px] font-bold">{t("legal")}</h3>
           <div className="flex flex-col space-y-2">
             <Link
               href={"/terms-conditions"}
               className="hover:text-[#2563EB]"
             >
-              Terms & Conditions
+              {t("terms")}
             </Link>
             <Link
               href={"/privacy-policy"}
               className="hover:text-[#2563EB]"
             >
-              Privacy policy
+              {t("privacy")}
             </Link>
           </div>
         </div>

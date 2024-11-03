@@ -8,8 +8,22 @@ interface Props {
   reviewListItems: Array<{
     _id: string;
     name: string;
-    position: string;
-    text: string;
+    position: {
+      en: string;
+      de: string;
+      es: string;
+      fr: string;
+      it: string;
+      pt: string;
+    };
+    text: {
+      en: string;
+      de: string;
+      es: string;
+      fr: string;
+      it: string;
+      pt: string;
+    };
     authorImage: {
       _type: "image";
       asset: {
@@ -18,9 +32,13 @@ interface Props {
       };
     };
   }>;
+  locale: string;
 }
 
-const Testimonial = ({ affiliateReviewTitle, reviewListItems }: Props) => {
+type Locale = 'en' | 'de' | 'es' | 'fr' | 'it' | 'pt';
+
+const Testimonial = ({ affiliateReviewTitle, reviewListItems, locale }: Props) => {
+  
   return (
     <div className="lg:px-20">
       <div className="flex flex-col lg:flex-row lg:justify-around justify-center items-center gap-10 lg:gap-40">
@@ -47,7 +65,7 @@ const Testimonial = ({ affiliateReviewTitle, reviewListItems }: Props) => {
           {reviewListItems.map((af, index) => (
             <div
               key={af._id || index}
-              className="w-[360px] space-y-5 border-[1px] border-[#C0C0C0] rounded-lg p-5 flex flex-col justify-between"
+              className={`w-[360px]  space-y-5 border-[1px] border-[#C0C0C0] rounded-lg p-5 flex flex-col justify-between ${locale === "en" ? "h-[370px]" : "h-[400px]"}`}
             >
               <div className="flex justify-start items-center gap-2">
                 <ReviewStar />
@@ -57,7 +75,7 @@ const Testimonial = ({ affiliateReviewTitle, reviewListItems }: Props) => {
                 <ReviewStar />
               </div>
               <p className="text-[16px] text-left leading-[30px] flex-grow">
-                {af.text}
+              {af.text[locale as Locale] || af.text.en} 
               </p>
               <div className="flex justify-start items-center gap-3 ">
                 <div className="w-[68px] h-[68px]">
@@ -74,7 +92,7 @@ const Testimonial = ({ affiliateReviewTitle, reviewListItems }: Props) => {
                     {af.name}
                   </p>
                   <p className="text-[16px] text-black font-bold text-left">
-                    {af.position}
+                    {af.position[locale as Locale] || af.position.en}
                   </p>
                 </div>
               </div>
@@ -87,3 +105,4 @@ const Testimonial = ({ affiliateReviewTitle, reviewListItems }: Props) => {
 };
 
 export default Testimonial;
+

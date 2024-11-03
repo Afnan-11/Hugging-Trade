@@ -6,6 +6,7 @@ import Image from "next/image";
 import React, {useState, useEffect} from "react";
 import PeriodToggle from "./PeriodToggle";
 import {PricingTypes} from "@/types";
+import {useTranslations} from "next-intl";
 
 import {useRouter} from "next/navigation";
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
@@ -15,18 +16,20 @@ import {toast} from "sonner";
 import {Button} from "./ui/button";
 import axios from "axios";
 import {loadStripe} from "@stripe/stripe-js";
-import {Spinner} from "./ui/spinner";
 
 interface PricingContentProps {
   user?: any;
   pricing: PricingTypes;
   areOnlyCardsShown?: boolean;
+  locale: string;
 }
 
-const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCardsShown}) => {
+const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCardsShown, locale}) => {
   const [selectedPeriod, setSelectedPeriod] = useState<"year" | "month">("month");
   const priceIdYearly = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEARLY!;
   const priceIdMonthly = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY!;
+
+  const t = useTranslations("PricingPage");
 
   // Calculate discounted monthly price and savings
   const discountPercentageMonth = pricing.discountMonth; // Assuming a 20% discount for month
@@ -99,9 +102,33 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
       {!areOnlyCardsShown && (
         <div className="space-y-5 px-5 lg:px-20">
           <h2 className="text-center text-[40px] font-bold leading-tight lg:text-[56px] lg:leading-none">
-            {pricing.pricingSectionTwoTitle}
+            
+            {locale === "en"
+              ? pricing.pricingSectionTwoTitle
+              : locale === "de"
+                ? pricing.pricingSectionTwoTitle_de
+                : locale === "es"
+                  ? pricing.pricingSectionTwoTitle_es
+                  : locale === "fr"
+                    ? pricing.pricingSectionTwoTitle_fr
+                    : locale === "it"
+                      ? pricing.pricingSectionTwoTitle_it
+                      : pricing.pricingSectionTwoTitle_pt}
           </h2>
-          <p className="text-center text-[22px]">{pricing.pricingSectionTwoText}</p>
+          <p className="text-center text-[22px]">
+            
+            {locale === "en"
+              ? pricing.pricingSectionTwoText
+              : locale === "de"
+                ? pricing.pricingSectionTwoText_de
+                : locale === "es"
+                  ? pricing.pricingSectionTwoText_es
+                  : locale === "fr"
+                    ? pricing.pricingSectionTwoText_fr
+                    : locale === "it"
+                      ? pricing.pricingSectionTwoText_it
+                      : pricing.pricingSectionTwoText_pt}
+          </p>
         </div>
       )}
 
@@ -124,22 +151,35 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
           <div className="space-y-5">
             <div className="space-x-2 text-center text-[30px] font-medium md:whitespace-nowrap lg:h-[100px]">
               {selectedPeriod === "month" ? (
-                // <span>Starts at ${originalPriceMonth}/month</span>
                 <>
-                  <span>${discountedPriceMonthly}/month</span>
-                  <span className="price-line text-[20px] text-gray-400"> ${originalPrice}/month</span>
+                  <span>
+                    ${discountedPriceMonthly}
+                    {t("month")}
+                  </span>
+                  <span className="price-line text-[20px] text-gray-400">
+                    {" "}
+                    ${originalPrice}
+                    {t("month")}
+                  </span>
                 </>
               ) : (
                 <>
-                  <span>${discountedPriceYearly}/month</span>
-                  <span className="price-line text-[20px] text-gray-400"> ${originalPriceMonth}/month</span>
+                  <span>
+                    ${discountedPriceYearly}
+                    {t("month")}
+                  </span>
+                  <span className="price-line text-[20px] text-gray-400">
+                    {" "}
+                    ${originalPriceMonth}
+                    {t("month")}
+                  </span>
                 </>
               )}
 
               {selectedPeriod === "month" && (
                 <div className="flex justify-center">
                   <div className="w-[320px] rounded-[20px] bg-green-100 p-2 text-center text-[20px] text-[#07c37a]">
-                    You save ${savings} per month!
+                    {t("youSave")} ${savings} {t("perMonth")}
                   </div>
                 </div>
               )}
@@ -147,13 +187,26 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
               {selectedPeriod === "year" && (
                 <div className="flex flex-col items-center justify-center">
                   <div className="w-[320px] rounded-[20px] bg-green-100 p-2 text-center text-[20px] text-[#07c37a]">
-                    You save ${yearlySavings} per year!
+                    {t("youSave")} ${yearlySavings} {t("perYear")}
                   </div>
                 </div>
               )}
             </div>
 
-            <p className="text-[15.49px]">{pricing.pricingLeftText}</p>
+            <p className="text-[15.49px]">
+             
+              {locale === "en"
+                ? pricing.pricingLeftText
+                : locale === "de"
+                  ? pricing.pricingLeftText_de
+                  : locale === "es"
+                    ? pricing.pricingLeftText_es
+                    : locale === "fr"
+                      ? pricing.pricingLeftText_fr
+                      : locale === "it"
+                        ? pricing.pricingLeftText_it
+                        : pricing.pricingLeftText_pt}
+            </p>
           </div>
 
           <div className="space-y-2">
@@ -169,12 +222,13 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                     height={10}
                   />
                 </div>
-                <p className="text-[15.49px]">{price.text}</p>
+                <p className="text-[15.49px]">{(price as any)[`text_${locale}`] || price.text_en}</p>
               </div>
             ))}
           </div>
 
-          <div className="space-y-10">
+          <div className="space-y-10 ">
+            <div className="flex justify-center lg:justify-start">
             <Button
               disabled={isLoading}
               onClick={() => {
@@ -193,11 +247,12 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                   });
                 }
               }}
-              className="rounded-xl bg-[#2563EB] py-3 text-center text-[15.62px] text-white lg:w-[229.52px]"
+              className={`rounded-xl bg-[#2563EB] py-3 text-center text-[15.62px] text-white ${locale === "en" ? "lg:w-[229.52px]" : "lg:w-[380px]  "}`}
               type="button"
             >
-              Start your 30-day free trial
+              {t("startYourFreeTrial")}
             </Button>
+            </div>
             <div className="flex items-center justify-start gap-2">
               <Image
                 src={"/Images/HomePage/checkmark.svg.svg"}
@@ -207,8 +262,18 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
               />
 
               <p className="text-[13.45px] text-[#89908B]">
-                {pricing.leftSmallTextUnderButtonOne}
-                {/* Change your tier anytime */}
+                
+                {locale === "en"
+                  ? pricing.leftSmallTextUnderButtonOne
+                  : locale === "de"
+                    ? pricing.leftSmallTextUnderButtonOne_de
+                    : locale === "es"
+                      ? pricing.leftSmallTextUnderButtonOne_es
+                      : locale === "fr"
+                        ? pricing.leftSmallTextUnderButtonOne_fr
+                        : locale === "it"
+                          ? pricing.leftSmallTextUnderButtonOne_it
+                          : pricing.leftSmallTextUnderButtonOne_pt}
               </p>
               <div className="flex items-center justify-start gap-2">
                 <Image
@@ -217,13 +282,39 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                   width={14}
                   height={14}
                 />
-                <p className="text-[13.45px] text-[#89908B]">{pricing.leftSmallTextUnderButtonTwo}</p>
+                <p className="text-[13.45px] text-[#89908B]">
+                 
+                  {locale === "en"
+                    ? pricing.leftSmallTextUnderButtonTwo
+                    : locale === "de"
+                      ? pricing.leftSmallTextUnderButtonTwo_de
+                      : locale === "es"
+                        ? pricing.leftSmallTextUnderButtonTwo_es
+                        : locale === "fr"
+                          ? pricing.leftSmallTextUnderButtonTwo_fr
+                          : locale === "it"
+                            ? pricing.leftSmallTextUnderButtonTwo_it
+                            : pricing.leftSmallTextUnderButtonTwo_pt}
+                </p>
               </div>
             </div>
           </div>
         </div>
         <div className="space-y-20 rounded-[20px] border-[1px] border-[#E4E7E5] bg-[#EFF1EF] p-12 lg:h-[549.58px] lg:w-[524px]">
-          <h3 className="text-[20.63px] font-medium">{pricing.pricingRightTitle}</h3>
+          <h3 className="text-[20.63px] font-medium">
+            {/* {pricing.pricingRightTitle} */}
+            {locale === "en"
+                ? pricing.pricingRightTitle
+                : locale === "de"
+                  ? pricing.pricingRightTitle_de
+                  : locale === "es"
+                    ? pricing.pricingRightTitle_es
+                    : locale === "fr"
+                      ? pricing.pricingRightTitle_fr
+                      : locale === "it"
+                        ? pricing.pricingRightTitle_it
+                        : pricing.pricingRightTitle_pt}
+            </h3>
 
           <div>
             {pricing.rightListItems.map((price, index) => (
@@ -238,20 +329,46 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                     height={10}
                   />
                 </div>
-                <p className="text-[17.02px] font-medium">{price.text}</p>
+                <p className="text-[17.02px] font-medium">{(price as any)[`text_${locale}`] || price.text_en}</p>
               </div>
             ))}
           </div>
 
           <div className="space-y-6">
             <div className="flex items-center gap-3 underline underline-offset-2">
-              <Link href="/">{pricing.buttonRight}</Link>
+              <Link href="/">
+                {/* {pricing.buttonRight} */}
+                {locale === "en"
+                  ? pricing.buttonRight
+                  : locale === "de"
+                    ? pricing.buttonRight_de
+                    : locale === "es"
+                      ? pricing.buttonRight_es
+                      : locale === "fr"
+                        ? pricing.buttonRight_fr
+                        : locale === "it"
+                          ? pricing.buttonRight_it
+                          : pricing.buttonRight_pt}
+              </Link>
               <ArrowRight
                 width={16.78}
                 height={17}
               />
             </div>
-            <p className="text-[12px] text-[#89908B]">{pricing.textUnderRightButton}</p>
+            <p className="text-[12px] text-[#89908B]">
+              {/* {pricing.textUnderRightButton} */}
+              {locale === "en"
+                ? pricing.textUnderRightButton
+                : locale === "de"
+                  ? pricing.textUnderRightButton_de
+                  : locale === "es"
+                    ? pricing.textUnderRightButton_es
+                    : locale === "fr"
+                      ? pricing.textUnderRightButton_fr
+                      : locale === "it"
+                        ? pricing.textUnderRightButton_it
+                        : pricing.textUnderRightButton_pt}
+            </p>
           </div>
         </div>
       </div>
