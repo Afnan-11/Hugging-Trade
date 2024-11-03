@@ -125,7 +125,7 @@ export default function VideoMembers() {
             />
 
             <Link
-              href="/sign-in"
+              href="/sign-up"
               className="block"
             >
               <div className="w-[280.64px] rounded-[20px] border-[2px] border-[#111827] py-3 text-center text-[22px] text-[#111827] hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white">

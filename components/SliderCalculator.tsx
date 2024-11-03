@@ -37,7 +37,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
       const endingBalance = startingBalance + (profit - fee);
 
       // Save data for the month
-      data.push({ month: i, startingBalance, profit, fee, endingBalance });
+      data.push({month: i, startingBalance, profit, fee, endingBalance});
 
       // Update current balance for the next iteration
       currentBalance = endingBalance;
@@ -184,7 +184,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
         <div className="my-10 flex justify-center px-10 lg:px-0">
           <div className="w-full lg:w-auto">
             <Link
-              href="/sign-in"
+              href="/sign-up"
               scroll={true}
               className="block w-full"
             >

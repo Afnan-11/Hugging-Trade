@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { client } from "@/sanity/lib/client";
-import { HomeTypes } from "@/types";
+import {client} from "@/sanity/lib/client";
+import {HomeTypes} from "@/types";
 import HomeCounter from "@/components/HomeCounter";
-import { Metadata } from "next";
+import {Metadata} from "next";
 import Script from "next/script";
 import CountdownTimer from "@/components/CountdownTimer";
 import SliderCalculator from "@/components/SliderCalculator";
@@ -226,12 +226,12 @@ export default async function Home() {
     <div className="overflow-hidden lg:-mt-10 lg:mb-20 lg:pb-0">
       <Script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        dangerouslySetInnerHTML={{__html: JSON.stringify(structuredData)}}
         id="structured-data-homepage"
       />
 
       {/* <div className="lg:flex justify-center"> */}
-        <CountdownTimer />
+      <CountdownTimer />
       {/* </div> */}
       <div>
         <div className="hidden pt-5 lg:block lg:pt-10">
@@ -253,7 +253,7 @@ export default async function Home() {
               <div className="flex flex-col items-center">
                 <div className="relative z-[55]">
                   <Link
-                    href="/sign-in"
+                    href="/sign-up"
                     className="block"
                   >
                     <div className="rounded-2xl bg-[#2563EB] text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:py-3 lg:text-[22px]">
@@ -317,7 +317,7 @@ export default async function Home() {
               <div className="flex w-[328px] flex-col items-center justify-center">
                 <div className="w-full">
                   <Link
-                    href="/sign-in"
+                    href="/sign-up"
                     scroll={true}
                     className="block"
                   >
@@ -585,7 +585,7 @@ export default async function Home() {
             />
 
             <Link
-              href="/sign-in"
+              href="/sign-up"
               scroll={true}
               className="block w-full"
             >
@@ -1285,7 +1285,7 @@ export default async function Home() {
               <p className="">All your data is secured with high-end encryption.</p>
 
               <Link
-                href="/sign-in"
+                href="/sign-up"
                 scroll={true}
                 className="z-[85] block w-full"
               >
@@ -1343,7 +1343,7 @@ export default async function Home() {
             <p className="">All your data is secured with high-end encryption.</p>
 
             <Link
-              href="/sign-in"
+              href="/sign-up"
               scroll={true}
               className="z-50 block"
             >

@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import AccordionPricing from "@/components/AccordionPricing";
-import { client } from "@/sanity/lib/client";
-import { PricingTypes } from "@/types";
+import {client} from "@/sanity/lib/client";
+import {PricingTypes} from "@/types";
 import VideoMembers from "@/components/VideoMembers";
 import CountdownTimer from "@/components/CountdownTimer";
 import PricingContent from "@/components/PricingContent";
-import { Metadata } from "next";
+import {Metadata} from "next";
 
 export async function getPricing(): Promise<PricingTypes | null> {
   try {
@@ -217,7 +217,7 @@ export default async function Pricing() {
                 </div>
 
                 <Link
-                  href="/sign-in"
+                  href="/sign-up"
                   className="block w-full lg:w-auto"
                 >
                   <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[210px]">

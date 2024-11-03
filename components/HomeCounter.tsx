@@ -140,7 +140,7 @@ const HomeCounter = ({
 
       <div className="w-[250px] lg:flex lg:w-auto lg:items-center lg:justify-center">
         <Link
-          href="/sign-in"
+          href="/sign-up"
           scroll={true}
           className="block w-full"
         >

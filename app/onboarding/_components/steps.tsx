@@ -140,7 +140,7 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
               >
                 {isLoading && <Spinner size="sm" />} <span>Create Account</span>
               </Button>
-            ) : (
+            ) : currentStep === 0 ? (
               <Button
                 type="button"
                 className="ml-auto mr-0 bg-accent hover:bg-accent/80"
@@ -151,16 +151,10 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
                   }
                 }}
               >
-                {currentStep === 0 ? (
-                  <>
-                    <Wallet className="mr-2 h-4 w-4" />
-                    Confirm Deposit
-                  </>
-                ) : (
-                  "Finish"
-                )}
+                <Wallet className="mr-2 h-4 w-4" />
+                Confirm Deposit
               </Button>
-            )}
+            ) : null}
           </CardFooter>
         </Card>
       </form>

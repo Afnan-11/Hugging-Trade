@@ -74,7 +74,7 @@ function BrokerCard({broker, onClick, isSelected}: BrokerProps) {
     <Card className={`rounded-none shadow-none ${isSelected ? "border-2 border-primary" : ""}`}>
       <CardHeader className="flex flex-col space-y-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Image
               src={logo}
               alt={`${name} logo`}
@@ -98,7 +98,7 @@ function BrokerCard({broker, onClick, isSelected}: BrokerProps) {
           {Array.from({length: 5}).map((_, i) => (
             <Star
               key={i}
-              className={`h-5 w-5 ${i < Math.floor(rating) ? "text-yellow-400" : "text-gray-300"}`}
+              className={`h-5 w-5 ${i < Math.floor(rating) ? "fill-current stroke-current text-yellow-400" : "text-gray-300"}`}
             />
           ))}
           <span className="ml-2 text-sm text-gray-600">
