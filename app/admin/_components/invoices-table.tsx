@@ -15,7 +15,7 @@ interface Invoice {
   currency: string;
   status: string;
   email: string;
-  user_id: string | null;
+  userId: string | null;
 }
 
 const fetchInvoices = async (): Promise<Invoice[]> => {
@@ -55,6 +55,7 @@ export default function InvoicesTable() {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>User ID</TableHead>
             <TableHead>Invoice ID</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Amount Paid</TableHead>
@@ -67,6 +68,7 @@ export default function InvoicesTable() {
         <TableBody>
           {filteredInvoices?.map((invoice) => (
             <TableRow key={invoice.id}>
+              <TableCell>{invoice?.userId}</TableCell>
               <TableCell>{invoice.invoice_id}</TableCell>
               <TableCell>{invoice.email}</TableCell>
               <TableCell>{invoice.amount_paid}</TableCell>

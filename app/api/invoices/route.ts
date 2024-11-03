@@ -19,13 +19,39 @@ export async function GET() {
       return NextResponse.json({error: "Forbidden"}, {status: 403});
     }
 
-    const invoices = await prisma.invoices.findMany({
+    const invoicesWithUserIds = await prisma.invoices.findMany({
       orderBy: {
         created_time: "desc",
       },
     });
 
-    return NextResponse.json(invoices);
+    // Map over the invoices to add only the user_id from the user table
+    const invoicesWithOnlyUserIds = await Promise.all(
+      invoicesWithUserIds.map(async (invoice) => {
+        const subscription = await prisma.subscriptions.findFirst({
+          where: {
+            subscription_id: invoice.subscription_id, // Match the subscription ID
+          },
+          select: {
+            user_id: true, // Select only the user_id
+          },
+        });
+        console.log(invoice.subscription_id);
+
+        return {
+          ...invoice,
+          userId: subscription?.user_id || null, // Attach only the user_id
+        };
+      }),
+    );
+
+    // const invoices = await prisma.invoices.findMany({
+    //   orderBy: {
+    //     created_time: "desc",
+    //   },
+    // });
+
+    return NextResponse.json(invoicesWithOnlyUserIds);
   } catch (error) {
     console.error("Error fetching invoices:", error);
     return NextResponse.json({error: "Internal Server Error"}, {status: 500});
