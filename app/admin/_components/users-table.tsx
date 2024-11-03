@@ -14,6 +14,7 @@ interface User {
   created_time: string;
   is_admin: boolean;
   source: string | null;
+  user_id: string;
 }
 
 const fetchUsers = async (): Promise<User[]> => {
@@ -73,14 +74,14 @@ export default function UsersTable() {
           <TableBody>
             {filteredAndSortedUsers?.map((user) => (
               <TableRow
-                key={user.id}
+                key={user?.user_id}
                 className={
                   user.is_admin
                     ? "bg-blue-50 hover:bg-blue-100 dark:bg-blue-800/30 dark:hover:bg-blue-700/40"
                     : "hover:bg-gray-50 dark:hover:bg-gray-800/50"
                 }
               >
-                <TableCell>{user.id}</TableCell>
+                <TableCell>{user?.user_id}</TableCell>
                 <TableCell className={user.is_admin ? "font-semibold text-blue-600 dark:text-blue-400" : ""}>
                   {user.is_admin ? "Admin" : "User"}
                 </TableCell>

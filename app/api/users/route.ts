@@ -29,6 +29,7 @@ export async function GET() {
         created_time: true,
         is_admin: true,
         source: true,
+        user_id: true,
       },
       orderBy: {
         created_time: "desc",
