@@ -4,6 +4,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
+import Navbar from "@/components/wrapper/Navbar";
 
 
 type Locale = (typeof routing.locales)[number];
@@ -34,6 +35,7 @@ export default async function LocaleLayout({
   return (
     <NextIntlClientProvider locale={locale} messages={messages}>
       <PageWrapper params={{ locale }}>
+      <Navbar />
         <div className="my-[5rem]">{children}</div>
       </PageWrapper>
     </NextIntlClientProvider>

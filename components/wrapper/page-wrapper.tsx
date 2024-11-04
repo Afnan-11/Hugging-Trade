@@ -1,5 +1,4 @@
 import Footer from "./Footer";
-import Navbar from "./Navbar";
 import {routing} from "@/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
@@ -9,7 +8,6 @@ export default function PageWrapper({children, params}: {children: React.ReactNo
 
   return (
     <>
-      <Navbar />
       <main className="">{children}</main>
       <Footer locale={locale} />
     </>
