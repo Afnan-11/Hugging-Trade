@@ -3,7 +3,6 @@ import configData from "./config";
 import createIntlMiddleware from "next-intl/middleware";
 import { routing } from "./i18n/routing";
 
-
 // Define the type for clerkMiddleware
 type ClerkMiddleware = (handler: (auth: any, req: any) => any) => (req: any) => Promise<any>;
 
@@ -21,14 +20,13 @@ if (appConfig.auth.enabled) {
   }
 }
 
+// Set up route protection for Clerk-authenticated routes
 const isProtectedRoute = appConfig.auth.enabled
-  ? createRouteMatcher?.(["/dashboard(.*)"]) ?? (() => false)
+  ? createRouteMatcher?.(["/dashboard", "/onboarding"]) ?? (() => false)
   : () => false;
 
-// List of supported locales
+// Supported locales for internationalization
 const supportedLocales = ["en", "de", "es", "fr", "it", "pt"];
-
-// Create the internationalization middleware using next-intl
 const intlMiddleware = createIntlMiddleware({
   locales: supportedLocales,
   defaultLocale: "en",
@@ -37,41 +35,36 @@ const intlMiddleware = createIntlMiddleware({
 export default async function middleware(req: any) {
   const { pathname } = req.nextUrl;
 
-  // If the path is one of the excluded ones, skip internationalization but proceed with other middleware
-  if (
-    pathname.startsWith("/studio") ||
-    pathname.startsWith("/sign-in") ||
-    pathname.startsWith("/sign-up") ||
-    pathname.startsWith("/dashboard") ||
-    pathname.startsWith("/onboarding")
-  ) {
-    return NextResponse.next();
+  // Paths to exclude from internationalization but still proceed with other middleware
+  const excludedPaths = ["/studio", "/sign-in", "/sign-up", "/dashboard", "/onboarding"];
+  const isExcludedPath = excludedPaths.some(path => pathname.startsWith(path));
+
+  // Run internationalization middleware for non-excluded routes
+  if (!isExcludedPath) {
+    const intlResponse = await intlMiddleware(req);
+
+    // Return the response if internationalization handled it
+    if (intlResponse) {
+      return intlResponse;
+    }
   }
 
-  // Run the internationalization middleware for other routes
-  const intlResponse = await intlMiddleware(req);
-
-  // If next-intl middleware already handled the response, return it
-  if (intlResponse) {
-    return intlResponse;
-  }
-
-  // Proceed with Clerk authentication if enabled
+  // Proceed with Clerk authentication for protected routes
   if (appConfig.auth.enabled && clerkMiddleware) {
     return clerkMiddleware((auth, req) => {
       if (!auth().userId && isProtectedRoute(req)) {
         return auth().redirectToSignIn();
-      } else {
-        return NextResponse.next();
       }
+      return NextResponse.next();
     })(req);
-  } else {
-    return NextResponse.next();
   }
+
+  // Allow the request to proceed for non-protected routes
+  return NextResponse.next();
 }
 
-// Configuration for matching routes for both next-intl and Clerk middleware
-export const middlewareConfig = {
+// Middleware matcher configuration
+export const config = {
   matcher: [
     "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
     "/(api|trpc)(.*)",
@@ -80,7 +73,6 @@ export const middlewareConfig = {
     "/(en|de|es|fr|it|pt)/:path*",
   ],
 };
-
 
 
 
