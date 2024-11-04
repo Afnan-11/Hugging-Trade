@@ -15,6 +15,7 @@ interface User {
   is_admin: boolean;
   source: string | null;
   user_id: string;
+  subscription: any;
 }
 
 const fetchUsers = async (): Promise<User[]> => {
@@ -70,6 +71,7 @@ export default function UsersTable() {
               <TableHead>Email</TableHead>
               <TableHead>First Name</TableHead>
               <TableHead>Last Name</TableHead>
+              <TableHead>Subscription</TableHead>
               <TableHead>Source</TableHead>
               <TableHead>Created At</TableHead>
             </TableRow>
@@ -91,6 +93,7 @@ export default function UsersTable() {
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.first_name || "-"}</TableCell>
                 <TableCell>{user.last_name || "-"}</TableCell>
+                <TableCell>{user.subscription?.status || "-"}</TableCell>
                 <TableCell>{user.source || "-"}</TableCell>
                 <TableCell>{new Date(user.created_time).toLocaleString()}</TableCell>
               </TableRow>

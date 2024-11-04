@@ -19,6 +19,8 @@ export async function GET() {
       return NextResponse.json({error: "Forbidden"}, {status: 403});
     }
 
+    const subscriptions = await prisma.subscriptions.findMany();
+
     // Fetch all users
     const users = await prisma.user.findMany({
       select: {
@@ -36,7 +38,12 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(users);
+    const usersWithSubscription = users.map((user) => {
+      const latestSubscription = subscriptions.find((sub) => sub.user_id === user.user_id);
+      return {...user, subscription: latestSubscription};
+    });
+
+    return NextResponse.json(usersWithSubscription);
   } catch (error) {
     console.error("Error fetching users:", error);
     return NextResponse.json({error: "Internal Server Error"}, {status: 500});
