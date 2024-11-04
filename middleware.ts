@@ -1,7 +1,7 @@
-import { NextResponse } from "next/server";
+import {NextResponse} from "next/server";
 import configData from "./config";
 import createIntlMiddleware from "next-intl/middleware";
-import { routing } from "./i18n/routing";
+import {routing} from "./i18n/routing";
 
 // Define the type for clerkMiddleware
 type ClerkMiddleware = (handler: (auth: any, req: any) => any) => (req: any) => Promise<any>;
@@ -9,11 +9,11 @@ type ClerkMiddleware = (handler: (auth: any, req: any) => any) => (req: any) => 
 let clerkMiddleware: ClerkMiddleware | undefined;
 let createRouteMatcher: ((routes: string[]) => (req: any) => boolean) | undefined;
 
-const appConfig = { ...configData };
+const appConfig = {...configData};
 
 if (appConfig.auth.enabled) {
   try {
-    ({ clerkMiddleware, createRouteMatcher } = require("@clerk/nextjs/server"));
+    ({clerkMiddleware, createRouteMatcher} = require("@clerk/nextjs/server"));
   } catch (error) {
     console.warn("Clerk modules not available. Auth will be disabled.");
     appConfig.auth.enabled = false;
@@ -22,7 +22,7 @@ if (appConfig.auth.enabled) {
 
 // Set up route protection for Clerk-authenticated routes
 const isProtectedRoute = appConfig.auth.enabled
-  ? createRouteMatcher?.(["/dashboard", "/onboarding"]) ?? (() => false)
+  ? (createRouteMatcher?.(["/dashboard", "/onboarding"]) ?? (() => false))
   : () => false;
 
 // Supported locales for internationalization
@@ -33,11 +33,11 @@ const intlMiddleware = createIntlMiddleware({
 });
 
 export default async function middleware(req: any) {
-  const { pathname } = req.nextUrl;
+  const {pathname} = req.nextUrl;
 
   // Paths to exclude from internationalization but still proceed with other middleware
-  const excludedPaths = ["/studio", "/sign-in", "/sign-up", "/dashboard", "/onboarding"];
-  const isExcludedPath = excludedPaths.some(path => pathname.startsWith(path));
+  const excludedPaths = ["/studio", "/sign-in", "/sign-up", "/dashboard", "/onboarding", "/admin", "/api"];
+  const isExcludedPath = excludedPaths.some((path) => pathname.startsWith(path));
 
   // Run internationalization middleware for non-excluded routes
   if (!isExcludedPath) {
@@ -74,11 +74,8 @@ export const config = {
   ],
 };
 
-
-
 // import { NextResponse } from "next/server";
 // import config from "./config";
-
 
 // let clerkMiddleware: (arg0: (auth: any, req: any) => any) => { (arg0: any): any; new(): any; }, createRouteMatcher;
 
