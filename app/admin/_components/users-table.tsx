@@ -15,7 +15,7 @@ interface User {
   is_admin: boolean;
   source: string | null;
   user_id: string;
-  subscription: "trial" | "active" | "canceled" | null;
+  subscription: any;
 }
 
 const fetchUsers = async (): Promise<User[]> => {
