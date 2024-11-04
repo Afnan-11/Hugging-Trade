@@ -17,7 +17,7 @@ export default async function SuccessPage({
 
   return (
     <main className="min-w-screen flex flex-col items-center justify-between">
-      <Navbar />
+      <Navbar locale="en" />
       <h1 className="mb-3 mt-[35vh] scroll-m-20 text-5xl font-semibold tracking-tight transition-colors first:mt-0">
         Welcome to Hugging Trade 🎉
       </h1>

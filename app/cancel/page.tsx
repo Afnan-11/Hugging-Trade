@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function Cancel() {
   return (
     <main className="min-w-screen flex flex-col items-center justify-between">
-      <Navbar />
+      <Navbar locale="en" />
       <h1 className="mt-[20rem] scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors first:mt-0">
         Payment Cancelled 😢
       </h1>

@@ -1,22 +1,22 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { ChevronDown, ChevronUp, Menu as MenuIcon, XCircle } from "lucide-react";
-import { useAuth } from "@clerk/nextjs";
-import { UserProfile } from "../user-profile";
+import {usePathname} from "next/navigation";
+import {ChevronDown, ChevronUp, Menu as MenuIcon, XCircle} from "lucide-react";
+import {useAuth} from "@clerk/nextjs";
+import {UserProfile} from "../user-profile";
 import LanguageSwitcher from "../LanguageSwitcher";
-import {useTranslations} from "next-intl";
+// import {useTranslations} from "next-intl";
 
-export default function Navbar() {
+export default function Navbar({locale}: {locale: string}) {
   const user = useAuth();
   const userId = user?.userId;
   const [Navbar, setNavbar] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
-  const t = useTranslations("NavBar");
+  // const t = useTranslations("NavBar");
 
   const pathname = usePathname();
 
@@ -85,8 +85,9 @@ export default function Navbar() {
         </div>
 
         <ul
-          className={`flex h-[80vh] flex-col items-center justify-center gap-6 bg-opacity-50 text-center text-xl font-semibold text-[#111827] lg:flex lg:h-0 lg:w-auto lg:flex-row lg:items-center lg:justify-center lg:gap-10 lg:pb-0 lg:pt-1 lg:text-[16px] ${Navbar ? "block" : "hidden"
-            }`}
+          className={`flex h-[80vh] flex-col items-center justify-center gap-6 bg-opacity-50 text-center text-xl font-semibold text-[#111827] lg:flex lg:h-0 lg:w-auto lg:flex-row lg:items-center lg:justify-center lg:gap-10 lg:pb-0 lg:pt-1 lg:text-[16px] ${
+            Navbar ? "block" : "hidden"
+          }`}
         >
           <li>
             <div className="relative z-50 inline-block text-left">
@@ -94,7 +95,21 @@ export default function Navbar() {
                 className="flex cursor-pointer items-center justify-start rounded-xl px-3 py-2 hover:bg-blue-50"
                 onClick={() => toggleDropdown("company")}
               >
-                <button className="flex justify-center font-medium text-black focus:outline-none"> {t("company")}</button>
+                <button className="flex justify-center font-medium text-black focus:outline-none">
+                  {" "}
+                  {/* {t("company")} */}
+                  {locale === "en"
+                    ? "company"
+                    : locale === "de"
+                      ? "Unternehmen"
+                      : locale === "es"
+                        ? "Compañía"
+                        : locale === "fr"
+                          ? "Entreprise"
+                          : locale === "it"
+                            ? "Azienda"
+                            : "Empresa"}
+                </button>
                 {openDropdown === "company" ? <ChevronUp /> : <ChevronDown />}
               </div>
 
@@ -114,7 +129,18 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                       {t("affiliateProgram")}
+                      {/* {t("affiliateProgram")} */}
+                      {locale === "en"
+                        ? "Affiliate Program"
+                        : locale === "de"
+                          ? "Partnerprogramm"
+                          : locale === "es"
+                            ? "Programa de Afiliados"
+                            : locale === "fr"
+                              ? "Programme d'Affiliation"
+                              : locale === "it"
+                                ? "Programma di Affiliazione"
+                                : "Programa de Afiliados"}
                     </Link>
 
                     <Link
@@ -123,7 +149,18 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                       {t("contactInfo")}
+                      {/* {t("contactInfo")} */}
+                      {locale === "en"
+                        ? "Contact Info"
+                        : locale === "de"
+                          ? "Kontaktinformationen"
+                          : locale === "es"
+                            ? " Información de Contacto"
+                            : locale === "fr"
+                              ? "Informations de Contact"
+                              : locale === "it"
+                                ? "Informazioni di Contatto"
+                                : "Informações de Contato"}
                     </Link>
                   </div>
                 </div>
@@ -137,7 +174,21 @@ export default function Navbar() {
                 className="flex cursor-pointer items-center justify-start rounded-xl px-3 py-2 hover:bg-blue-50"
                 onClick={() => toggleDropdown("resources")}
               >
-                <button className="flex justify-center font-medium text-black focus:outline-none"> {t("resources")}</button>
+                <button className="flex justify-center font-medium text-black focus:outline-none">
+                  {" "}
+                  {/* {t("resources")} */}
+                  {locale === "en"
+                    ? "Resources"
+                    : locale === "de"
+                      ? "Ressourcen"
+                      : locale === "es"
+                        ? "Recursos"
+                        : locale === "fr"
+                          ? "Ressources"
+                          : locale === "it"
+                            ? "Risorse"
+                            : "Recursos"}
+                </button>
                 {openDropdown === "resources" ? <ChevronUp /> : <ChevronDown />}
               </div>
 
@@ -157,7 +208,18 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                       {t("investmentCalculator")}
+                      {/* {t("investmentCalculator")} */}
+                      {locale === "en"
+                        ? "Investment Calculator"
+                        : locale === "de"
+                          ? "Investitionsrechner"
+                          : locale === "es"
+                            ? "Calculadora de Inversiones"
+                            : locale === "fr"
+                              ? " Calculateur d'Investissement"
+                              : locale === "it"
+                                ? "Calcolatore di Investimenti"
+                                : "Calculadora de Investimento"}
                     </Link>
                     {/* <Link
                       href="#"
@@ -173,7 +235,18 @@ export default function Navbar() {
                       role="menuitem"
                       onClick={handleDropdownItemClick}
                     >
-                      {t("helpCenter")}
+                      {/* {t("helpCenter")} */}
+                      {locale === "en"
+                        ? "Help Center"
+                        : locale === "de"
+                          ? "Hilfezentrum"
+                          : locale === "es"
+                            ? "Centro de Ayuda"
+                            : locale === "fr"
+                              ? "Centre d'Aide"
+                              : locale === "it"
+                                ? "Centro Assistenza"
+                                : "Central de Ajuda"}
                     </a>
                   </div>
                 </div>
@@ -191,13 +264,22 @@ export default function Navbar() {
               href={`/pricing`}
               className={pathname === `/pricing` ? "text-black" : "font-medium text-black"}
             >
-              {t("pricing")}
+              {/* {t("pricing")} */}
+              {locale === "en"
+                ? "Pricing"
+                : locale === "de"
+                  ? "Preisgestaltung"
+                  : locale === "es"
+                    ? "Precios"
+                    : locale === "fr"
+                      ? "Tarification"
+                      : locale === "it"
+                        ? "Prezzi"
+                        : "Preços"}
             </Link>
           </li>
 
-
-
-          <li className=" lg:hidden inline-block">
+          <li className="inline-block lg:hidden">
             <LanguageSwitcher />
           </li>
 
@@ -207,7 +289,24 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl px-3 py-2 text-black hover:bg-blue-50 lg:hidden"
           >
-            {userId ? <UserProfile /> : <Link href="/sign-in">{t("logIn")}</Link>}
+            {userId ? (
+              <UserProfile />
+            ) : (
+              <Link href="/sign-in">
+                {/* {t("logIn")} */}
+                {locale === "en"
+                  ? "Log In"
+                  : locale === "de"
+                    ? "Anmelden"
+                    : locale === "es"
+                      ? "Iniciar Sesión"
+                      : locale === "fr"
+                        ? "Se Connecter"
+                        : locale === "it"
+                          ? "Accedi"
+                          : "Entrar"}
+              </Link>
+            )}
           </li>
 
           <li
@@ -216,7 +315,37 @@ export default function Navbar() {
             }}
             className="cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:hidden"
           >
-            {userId ? <Link href="/dashboard">{t("dashboard")}</Link> : <Link href="/sign-in">{t("startDayFreeTrial")}</Link>}
+            {userId ? (
+              <Link href="/dashboard">
+                {/* {t("dashboard")} */}
+                {locale === "en"
+                  ? "Dashboard"
+                  : locale === "de"
+                    ? "Dashboard"
+                    : locale === "es"
+                      ? "Panel de Control"
+                      : locale === "fr"
+                        ? "Tableau de Bord"
+                        : locale === "it"
+                          ? "Pannello di Controllo"
+                          : "Painel de Controle"}
+              </Link>
+            ) : (
+              <Link href="/sign-in">
+                {/* {t("startDayFreeTrial")} */}
+                {locale === "en"
+                  ? "Start 30 day free trial"
+                  : locale === "de"
+                    ? "30-tägige kostenlose Testversion starten"
+                    : locale === "es"
+                      ? "Iniciar prueba gratuita de 30 días"
+                      : locale === "fr"
+                        ? "Commencer l'essai gratuit de 30 jours"
+                        : locale === "it"
+                          ? "Inizia la prova gratuita di 30 giorni"
+                          : "Iniciar teste gratuito de 30 dias"}
+              </Link>
+            )}
           </li>
         </ul>
       </div>
@@ -226,10 +355,57 @@ export default function Navbar() {
           <LanguageSwitcher />
         </div>
         <div className="hidden cursor-pointer rounded-xl px-3 py-2 text-black hover:bg-blue-50 lg:block">
-          {userId ? <UserProfile /> : <Link href="/sign-in">{t("logIn")}</Link>}
+          {userId ? (
+            <UserProfile />
+          ) : (
+            <Link href="/sign-in">
+              {/* {t("logIn")} */}
+              {locale === "en"
+                ? "Log In"
+                : locale === "de"
+                  ? "Anmelden"
+                  : locale === "es"
+                    ? "Iniciar Sesión"
+                    : locale === "fr"
+                      ? "Se Connecter"
+                      : locale === "it"
+                        ? "Accedi"
+                        : "Entrar"}
+            </Link>
+          )}
         </div>
         <div className="hidden cursor-pointer rounded-xl border-[1px] border-[#2563EB] px-3 py-2 text-[#2563EB] hover:border-blue-400 hover:text-blue-400 lg:block">
-          {userId ? <Link href="/dashboard">{t("dashboard")}</Link> : <Link href="/sign-in">{t("startDayFreeTrial")}</Link>}
+          {userId ? (
+            <Link href="/dashboard">
+              {/* {t("dashboard")} */}
+              {locale === "en"
+                ? "Dashboard"
+                : locale === "de"
+                  ? "Dashboard"
+                  : locale === "es"
+                    ? "Panel de Control"
+                    : locale === "fr"
+                      ? "Tableau de Bord"
+                      : locale === "it"
+                        ? "Pannello di Controllo"
+                        : "Painel de Controle"}
+            </Link>
+          ) : (
+            <Link href="/sign-in">
+              {/* {t("startDayFreeTrial")} */}
+              {locale === "en"
+                ? "Start 30 Day Free Trial"
+                : locale === "de"
+                  ? "30-tägige kostenlose Testversion starten"
+                  : locale === "es"
+                    ? "Iniciar prueba gratuita de 30 días"
+                    : locale === "fr"
+                      ? "Commencer l'essai gratuit de 30 jours"
+                      : locale === "it"
+                        ? "Inizia la prova gratuita di 30 giorni"
+                        : "Iniciar teste gratuito de 30 dias"}
+            </Link>
+          )}
         </div>
       </div>
     </nav>
