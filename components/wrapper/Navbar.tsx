@@ -16,6 +16,8 @@ export default function Navbar({locale}: {locale: string}) {
   const [Navbar, setNavbar] = useState<boolean>(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
+  const effectiveLocale = locale || "en";
+
   // const t = useTranslations("NavBar");
 
   const pathname = usePathname();
@@ -98,15 +100,15 @@ export default function Navbar({locale}: {locale: string}) {
                 <button className="flex justify-center font-medium text-black focus:outline-none">
                   {" "}
                   {/* {t("company")} */}
-                  {locale === "en"
-                    ? "company"
-                    : locale === "de"
+                  {effectiveLocale === "en"
+                    ? "Company"
+                    : effectiveLocale === "de"
                       ? "Unternehmen"
-                      : locale === "es"
+                      : effectiveLocale === "es"
                         ? "Compañía"
-                        : locale === "fr"
+                        : effectiveLocale === "fr"
                           ? "Entreprise"
-                          : locale === "it"
+                          : effectiveLocale === "it"
                             ? "Azienda"
                             : "Empresa"}
                 </button>
@@ -130,15 +132,15 @@ export default function Navbar({locale}: {locale: string}) {
                       onClick={handleDropdownItemClick}
                     >
                       {/* {t("affiliateProgram")} */}
-                      {locale === "en"
+                      {effectiveLocale === "en"
                         ? "Affiliate Program"
-                        : locale === "de"
+                        : effectiveLocale === "de"
                           ? "Partnerprogramm"
-                          : locale === "es"
+                          : effectiveLocale === "es"
                             ? "Programa de Afiliados"
-                            : locale === "fr"
+                            : effectiveLocale === "fr"
                               ? "Programme d'Affiliation"
-                              : locale === "it"
+                              : effectiveLocale === "it"
                                 ? "Programma di Affiliazione"
                                 : "Programa de Afiliados"}
                     </Link>
@@ -150,15 +152,15 @@ export default function Navbar({locale}: {locale: string}) {
                       onClick={handleDropdownItemClick}
                     >
                       {/* {t("contactInfo")} */}
-                      {locale === "en"
+                      {effectiveLocale === "en"
                         ? "Contact Info"
-                        : locale === "de"
+                        : effectiveLocale === "de"
                           ? "Kontaktinformationen"
-                          : locale === "es"
+                          : effectiveLocale === "es"
                             ? " Información de Contacto"
-                            : locale === "fr"
+                            : effectiveLocale === "fr"
                               ? "Informations de Contact"
-                              : locale === "it"
+                              : effectiveLocale === "it"
                                 ? "Informazioni di Contatto"
                                 : "Informações de Contato"}
                     </Link>
@@ -177,15 +179,15 @@ export default function Navbar({locale}: {locale: string}) {
                 <button className="flex justify-center font-medium text-black focus:outline-none">
                   {" "}
                   {/* {t("resources")} */}
-                  {locale === "en"
+                  {effectiveLocale === "en"
                     ? "Resources"
-                    : locale === "de"
+                    : effectiveLocale === "de"
                       ? "Ressourcen"
-                      : locale === "es"
+                      : effectiveLocale === "es"
                         ? "Recursos"
-                        : locale === "fr"
+                        : effectiveLocale === "fr"
                           ? "Ressources"
-                          : locale === "it"
+                          : effectiveLocale === "it"
                             ? "Risorse"
                             : "Recursos"}
                 </button>
@@ -209,15 +211,15 @@ export default function Navbar({locale}: {locale: string}) {
                       onClick={handleDropdownItemClick}
                     >
                       {/* {t("investmentCalculator")} */}
-                      {locale === "en"
+                      {effectiveLocale === "en"
                         ? "Investment Calculator"
-                        : locale === "de"
+                        : effectiveLocale === "de"
                           ? "Investitionsrechner"
-                          : locale === "es"
+                          : effectiveLocale === "es"
                             ? "Calculadora de Inversiones"
-                            : locale === "fr"
+                            : effectiveLocale === "fr"
                               ? " Calculateur d'Investissement"
-                              : locale === "it"
+                              : effectiveLocale === "it"
                                 ? "Calcolatore di Investimenti"
                                 : "Calculadora de Investimento"}
                     </Link>
@@ -236,15 +238,15 @@ export default function Navbar({locale}: {locale: string}) {
                       onClick={handleDropdownItemClick}
                     >
                       {/* {t("helpCenter")} */}
-                      {locale === "en"
+                      {effectiveLocale === "en"
                         ? "Help Center"
-                        : locale === "de"
+                        : effectiveLocale === "de"
                           ? "Hilfezentrum"
-                          : locale === "es"
+                          : effectiveLocale === "es"
                             ? "Centro de Ayuda"
-                            : locale === "fr"
+                            : effectiveLocale === "fr"
                               ? "Centre d'Aide"
-                              : locale === "it"
+                              : effectiveLocale === "it"
                                 ? "Centro Assistenza"
                                 : "Central de Ajuda"}
                     </a>
@@ -265,15 +267,15 @@ export default function Navbar({locale}: {locale: string}) {
               className={pathname === `/pricing` ? "text-black" : "font-medium text-black"}
             >
               {/* {t("pricing")} */}
-              {locale === "en"
+              {effectiveLocale === "en"
                 ? "Pricing"
-                : locale === "de"
+                : effectiveLocale === "de"
                   ? "Preisgestaltung"
-                  : locale === "es"
+                  : effectiveLocale === "es"
                     ? "Precios"
-                    : locale === "fr"
+                    : effectiveLocale === "fr"
                       ? "Tarification"
-                      : locale === "it"
+                      : effectiveLocale === "it"
                         ? "Prezzi"
                         : "Preços"}
             </Link>
@@ -294,15 +296,15 @@ export default function Navbar({locale}: {locale: string}) {
             ) : (
               <Link href="/sign-in">
                 {/* {t("logIn")} */}
-                {locale === "en"
+                {effectiveLocale === "en"
                   ? "Log In"
-                  : locale === "de"
+                  : effectiveLocale === "de"
                     ? "Anmelden"
-                    : locale === "es"
+                    : effectiveLocale === "es"
                       ? "Iniciar Sesión"
-                      : locale === "fr"
+                      : effectiveLocale === "fr"
                         ? "Se Connecter"
-                        : locale === "it"
+                        : effectiveLocale === "it"
                           ? "Accedi"
                           : "Entrar"}
               </Link>
@@ -318,30 +320,30 @@ export default function Navbar({locale}: {locale: string}) {
             {userId ? (
               <Link href="/dashboard">
                 {/* {t("dashboard")} */}
-                {locale === "en"
+                {effectiveLocale === "en"
                   ? "Dashboard"
-                  : locale === "de"
+                  : effectiveLocale === "de"
                     ? "Dashboard"
-                    : locale === "es"
+                    : effectiveLocale === "es"
                       ? "Panel de Control"
-                      : locale === "fr"
+                      : effectiveLocale === "fr"
                         ? "Tableau de Bord"
-                        : locale === "it"
+                        : effectiveLocale === "it"
                           ? "Pannello di Controllo"
                           : "Painel de Controle"}
               </Link>
             ) : (
               <Link href="/sign-in">
                 {/* {t("startDayFreeTrial")} */}
-                {locale === "en"
+                {effectiveLocale === "en"
                   ? "Start 30 day free trial"
-                  : locale === "de"
+                  : effectiveLocale === "de"
                     ? "30-tägige kostenlose Testversion starten"
-                    : locale === "es"
+                    : effectiveLocale === "es"
                       ? "Iniciar prueba gratuita de 30 días"
-                      : locale === "fr"
+                      : effectiveLocale === "fr"
                         ? "Commencer l'essai gratuit de 30 jours"
-                        : locale === "it"
+                        : effectiveLocale === "it"
                           ? "Inizia la prova gratuita di 30 giorni"
                           : "Iniciar teste gratuito de 30 dias"}
               </Link>
@@ -360,15 +362,15 @@ export default function Navbar({locale}: {locale: string}) {
           ) : (
             <Link href="/sign-in">
               {/* {t("logIn")} */}
-              {locale === "en"
+              {effectiveLocale === "en"
                 ? "Log In"
-                : locale === "de"
+                : effectiveLocale === "de"
                   ? "Anmelden"
-                  : locale === "es"
+                  : effectiveLocale === "es"
                     ? "Iniciar Sesión"
-                    : locale === "fr"
+                    : effectiveLocale === "fr"
                       ? "Se Connecter"
-                      : locale === "it"
+                      : effectiveLocale === "it"
                         ? "Accedi"
                         : "Entrar"}
             </Link>
@@ -378,30 +380,30 @@ export default function Navbar({locale}: {locale: string}) {
           {userId ? (
             <Link href="/dashboard">
               {/* {t("dashboard")} */}
-              {locale === "en"
+              {effectiveLocale === "en"
                 ? "Dashboard"
-                : locale === "de"
+                : effectiveLocale === "de"
                   ? "Dashboard"
-                  : locale === "es"
+                  : effectiveLocale === "es"
                     ? "Panel de Control"
-                    : locale === "fr"
+                    : effectiveLocale === "fr"
                       ? "Tableau de Bord"
-                      : locale === "it"
+                      : effectiveLocale === "it"
                         ? "Pannello di Controllo"
                         : "Painel de Controle"}
             </Link>
           ) : (
             <Link href="/sign-in">
               {/* {t("startDayFreeTrial")} */}
-              {locale === "en"
+              {effectiveLocale === "en"
                 ? "Start 30 Day Free Trial"
-                : locale === "de"
+                : effectiveLocale === "de"
                   ? "30-tägige kostenlose Testversion starten"
-                  : locale === "es"
+                  : effectiveLocale === "es"
                     ? "Iniciar prueba gratuita de 30 días"
-                    : locale === "fr"
+                    : effectiveLocale === "fr"
                       ? "Commencer l'essai gratuit de 30 jours"
-                      : locale === "it"
+                      : effectiveLocale === "it"
                         ? "Inizia la prova gratuita di 30 giorni"
                         : "Iniciar teste gratuito de 30 dias"}
             </Link>
