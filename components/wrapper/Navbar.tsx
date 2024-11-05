@@ -361,7 +361,7 @@ export default function Navbar({locale}: {locale: string}) {
             <UserProfile />
           ) : (
             <Link href="/sign-in">
-              {/* {t("logIn")} */}
+              
               {effectiveLocale === "en"
                 ? "Log In"
                 : effectiveLocale === "de"
