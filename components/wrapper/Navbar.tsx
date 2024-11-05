@@ -394,7 +394,7 @@ export default function Navbar({locale}: {locale: string}) {
             </Link>
           ) : (
             <Link href="/sign-in">
-              {/* {t("startDayFreeTrial")} */}
+              
               {effectiveLocale === "en"
                 ? "Start 30 Day Free Trial"
                 : effectiveLocale === "de"
