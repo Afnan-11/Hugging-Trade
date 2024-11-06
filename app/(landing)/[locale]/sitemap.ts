@@ -1,25 +1,25 @@
 import { MetadataRoute } from "next";
 
+const locales = ["en", "de", "es", "fr", "it", "pt"];
+
+const pages = [
+  { path: "/" },
+  { path: "/pricing" },
+  { path: "/affiliate" },
+  { path: "/contact-us" },
+];
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  return [
-    {
-      url: `https://www.huggingtrade.com/`,
+  const sitemapEntries = pages.flatMap(({ path }) => 
+    locales.map((locale) => ({
+      url: `https://www.huggingtrade.com/${locale}${path}`,
       lastModified: new Date().toISOString(),
-    },
-    {
-      url: "https://www.huggingtrade.com/pricing",
-      lastModified: new Date().toISOString(),
-    },
-    {
-      url: "https://www.huggingtrade.com/affiliate",
-      lastModified: new Date().toISOString(),
-    },
-    {
-      url: "https://www.huggingtrade.com/contact-us",
-      lastModified: new Date().toISOString(),
-    },
-  ];
+    }))
+  );
+
+  return sitemapEntries;
 }
+
 
 
 
