@@ -39,7 +39,7 @@ async function getFooter(): Promise<FooterTypes | null> {
 
 export const revalidate = 10;
 
-export default async function Footer({locale}: {locale: string}) {
+export default async function Footer({locale="en"}: {locale: string}) {
   const footer: FooterTypes | null = await getFooter();
   const t = await getTranslations("Footer");
   
