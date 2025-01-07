@@ -9,7 +9,7 @@ import "./globals.css";
 
 import {Inter} from "next/font/google";
 import Script from "next/script";
-import { routing } from "@/i18n/routing";
+import {routing} from "@/i18n/routing";
 
 type Locale = (typeof routing.locales)[number];
 
@@ -49,7 +49,7 @@ export default function RootLayout({
     locale: Locale;
   };
 }) {
-  const locale = params.locale || 'en';
+  const locale = params.locale || "en";
   return (
     <AuthWrapper>
       <html
@@ -179,6 +179,32 @@ export default function RootLayout({
               style={{display: "none", visibility: "hidden"}}
             ></iframe>
           </noscript>
+          <Script
+            id="front-chat"
+            strategy="afterInteractive"
+          />
+          <Script
+            id="frontchat-script"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+      (function() {
+        var script = document.createElement('script');
+        script.src = 'https://chat-assets.frontapp.com/v1/chat.bundle.js';
+        script.async = true;
+        script.onload = function() {
+          if (window.FrontChat) {
+            window.FrontChat('init', {
+              chatId: 'ffb4d0f4c8d69025781c1dfdc534b01c',
+              useDefaultLauncher: true,
+            });
+          }
+        };
+        document.head.appendChild(script);
+      })();
+    `,
+            }}
+          />
 
           <Provider>
             <ThemeProvider
