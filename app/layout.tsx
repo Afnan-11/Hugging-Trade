@@ -183,6 +183,7 @@ export default function RootLayout({
             id="front-chat"
             strategy="afterInteractive"
           />
+          
           <Script
             id="frontchat-script"
             strategy="afterInteractive"
