@@ -65,7 +65,15 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: '/:locale(en|de|es|fr|it|pt)/profit',
+        destination: 'https://t.me/huggingtradeofficial',
+        permanent: false, // Set to true if you want a permanent redirect (status code 308)
+      },
+    ];
+  },
 };
 
 module.exports = withNextIntl(nextConfig);
-

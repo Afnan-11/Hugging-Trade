@@ -333,19 +333,18 @@ export default function Navbar({locale}: {locale: string}) {
                           : "Painel de Controle"}
               </Link>
             ) : (
-              <Link href="/sign-in">
-                {/* {t("startDayFreeTrial")} */}
+              <Link href="https://t.me/huggingtradeofficial">
                 {effectiveLocale === "en"
-                  ? "Start 30 day free trial"
+                  ? "Join Community"
                   : effectiveLocale === "de"
-                    ? "30-tägige kostenlose Testversion starten"
+                    ? "Community beitreten"
                     : effectiveLocale === "es"
-                      ? "Iniciar prueba gratuita de 30 días"
+                      ? "Unirse a la comunidad"
                       : effectiveLocale === "fr"
-                        ? "Commencer l'essai gratuit de 30 jours"
+                        ? "Rejoindre la communauté"
                         : effectiveLocale === "it"
-                          ? "Inizia la prova gratuita di 30 giorni"
-                          : "Iniciar teste gratuito de 30 dias"}
+                          ? "Unisciti alla comunità"
+                          : "Participar da comunidade"}
               </Link>
             )}
           </li>
@@ -361,7 +360,6 @@ export default function Navbar({locale}: {locale: string}) {
             <UserProfile />
           ) : (
             <Link href="/sign-in">
-              
               {effectiveLocale === "en"
                 ? "Log In"
                 : effectiveLocale === "de"
@@ -393,19 +391,18 @@ export default function Navbar({locale}: {locale: string}) {
                         : "Painel de Controle"}
             </Link>
           ) : (
-            <Link href="/sign-in">
-              
+            <Link href="https://t.me/huggingtradeofficial">
               {effectiveLocale === "en"
-                ? "Start 30 Day Free Trial"
+                ? "Join Community"
                 : effectiveLocale === "de"
-                  ? "30-tägige kostenlose Testversion starten"
+                  ? "Community beitreten"
                   : effectiveLocale === "es"
-                    ? "Iniciar prueba gratuita de 30 días"
+                    ? "Unirse a la comunidad"
                     : effectiveLocale === "fr"
-                      ? "Commencer l'essai gratuit de 30 jours"
+                      ? "Rejoindre la communauté"
                       : effectiveLocale === "it"
-                        ? "Inizia la prova gratuita di 30 giorni"
-                        : "Iniciar teste gratuito de 30 dias"}
+                        ? "Unisciti alla comunità"
+                        : "Participar da comunidade"}
             </Link>
           )}
         </div>
