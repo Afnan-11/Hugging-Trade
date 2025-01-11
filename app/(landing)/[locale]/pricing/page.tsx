@@ -151,6 +151,7 @@ export async function getPricing(): Promise<PricingTypes | null> {
 
 export const revalidate = 10;
 
+//test
 export async function generateMetadata({params}: {params: {locale: string}}): Promise<Metadata> {
   const pricing: PricingTypes | null = await getPricing();
   const locale = params.locale;
@@ -245,7 +246,6 @@ export default async function Pricing({params}: {params: {locale: string}}) {
               />
               <div className="space-y-5 pb-5 text-center lg:w-[1107px]">
                 <h1 className="mt-10 text-[40px] font-black leading-tight lg:mt-20 lg:text-[48px]">
-                 
                   {locale === "en"
                     ? pricing?.pricingHeroTitle
                     : locale === "de"
@@ -259,7 +259,6 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                             : pricing?.pricingHeroTitle_pt}
                 </h1>
                 <p className="pt-10 text-[22px] lg:pt-0">
-                 
                   {locale === "en"
                     ? pricing?.pricingHeroText
                     : locale === "de"
@@ -376,7 +375,6 @@ export default async function Pricing({params}: {params: {locale: string}}) {
               <div className="flex flex-col items-center justify-center gap-10">
                 <div>
                   <h3 className="text-center text-[28px] text-black">
-                    
                     {locale === "en"
                       ? pricing?.sectionFourTitleOne
                       : locale === "de"
@@ -390,7 +388,6 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                               : pricing?.sectionFourTitleOne_pt}
                   </h3>
                   <h3 className="text-center text-[28px] text-black">
-                    
                     {locale === "en"
                       ? pricing?.sectionFourTitleTwo
                       : locale === "de"
