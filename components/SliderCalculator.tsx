@@ -53,7 +53,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
     calculateBalance();
   }, [calculateBalance]);
   return (
-    <div className="gradient-pricing flex lg:h-[775px] flex-col items-center justify-center px-5 lg:px-0">
+    <div className="gradient-pricing flex flex-col items-center justify-center px-5 lg:h-[775px] lg:px-0">
       <div className="h-[780px] rounded-xl bg-white p-5 shadow-2xl lg:h-[490px] lg:w-[1152px] lg:p-0 lg:px-10">
         <Image
           src={"/Images/HomePage/bg_affiliate-program-reviews_desktop.svg.svg"}
@@ -126,6 +126,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
                 renderThumb={(props) => (
                   <div
                     {...props}
+                    key={props.key}
                     style={{
                       ...props.style,
                       height: "20px",
