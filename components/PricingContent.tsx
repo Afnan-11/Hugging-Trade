@@ -9,9 +9,6 @@ import {PricingTypes} from "@/types";
 import {useTranslations} from "next-intl";
 
 import {useRouter} from "next/navigation";
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from "@/components/ui/card";
-import {CheckCircle2} from "lucide-react";
-import {cn} from "@/lib/utils";
 import {toast} from "sonner";
 import {Button} from "./ui/button";
 import axios from "axios";
@@ -25,6 +22,8 @@ interface PricingContentProps {
 }
 
 const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCardsShown, locale}) => {
+  console.log("pricing", pricing);
+  console.log("locale", locale);
   const [selectedPeriod, setSelectedPeriod] = useState<"year" | "month">("month");
   const priceIdYearly = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_YEARLY!;
   const priceIdMonthly = process.env.NEXT_PUBLIC_STRIPE_PRICE_ID_MONTHLY!;
@@ -102,7 +101,6 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
       {!areOnlyCardsShown && (
         <div className="space-y-5 px-5 lg:px-20">
           <h2 className="text-center text-[40px] font-bold leading-tight lg:text-[56px] lg:leading-none">
-            
             {locale === "en"
               ? pricing.pricingSectionTwoTitle
               : locale === "de"
@@ -116,7 +114,6 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                       : pricing.pricingSectionTwoTitle_pt}
           </h2>
           <p className="text-center text-[22px]">
-            
             {locale === "en"
               ? pricing.pricingSectionTwoText
               : locale === "de"
@@ -194,7 +191,6 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
             </div>
 
             <p className="text-[15.49px]">
-             
               {locale === "en"
                 ? pricing.pricingLeftText
                 : locale === "de"
@@ -227,31 +223,31 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
             ))}
           </div>
 
-          <div className="space-y-10 ">
+          <div className="space-y-10">
             <div className="flex justify-center lg:justify-start">
-            <Button
-              disabled={isLoading}
-              onClick={() => {
-                if (user?.id) {
-                  handleCheckout(selectedPeriod == "year" ? priceIdYearly : priceIdMonthly, true);
-                } else {
-                  router.push("/onboarding");
-                  toast("Please login or sign up to purchase", {
-                    description: "You must be logged in to make a purchase",
-                    action: {
-                      label: "Sign In",
-                      onClick: () => {
-                        router.push("/onboarding");
+              <Button
+                disabled={isLoading}
+                onClick={() => {
+                  if (user?.id) {
+                    handleCheckout(selectedPeriod == "year" ? priceIdYearly : priceIdMonthly, true);
+                  } else {
+                    router.push("/onboarding");
+                    toast("Please login or sign up to purchase", {
+                      description: "You must be logged in to make a purchase",
+                      action: {
+                        label: "Sign In",
+                        onClick: () => {
+                          router.push("/onboarding");
+                        },
                       },
-                    },
-                  });
-                }
-              }}
-              className={`rounded-xl bg-[#2563EB] py-3 text-center text-[15.62px] text-white ${locale === "en" ? "lg:w-[229.52px]" : "lg:w-[380px]  "}`}
-              type="button"
-            >
-              {t("startYourFreeTrial")}
-            </Button>
+                    });
+                  }
+                }}
+                className={`rounded-xl bg-[#2563EB] py-3 text-center text-[15.62px] text-white ${locale === "en" ? "lg:w-[229.52px]" : "lg:w-[380px]"}`}
+                type="button"
+              >
+                {t("startYourFreeTrial")}
+              </Button>
             </div>
             <div className="flex items-center justify-start gap-2">
               <Image
@@ -262,7 +258,6 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
               />
 
               <p className="text-[13.45px] text-[#89908B]">
-                
                 {locale === "en"
                   ? pricing.leftSmallTextUnderButtonOne
                   : locale === "de"
@@ -283,7 +278,6 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                   height={14}
                 />
                 <p className="text-[13.45px] text-[#89908B]">
-                 
                   {locale === "en"
                     ? pricing.leftSmallTextUnderButtonTwo
                     : locale === "de"
@@ -304,17 +298,17 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
           <h3 className="text-[20.63px] font-medium">
             {/* {pricing.pricingRightTitle} */}
             {locale === "en"
-                ? pricing.pricingRightTitle
-                : locale === "de"
-                  ? pricing.pricingRightTitle_de
-                  : locale === "es"
-                    ? pricing.pricingRightTitle_es
-                    : locale === "fr"
-                      ? pricing.pricingRightTitle_fr
-                      : locale === "it"
-                        ? pricing.pricingRightTitle_it
-                        : pricing.pricingRightTitle_pt}
-            </h3>
+              ? pricing.pricingRightTitle
+              : locale === "de"
+                ? pricing.pricingRightTitle_de
+                : locale === "es"
+                  ? pricing.pricingRightTitle_es
+                  : locale === "fr"
+                    ? pricing.pricingRightTitle_fr
+                    : locale === "it"
+                      ? pricing.pricingRightTitle_it
+                      : pricing.pricingRightTitle_pt}
+          </h3>
 
           <div>
             {pricing.rightListItems.map((price, index) => (
