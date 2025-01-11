@@ -10,7 +10,7 @@ export const BROKER_OPTIONS = [
     rating: 5,
     reviews: 37291,
     countries: "United Kingdom, Europe, Asia, Africa, Oceania, Americas",
-    url: "https://www.icmarkets.com/global/en/open-trading-account/live",
+    url: "https://help.huggingtrade.com/en/articles/3206338",
     benefits: [
       "Simple and easy to use platform",
       "Highly regulated (ASIC, CySEC, FSA)",
@@ -29,7 +29,7 @@ export const BROKER_OPTIONS = [
     rating: 5,
     reviews: 5792,
     countries: "USA, Canada",
-    url: "https://www.oanda.com/apply/",
+    url: "https://help.huggingtrade.com/en/articles/3206402",
     benefits: [
       "Award-winning fxTrade platform",
       "Regulated by major financial authorities",
@@ -78,7 +78,7 @@ type Route = {
 
 export const userRoutes: Route[] = [
   {
-    href: "https://help.huggingtrade.com/article/17-getting-started",
+    href: "https://help.huggingtrade.com/en/articles/3205954",
     icon: HelpCircle,
     label: "Getting Started",
     target: "_blank",

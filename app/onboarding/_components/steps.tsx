@@ -8,10 +8,8 @@ import Step1 from "./step1";
 import axios from "axios";
 import {Spinner} from "@/components/ui/spinner";
 import {Button} from "@/components/ui/button";
-import {useRouter} from "next/navigation";
 import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} from "@/components/ui/card";
 import Step2 from "./step2";
-import {useUser} from "@clerk/nextjs";
 import {PricingTypes} from "@/types";
 import {Wallet} from "lucide-react";
 const formSchema = z.object({
@@ -23,9 +21,8 @@ const formSchema = z.object({
 });
 
 const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
-  const router = useRouter();
-
-  const [currentStep, setCurrentStep] = useState(user?.metaapi_account_id ? 2 : 0);
+  // const [currentStep, setCurrentStep] = useState(user?.metaapi_account_id ? 2 : 0);
+  const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({
     preferred_broker: "",
     login: "",
@@ -80,8 +77,6 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
       setIsLoading(false);
     }
   };
-
-  console.log(currentStep);
 
   return (
     <section className={currentStep === 0 ? "mx-auto max-w-5xl" : "flex items-center justify-center"}>

@@ -3,15 +3,8 @@
 import {Separator} from "@/components/ui/separator";
 import {cn} from "@/lib/utils";
 import {adminRoutes, userRoutes} from "@/utils/constants";
-import {Banknote, Folder, HomeIcon, Settings, Calculator, CreditCard, Users} from "lucide-react";
 import Link from "next/link";
 import {usePathname} from "next/navigation";
-
-type Route = {
-  href: string;
-  icon: React.ElementType;
-  label: string;
-};
 
 export default function DashboardSideBar({isAdmin = false}: {isAdmin?: boolean}) {
   const pathname = usePathname();
