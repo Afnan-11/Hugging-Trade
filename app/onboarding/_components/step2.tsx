@@ -3,8 +3,6 @@
 import React, {useState, useEffect, memo} from "react";
 import {useUser} from "@clerk/nextjs";
 import {useRouter} from "next/navigation";
-import {PricingCard} from "@/components/pricing-card";
-import {plans} from "@/utils/constants";
 import {checkAuthorization} from "@/app/actions/auth";
 import {Spinner} from "@/components/ui/spinner";
 import PricingContent from "@/components/PricingContent";
@@ -98,4 +96,4 @@ function Step2({
   );
 }
 
-export default memo(Step2);
+export default Step2;
