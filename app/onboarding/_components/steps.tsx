@@ -13,6 +13,7 @@ import Step2 from "./step2";
 import {PricingTypes} from "@/types";
 import {Wallet} from "lucide-react";
 import {sendSlackNotification} from "@/utils/actions/slack-bot";
+import {useRouter} from "next/navigation";
 const formSchema = z.object({
   server: z.string().min(1, {message: "Server is required"}),
   preferred_broker: z.string().min(1, {message: "Preferred broker is required"}),
@@ -22,7 +23,7 @@ const formSchema = z.object({
 });
 
 const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
-  console.log(user);
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(user?.metaapi_account_id ? 2 : 0);
   const [data, setData] = useState({
     preferred_broker: "",
@@ -75,7 +76,7 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
 
       toast.success("Account created successfully! Subscribe to a plan to continue.");
       setCurrentStep(2);
-      // router.push("/dashboard");
+      router.push("/dashboard");
     } catch (error) {
       if (error instanceof z.ZodError) {
         setErrors(error.issues);
