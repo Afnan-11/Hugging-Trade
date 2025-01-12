@@ -1,5 +1,6 @@
 import {userCreate} from "@/app/actions/userCreate";
 import {userUpdate} from "@/app/actions/userUpdate";
+import {sendSlackNotification} from "@/utils/actions/slack-bot";
 import {notifyUser} from "@/utils/functions";
 import {WebhookEvent} from "@clerk/nextjs/server";
 import {headers} from "next/headers";
@@ -73,6 +74,14 @@ export async function POST(req: Request) {
           "welcome",
           {},
         );
+        await sendSlackNotification(
+          "#general",
+          `:tada: *New User Signup!*\n\n` +
+            `*Name:* ${payload?.data?.first_name} ${payload?.data?.last_name}\n` +
+            `*Email:* ${payload?.data?.email_addresses?.[0]?.email_address}\n` +
+            `*Profile Image:* ${payload?.data?.profile_image_url ? "✅" : "❌"}\n\n` +
+            `Welcome to the community! :wave:`,
+        );
 
         return NextResponse.json({
           status: 200,
@@ -84,7 +93,6 @@ export async function POST(req: Request) {
           message: error.message,
         });
       }
-      break;
 
     case "user.updated":
       try {
