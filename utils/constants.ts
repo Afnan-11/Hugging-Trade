@@ -10,7 +10,7 @@ export const BROKER_OPTIONS = [
     rating: 5,
     reviews: 37291,
     countries: "United Kingdom, Europe, Asia, Africa, Oceania, Americas",
-    url: "https://help.huggingtrade.com/en/articles/3206338",
+    url: "https://www.icmarkets.com/global/en/open-trading-account/live",
     benefits: [
       "Simple and easy to use platform",
       "Highly regulated (ASIC, CySEC, FSA)",
@@ -19,7 +19,7 @@ export const BROKER_OPTIONS = [
       "24/7 customer support",
     ],
     trustFactors: ["True ECN broker", "Segregated client funds", "Negative balance protection"],
-    guideLink: "https://help.huggingtrade.com/article/9-ic-markets",
+    guideLink: "https://help.huggingtrade.com/en/articles/3206338",
   },
   {
     value: "oanda",
@@ -29,7 +29,7 @@ export const BROKER_OPTIONS = [
     rating: 5,
     reviews: 5792,
     countries: "USA, Canada",
-    url: "https://help.huggingtrade.com/en/articles/3206402",
+    url: "https://www.oanda.com/apply/",
     benefits: [
       "Award-winning fxTrade platform",
       "Regulated by major financial authorities",
@@ -37,7 +37,7 @@ export const BROKER_OPTIONS = [
       "Advanced charting and analysis tools",
     ],
     trustFactors: ["20+ years of experience", "Fully regulated in USA and Canada", "Bank-grade security measures"],
-    guideLink: "https://help.huggingtrade.com/article/16-how-to-create-and-set-up-your-oanda-brokerage-account",
+    guideLink: "https://help.huggingtrade.com/en/articles/3206402",
   },
 ];
 
@@ -78,7 +78,7 @@ type Route = {
 
 export const userRoutes: Route[] = [
   {
-    href: "https://help.huggingtrade.com/en/articles/3205954",
+    href: "https://help.huggingtrade.com/article/17-getting-started",
     icon: HelpCircle,
     label: "Getting Started",
     target: "_blank",
