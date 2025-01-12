@@ -52,6 +52,8 @@ export default function UsersTable() {
   if (isLoading) return <p>Loading users...</p>;
   if (error) return <p>Error: {(error as Error).message}</p>;
 
+  console.log(users);
+
   return (
     <>
       {users && <UserSourceChart users={users} />}
@@ -73,6 +75,7 @@ export default function UsersTable() {
               <TableHead>Last Name</TableHead>
               <TableHead>Subscription</TableHead>
               <TableHead>Source</TableHead>
+              <TableHead>Broker Account</TableHead>
               <TableHead>Created At</TableHead>
             </TableRow>
           </TableHeader>
@@ -95,6 +98,15 @@ export default function UsersTable() {
                 <TableCell>{user.last_name || "-"}</TableCell>
                 <TableCell>{user.subscription?.status || "-"}</TableCell>
                 <TableCell>{user.source || "-"}</TableCell>
+                <TableCell
+                  className={
+                    (user as any).metaapi_account_id
+                      ? "font-medium text-green-600 dark:text-green-400"
+                      : "font-medium text-red-600 dark:text-red-400"
+                  }
+                >
+                  {(user as any).metaapi_account_id ? "Yes" : "No"}
+                </TableCell>
                 <TableCell>{new Date(user.created_time).toLocaleString()}</TableCell>
               </TableRow>
             ))}

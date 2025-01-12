@@ -22,21 +22,29 @@ export async function GET() {
     const subscriptions = await prisma.subscriptions.findMany();
 
     // Fetch all users
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        first_name: true,
-        last_name: true,
-        created_time: true,
-        is_admin: true,
-        source: true,
-        user_id: true,
-      },
-      orderBy: {
-        created_time: "desc",
-      },
-    });
+    const users = await prisma.user
+      .findMany({
+        select: {
+          id: true,
+          email: true,
+          first_name: true,
+          last_name: true,
+          created_time: true,
+          is_admin: true,
+          source: true,
+          user_id: true,
+          metaapi_account_id: true,
+        },
+        orderBy: {
+          created_time: "desc",
+        },
+      })
+      .then((users) =>
+        users.map((user) => ({
+          ...user,
+          metaapi_account_id: !!user.metaapi_account_id,
+        })),
+      );
 
     const usersWithSubscription = users.map((user) => {
       const latestSubscription = subscriptions.find((sub) => sub.user_id === user.user_id);
