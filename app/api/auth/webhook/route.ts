@@ -74,14 +74,14 @@ export async function POST(req: Request) {
           "welcome",
           {},
         );
-        await sendSlackNotification(
-          "#general",
-          `:tada: *New User Signup!*\n\n` +
-            `*Name:* ${payload?.data?.first_name} ${payload?.data?.last_name}\n` +
-            `*Email:* ${payload?.data?.email_addresses?.[0]?.email_address}\n` +
-            `*Profile Image:* ${payload?.data?.profile_image_url ? "✅" : "❌"}\n\n` +
-            `Welcome to the community! :wave:`,
-        );
+
+        const slackMessage =
+          `🎉 New user signed in!\n` +
+          `• Name: ${payload?.data?.first_name} ${payload?.data?.last_name}\n` +
+          `• Email: ${payload?.data?.email_addresses?.[0]?.email_address}\n`;
+        `• Profile Image: ${payload?.data?.profile_image_url ? "✅" : "❌"}\n`;
+
+        await sendSlackNotification("#general", slackMessage);
 
         return NextResponse.json({
           status: 200,

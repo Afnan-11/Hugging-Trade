@@ -32,8 +32,6 @@ const Step1 = ({data, setData, errors}: Step1Props) => {
     return error ? error.message : "";
   };
 
-  console.log({selectedBroker});
-
   useEffect(() => {
     const broker = BROKER_OPTIONS.find((broker) => broker.value === data.preferred_broker);
     const platform = broker?.platform;

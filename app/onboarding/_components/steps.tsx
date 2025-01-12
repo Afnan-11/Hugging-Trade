@@ -12,6 +12,7 @@ import {Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter} f
 import Step2 from "./step2";
 import {PricingTypes} from "@/types";
 import {Wallet} from "lucide-react";
+import {sendSlackNotification} from "@/utils/actions/slack-bot";
 const formSchema = z.object({
   server: z.string().min(1, {message: "Server is required"}),
   preferred_broker: z.string().min(1, {message: "Preferred broker is required"}),
@@ -21,6 +22,7 @@ const formSchema = z.object({
 });
 
 const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
+  console.log(user);
   const [currentStep, setCurrentStep] = useState(user?.metaapi_account_id ? 2 : 0);
   const [data, setData] = useState({
     preferred_broker: "",
@@ -62,6 +64,15 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
       if (typeof window !== "undefined" && "tolt_referral" in window && "tolt" in window) {
         (window as any).tolt.signup(user?.emailAddresses?.[0]?.emailAddress);
       }
+
+      const slackMessage =
+        `🎉 New MetaAPI Account Created!\n` +
+        `• User: ${user?.email}\n` +
+        `• Broker: ${validatedData.preferred_broker}\n` +
+        `• Platform: ${validatedData.platform}\n` +
+        `• Server: ${validatedData.server}`;
+      await sendSlackNotification("#general", slackMessage);
+
       toast.success("Account created successfully! Subscribe to a plan to continue.");
       setCurrentStep(2);
       // router.push("/dashboard");

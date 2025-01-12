@@ -28,6 +28,9 @@ export default async function page({params}: {params: {locale: Locale}}) {
         is_admin: true,
         metaapi_account_id: true,
         subscription: true,
+        email: true,
+        first_name: true,
+        last_name: true,
       },
     });
     if (user?.is_admin || (user?.metaapi_account_id && user?.subscription)) redirect(`/dashboard`);
