@@ -78,7 +78,7 @@ type Route = {
 
 export const userRoutes: Route[] = [
   {
-    href: "https://help.huggingtrade.com/article/17-getting-started",
+    href: "https://help.huggingtrade.com/en/articles/3205954",
     icon: HelpCircle,
     label: "Getting Started",
     target: "_blank",
