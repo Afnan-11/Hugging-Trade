@@ -72,7 +72,7 @@ const Steps = ({pricing, user}: {pricing: PricingTypes | null; user: any}) => {
         `• Broker: ${validatedData.preferred_broker}\n` +
         `• Platform: ${validatedData.platform}\n` +
         `• Server: ${validatedData.server}`;
-      await sendSlackNotification("#general", slackMessage);
+      await sendSlackNotification("#broker-deposit", slackMessage);
 
       toast.success("Account created successfully! Subscribe to a plan to continue.");
       setCurrentStep(2);

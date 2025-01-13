@@ -6,6 +6,7 @@ import {NextRequest, NextResponse} from "next/server";
 import Stripe from "stripe";
 import {Knock} from "@knocklabs/node";
 import {notifyUser, subscribeToStrategy} from "@/utils/functions";
+import {sendSlackNotification} from "@/utils/actions/slack-bot";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const knock = new Knock(process.env.KNOCK_API_SECRET!);
 export async function POST(req: NextRequest) {
@@ -39,6 +40,8 @@ async function handleSubscriptionEvent(
 ) {
   const subscription = event.data.object as Stripe.Subscription;
   const customerEmail = await getCustomerEmail(subscription.customer as string);
+  const slackMessage = `• User: ${customerEmail}\n started free trial.`;
+  await sendSlackNotification("#free-trial", slackMessage);
 
   if (!customerEmail) {
     return NextResponse.json({
