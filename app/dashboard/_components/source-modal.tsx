@@ -76,7 +76,7 @@ export function SourceModal({setShowSourceModal, showSourceModal}: SourceModalPr
       <DialogContent className="overflow-hidden sm:max-w-[550px]">
         <DialogHeader>
           <DialogTitle className="bg-gradient-to-r from-primary/60 to-primary bg-clip-text text-2xl font-bold text-transparent">
-            {`Hey ${user?.firstName}, how did you hear about us?`}
+            {`Hey ${user?.firstName || "👋 !!"}, how did you hear about us?`}
           </DialogTitle>
           <DialogDescription className="text-lg">
             {`Let us know where you found us! Your feedback helps us grow and expand our community.`}
