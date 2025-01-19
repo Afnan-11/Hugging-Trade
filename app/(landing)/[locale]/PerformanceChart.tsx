@@ -1,19 +1,11 @@
 "use client";
 
 import {useEffect, useRef, useState} from "react";
-import {TrendingUp} from "lucide-react";
-import {Area, AreaChart, CartesianGrid, XAxis} from "recharts";
+import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
 
 import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
 
-const chartData = [
-  {month: "January", desktop: 186, mobile: 80},
-  {month: "February", desktop: 305, mobile: 200},
-  {month: "March", desktop: 237, mobile: 120},
-  {month: "April", desktop: 73, mobile: 190},
-  {month: "May", desktop: 209, mobile: 130},
-  {month: "June", desktop: 214, mobile: 140},
-];
+import {chartData} from "./chartdata";
 
 const chartConfig = {
   desktop: {
@@ -74,12 +66,18 @@ export function PerformanceChart() {
               tickMargin={8}
               tickFormatter={(value) => value.slice(0, 3)}
             />
+            <YAxis
+              tickLine={false}
+              axisLine={false}
+              tickMargin={8}
+              width={30}
+            />
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent indicator="dot" />}
             />
             <Area
-              dataKey="mobile"
+              dataKey="sp500"
               type="natural"
               fill="var(--color-mobile)"
               fillOpacity={0.4}
@@ -87,7 +85,7 @@ export function PerformanceChart() {
               stackId="a"
             />
             <Area
-              dataKey="desktop"
+              dataKey="fund"
               type="natural"
               fill="var(--color-desktop)"
               fillOpacity={0.4}
