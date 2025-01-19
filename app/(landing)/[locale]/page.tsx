@@ -10,7 +10,7 @@ import SliderCalculator from "@/components/SliderCalculator";
 import VideoMembers from "@/components/VideoMembers";
 import AccordionHome from "@/components/AccordionHome";
 import {getTranslations} from "next-intl/server";
-import {PerformanceChart} from "./PerformanceChart";
+import {PerformanceChartArea, PerformanceChartBar, PerformanceChartLine} from "./PerformanceChart";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
@@ -331,7 +331,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               name: "Is my money secure?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "Yes, your funds remain with a regulated broker, and we can never access them. You’re always in control of your money.",
+                text: "Yes, your funds remain with a regulated broker, and we can never access them. You're always in control of your money.",
               },
             },
             {
@@ -339,7 +339,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               name: "How does the profit sharing work?",
               acceptedAnswer: {
                 "@type": "Answer",
-                text: "At the end of each month, we take 35% of your profits. You have 5 days to pay; if not, there’s an additional 5% penalty. After 10 days, your account will be disconnected until payment is made.",
+                text: "At the end of each month, we take 35% of your profits. You have 5 days to pay; if not, there's an additional 5% penalty. After 10 days, your account will be disconnected until payment is made.",
               },
             },
           ],
@@ -479,7 +479,18 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
         </div>
 
-        <PerformanceChart />
+        <h1
+          className={`mx-auto w-fit px-5 text-center text-[44px] font-black leading-tight text-black lg:text-7xl lg:text-h1`}
+        >
+          Performance is Key
+        </h1>
+
+        <p className="px-4 text-center text-pMobile">
+          We outperform public indexes by accessing top-quartile funds <br /> through elite managers, offering these
+          exclusive opportunities to qualified investors.
+        </p>
+
+        <PerformanceChartArea />
 
         {/* ----------------------------------------------------------------------- */}
 
