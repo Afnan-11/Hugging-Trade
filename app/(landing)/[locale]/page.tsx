@@ -10,6 +10,7 @@ import SliderCalculator from "@/components/SliderCalculator";
 import VideoMembers from "@/components/VideoMembers";
 import AccordionHome from "@/components/AccordionHome";
 import {getTranslations} from "next-intl/server";
+import {PerformanceChart} from "./PerformanceChart";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
@@ -477,6 +478,8 @@ export default async function Home({params}: {params: {locale: string}}) {
             </div>
           </div>
         </div>
+
+        <PerformanceChart />
 
         {/* ----------------------------------------------------------------------- */}
 
