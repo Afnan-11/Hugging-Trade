@@ -2,6 +2,8 @@
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, BarChart, Bar} from "recharts";
 import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
 import {chartData} from "./chartdata";
+import {Button} from "@/components/ui/button";
+import {DatePickerWithRange} from "./DatePicker";
 
 const chartConfig = {
   sp500: {
@@ -16,23 +18,53 @@ const chartConfig = {
 
 export function PerformanceChartArea() {
   return (
-    <div className="mx-auto mt-10 max-w-5xl">
-      {/* <div className="my-10 flex">
-        <div className="mr-4 flex items-center">
-          <div
-            className="mr-1 h-2 w-2"
-            style={{backgroundColor: chartConfig.fund.color}}
-          />
-          <span>Fund</span>
+    <div className="mx-auto mt-10 max-w-5xl px-2 font-medium">
+      <div className="flex items-center justify-between">
+        <div className="my-10 flex">
+          <div className="mr-4 flex items-center">
+            <div
+              className="mr-1 h-2 w-2"
+              style={{backgroundColor: chartConfig.fund.color}}
+            />
+            <span>Fund</span>
+          </div>
+          <div className="flex items-center">
+            <div
+              className="mr-1 h-2 w-2"
+              style={{backgroundColor: chartConfig.sp500.color}}
+            />
+            <span>S&P 500</span>
+          </div>
         </div>
-        <div className="flex items-center">
-          <div
-            className="mr-1 h-2 w-2"
-            style={{backgroundColor: chartConfig.sp500.color}}
-          />
-          <span>S&P 500</span>
+
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            className="h-8 w-8"
+          >
+            1M
+          </Button>
+          <Button
+            className="h-8 w-8"
+            variant="outline"
+          >
+            3M
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8"
+          >
+            1yr
+          </Button>
+          <Button
+            variant="outline"
+            className="h-8 w-8"
+          >
+            All
+          </Button>
+          <DatePickerWithRange />
         </div>
-      </div> */}
+      </div>
       <ChartContainer config={chartConfig}>
         <AreaChart
           accessibilityLayer
@@ -58,6 +90,7 @@ export function PerformanceChartArea() {
             tickMargin={8}
             width={30}
             domain={[(dataMin: number) => Math.max(0, dataMin), "auto"]}
+            tickFormatter={(value) => `${value}%`}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
           />
           <ChartTooltip
@@ -82,16 +115,9 @@ export function PerformanceChartArea() {
               );
             }}
           />
-          <Line
-            dataKey="sp500"
-            type="linear"
-            stroke="var(--color-sp500)"
-            strokeWidth={2}
-            dot={false}
-          />
           <Area
             dataKey="sp500"
-            type="linear"
+            type="natural"
             fill="var(--color-sp500)"
             fillOpacity={0.4}
             stroke="var(--color-sp500)"
@@ -100,7 +126,7 @@ export function PerformanceChartArea() {
           />
           <Area
             dataKey="fund"
-            type="linear"
+            type="natural"
             fill="var(--color-fund)"
             fillOpacity={0.4}
             stroke="var(--color-fund)"
@@ -115,7 +141,7 @@ export function PerformanceChartArea() {
 
 export function PerformanceChartLine() {
   return (
-    <div className="mx-auto mt-20 max-w-5xl">
+    <div className="mx-auto mt-20 max-w-5xl px-2">
       <ChartContainer config={chartConfig}>
         <LineChart
           accessibilityLayer
@@ -188,7 +214,7 @@ export function PerformanceChartLine() {
 
 export function PerformanceChartBar() {
   return (
-    <div className="mx-auto mt-20 max-w-5xl">
+    <div className="mx-auto mt-20 max-w-5xl px-2">
       <div className="mb-4 flex justify-center">
         <div className="mr-4 flex items-center">
           <div className="mr-1 h-2 w-2 bg-[var(--color-fund)]" />

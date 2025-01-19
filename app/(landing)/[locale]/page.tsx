@@ -479,19 +479,6 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
         </div>
 
-        <h1
-          className={`mx-auto w-fit px-5 text-center text-[44px] font-black leading-tight text-black lg:text-7xl lg:text-h1`}
-        >
-          Performance is Key
-        </h1>
-
-        <p className="px-4 text-center text-pMobile">
-          We outperform public indexes by accessing top-quartile funds <br /> through elite managers, offering these
-          exclusive opportunities to qualified investors.
-        </p>
-
-        <PerformanceChartArea />
-
         {/* ----------------------------------------------------------------------- */}
 
         <div className="px-5 lg:hidden">
@@ -584,6 +571,19 @@ export default async function Home({params}: {params: {locale: string}}) {
       </div>
 
       {/* ----------------------------------------------------------------------------------- */}
+
+      <h1
+        className={`mx-auto my-5 w-fit px-5 text-center text-[44px] font-black leading-tight text-black lg:text-7xl lg:text-h1`}
+      >
+        Performance is Key
+      </h1>
+
+      <p className="px-4 text-center text-pMobile">
+        We outperform public indexes by accessing top-quartile funds <br /> through elite managers, offering these
+        exclusive opportunities to qualified investors.
+      </p>
+
+      <PerformanceChartArea />
 
       <div className="flex flex-col items-center px-5 py-10 pt-20 lg:px-0">
         <h2 className="w-full pb-7 text-center text-h2M font-bold leading-[50px] lg:w-[700px] lg:pb-0 lg:text-h2 lg:leading-none">
