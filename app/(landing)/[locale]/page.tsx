@@ -479,7 +479,9 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
         </div>
 
+        {/*
         <PerformanceChart />
+        */}
 
         {/* ----------------------------------------------------------------------- */}
 
