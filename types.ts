@@ -1,4 +1,27 @@
+export type LocalizedString = {
+  en: string;
+  de: string;
+  es: string;
+  fr: string;
+  it: string;
+  pt: string;
+};
+
 export type HomeTypes = {
+  chartText?: {
+    title_en: string;
+    title_de: string;
+    title_es: string;
+    title_fr: string;
+    title_it: string;
+    title_pt: string;
+    subheading_en: string;
+    subheading_de: string;
+    subheading_es: string;
+    subheading_fr: string;
+    subheading_it: string;
+    subheading_pt: string;
+  };
   heroTitle: string;
   heroTitle_de: string;
   heroTitle_es: string;

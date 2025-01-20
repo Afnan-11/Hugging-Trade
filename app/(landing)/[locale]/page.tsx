@@ -16,135 +16,169 @@ const PerformanceChartArea = dynamic(() => import("./PerformanceChart").then((mo
   ssr: false,
 });
 
-async function getHome(): Promise<HomeTypes | null> {
+async function getHomeData(): Promise<HomeTypes | null> {
   try {
     const query = `
       *[_type == "home"][0]{
-  heroTitle,
-  heroTitle_de,
-  heroTitle_es,
-  heroTitle_fr,
-  heroTitle_it,
-  heroTitle_pt,
-  heroText,
-  heroText_de,
-  heroText_es,
-  heroText_fr,
-  heroText_it,
-  heroText_pt,
-  heroTextUnderButton,
-  heroTextUnderButton_de,
-  heroTextUnderButton_es,
-  heroTextUnderButton_fr,
-  heroTextUnderButton_it,
-  heroTextUnderButton_pt,
-  sectionThreeTitle,
-  sectionThreeTitle_de,
-  sectionThreeTitle_es,
-  sectionThreeTitle_fr,
-  sectionThreeTitle_it,
-  sectionThreeTitle_pt,
-  sectionThreeText,
-  sectionThreeText_de,
-  sectionThreeText_es,
-  sectionThreeText_fr,
-  sectionThreeText_it,
-  sectionThreeText_pt,
-  sectionThreeStarsNumber,
-  sectionThreeTextUnderStarsNumber,
-  sectionThreeTextUnderStarsNumber_de,
-  sectionThreeTextUnderStarsNumber_es,
-  sectionThreeTextUnderStarsNumber_fr,
-  sectionThreeTextUnderStarsNumber_it,
-  sectionThreeTextUnderStarsNumber_pt,
-  sectionThreeUsersNumber,
-  sectionThreeTextUnderUsersNumber,
-  sectionThreeTextUnderUsersNumber_de,
-  sectionThreeTextUnderUsersNumber_es,
-  sectionThreeTextUnderUsersNumber_fr,
-  sectionThreeTextUnderUsersNumber_it,
-  sectionThreeTextUnderUsersNumber_pt,
-  sectionThreeTimeNumber,
-  sectionThreeTextUnderTimeNumber,
-  sectionThreeTextUnderTimeNumber_de,
-  sectionThreeTextUnderTimeNumber_es,
-  sectionThreeTextUnderTimeNumber_fr,
-  sectionThreeTextUnderTimeNumber_it,
-  sectionThreeTextUnderTimeNumber_pt,
-  sliderTitle,
-  sliderTitle_de,
-  sliderTitle_es,
-  sliderTitle_fr,
-  sliderTitle_it,
-  sliderTitle_pt,
-  sliderText,
-  sliderText_de,
-  sliderText_es,
-  sliderText_fr,
-  sliderText_it,
-  sliderText_pt,
-  sliderAverageMonthlyIncome,
-  sliderAverageMonthlyIncome_de,
-  sliderAverageMonthlyIncome_es,
-  sliderAverageMonthlyIncome_fr,
-  sliderAverageMonthlyIncome_it,
-  sliderAverageMonthlyIncome_pt,
-  sectionSixTitle,
-  sectionSixTitle_de,
-  sectionSixTitle_es,
-  sectionSixTitle_fr,
-  sectionSixTitle_it,
-  sectionSixTitle_pt,
-  sectionSevenTitle,
-  sectionSevenTitle_de,
-  sectionSevenTitle_es,
-  sectionSevenTitle_fr,
-  sectionSevenTitle_it,
-  sectionSevenTitle_pt,
-  sectionSevenText,
-  sectionSevenText_de,
-  sectionSevenText_es,
-  sectionSevenText_fr,
-  sectionSevenText_it,
-  sectionSevenText_pt,
-  sectionSevenSubTitleOne,
-  sectionSevenSubTitleOne_de,
-  sectionSevenSubTitleOne_es,
-  sectionSevenSubTitleOne_fr,
-  sectionSevenSubTitleOne_it,
-  sectionSevenSubTitleOne_pt,
-  sectionFourteenTitle,
-  sectionFourteenTitle_de,
-  sectionFourteenTitle_es,
-  sectionFourteenTitle_fr,
-  sectionFourteenTitle_it,
-  sectionFourteenTitle_pt,
-  reviewsText,
-  reviewsText_de,
-  reviewsText_es,
-  reviewsText_fr,
-  reviewsText_it,
-  reviewsText_pt,
-  metaTitle,
-  metaTitle_de,
-  metaTitle_es,
-  metaTitle_fr,
-  metaTitle_it,
-  metaTitle_pt,
-  metaDescription,
-  metaDescription_de,
-  metaDescription_es,
-  metaDescription_fr,
-  metaDescription_it,
-  metaDescription_pt,
-  keywords
-}
-
+        heroTitle,
+        heroTitle_de,
+        heroTitle_es,
+        heroTitle_fr,
+        heroTitle_it,
+        heroTitle_pt,
+        heroText,
+        heroText_de,
+        heroText_es,
+        heroText_fr,
+        heroText_it,
+        heroText_pt,
+        heroTextUnderButton,
+        heroTextUnderButton_de,
+        heroTextUnderButton_es,
+        heroTextUnderButton_fr,
+        heroTextUnderButton_it,
+        heroTextUnderButton_pt,
+        sectionThreeTitle,
+        sectionThreeTitle_de,
+        sectionThreeTitle_es,
+        sectionThreeTitle_fr,
+        sectionThreeTitle_it,
+        sectionThreeTitle_pt,
+        sectionThreeText,
+        sectionThreeText_de,
+        sectionThreeText_es,
+        sectionThreeText_fr,
+        sectionThreeText_it,
+        sectionThreeText_pt,
+        sectionThreeStarsNumber,
+        sectionThreeTextUnderStarsNumber,
+        sectionThreeTextUnderStarsNumber_de,
+        sectionThreeTextUnderStarsNumber_es,
+        sectionThreeTextUnderStarsNumber_fr,
+        sectionThreeTextUnderStarsNumber_it,
+        sectionThreeTextUnderStarsNumber_pt,
+        sectionThreeUsersNumber,
+        sectionThreeTextUnderUsersNumber,
+        sectionThreeTextUnderUsersNumber_de,
+        sectionThreeTextUnderUsersNumber_es,
+        sectionThreeTextUnderUsersNumber_fr,
+        sectionThreeTextUnderUsersNumber_it,
+        sectionThreeTextUnderUsersNumber_pt,
+        sectionThreeTimeNumber,
+        sectionThreeTextUnderTimeNumber,
+        sectionThreeTextUnderTimeNumber_de,
+        sectionThreeTextUnderTimeNumber_es,
+        sectionThreeTextUnderTimeNumber_fr,
+        sectionThreeTextUnderTimeNumber_it,
+        sectionThreeTextUnderTimeNumber_pt,
+        sliderTitle,
+        sliderTitle_de,
+        sliderTitle_es,
+        sliderTitle_fr,
+        sliderTitle_it,
+        sliderTitle_pt,
+        sliderText,
+        sliderText_de,
+        sliderText_es,
+        sliderText_fr,
+        sliderText_it,
+        sliderText_pt,
+        sliderAverageMonthlyIncome,
+        sliderAverageMonthlyIncome_de,
+        sliderAverageMonthlyIncome_es,
+        sliderAverageMonthlyIncome_fr,
+        sliderAverageMonthlyIncome_it,
+        sliderAverageMonthlyIncome_pt,
+        sectionSixTitle,
+        sectionSixTitle_de,
+        sectionSixTitle_es,
+        sectionSixTitle_fr,
+        sectionSixTitle_it,
+        sectionSixTitle_pt,
+        sectionSevenTitle,
+        sectionSevenTitle_de,
+        sectionSevenTitle_es,
+        sectionSevenTitle_fr,
+        sectionSevenTitle_it,
+        sectionSevenTitle_pt,
+        sectionSevenText,
+        sectionSevenText_de,
+        sectionSevenText_es,
+        sectionSevenText_fr,
+        sectionSevenText_it,
+        sectionSevenText_pt,
+        sectionSevenSubTitleOne,
+        sectionSevenSubTitleOne_de,
+        sectionSevenSubTitleOne_es,
+        sectionSevenSubTitleOne_fr,
+        sectionSevenSubTitleOne_it,
+        sectionSevenSubTitleOne_pt,
+        sectionFourteenTitle,
+        sectionFourteenTitle_de,
+        sectionFourteenTitle_es,
+        sectionFourteenTitle_fr,
+        sectionFourteenTitle_it,
+        sectionFourteenTitle_pt,
+        reviewsText,
+        reviewsText_de,
+        reviewsText_es,
+        reviewsText_fr,
+        reviewsText_it,
+        reviewsText_pt,
+        metaTitle,
+        metaTitle_de,
+        metaTitle_es,
+        metaTitle_fr,
+        metaTitle_it,
+        metaTitle_pt,
+        metaDescription,
+        metaDescription_de,
+        metaDescription_es,
+        metaDescription_fr,
+        metaDescription_it,
+        metaDescription_pt,
+        keywords
+      }
     `;
-    const data: HomeTypes = await client.fetch(query);
-    return data;
+    return await client.fetch(query);
   } catch (error) {
     console.error("Failed to fetch home data:", error);
+    return null;
+  }
+}
+
+async function getChartData() {
+  try {
+    const query = `
+      *[_type == "chartText"][0]{
+        title_en,
+        title_de,
+        title_es,
+        title_fr,
+        title_it,
+        title_pt,
+        subheading_en,
+        subheading_de,
+        subheading_es,
+        subheading_fr,
+        subheading_it,
+        subheading_pt
+      }
+    `;
+    return await client.fetch(query);
+  } catch (error) {
+    console.error("Failed to fetch chart data:", error);
+    return null;
+  }
+}
+
+async function getHome(): Promise<HomeTypes | null> {
+  try {
+    const [homeData, chartData] = await Promise.all([getHomeData(), getChartData()]);
+
+    return homeData ? {...homeData, chartText: chartData} : null;
+  } catch (error) {
+    console.error("Failed to fetch data:", error);
     return null;
   }
 }
@@ -583,12 +617,31 @@ export default async function Home({params}: {params: {locale: string}}) {
       <h1
         className={`mx-auto my-5 w-fit px-5 text-center text-[44px] font-black leading-tight text-black lg:text-7xl lg:text-h1`}
       >
-        Performance is Key
+        {locale === "en"
+          ? home?.chartText?.title_en
+          : locale === "de"
+            ? home?.chartText?.title_de
+            : locale === "es"
+              ? home?.chartText?.title_es
+              : locale === "fr"
+                ? home?.chartText?.title_fr
+                : locale === "it"
+                  ? home?.chartText?.title_it
+                  : home?.chartText?.title_pt}
       </h1>
 
-      <p className="px-4 text-center text-pMobile">
-        We outperform public indexes by accessing top-quartile funds <br /> through elite managers, offering these
-        exclusive opportunities to qualified investors.
+      <p className="mx-auto max-w-3xl px-4 text-center text-pMobile">
+        {locale === "en"
+          ? home?.chartText?.subheading_en
+          : locale === "de"
+            ? home?.chartText?.subheading_de
+            : locale === "es"
+              ? home?.chartText?.subheading_es
+              : locale === "fr"
+                ? home?.chartText?.subheading_fr
+                : locale === "it"
+                  ? home?.chartText?.subheading_it
+                  : home?.chartText?.subheading_pt}
       </p>
 
       <PerformanceChartArea />
