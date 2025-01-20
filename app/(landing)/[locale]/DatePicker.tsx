@@ -10,18 +10,26 @@ import {toast} from "sonner";
 
 type Props = {
   date: DateRange | undefined;
-  setDate: any;
-  setSelectedPeriod: any;
+  setDate: (date: DateRange | undefined) => void;
+  setSelectedPeriod: (period: string) => void;
   selectedPeriod: string;
+  chartData: Array<{
+    month: string;
+    fund: number;
+    sp500: number;
+    date: Date;
+  }>;
 };
 
-export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedPeriod}: Props) {
+export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedPeriod, chartData}: Props) {
   const [fromMonth, setFromMonth] = useState<number>(date?.from?.getMonth() || new Date().getMonth());
   const [fromYear, setFromYear] = useState<number>(date?.from?.getFullYear() || new Date().getFullYear());
   const [toMonth, setToMonth] = useState<number>(date?.to?.getMonth() || new Date().getMonth());
   const [toYear, setToYear] = useState<number>(date?.to?.getFullYear() || new Date().getFullYear());
 
-  const years = Array.from({length: 50}, (_, i) => new Date().getFullYear() - i);
+  // Get unique years from chartData dates, sorted in descending order
+  const years = Array.from(new Set(chartData.map((item) => new Date(item.date).getFullYear()))).sort((a, b) => b - a);
+
   const months = [
     "January",
     "February",
