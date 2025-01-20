@@ -1,5 +1,5 @@
 "use client";
-import {Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, BarChart, Bar} from "recharts";
+import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
 import {ChartConfig, ChartContainer, ChartTooltip} from "@/components/ui/chart";
 import {chartData} from "./chartdata";
 import {Button} from "@/components/ui/button";
@@ -33,7 +33,6 @@ export function PerformanceChartArea() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          console.log("INTERSECTING");
           setIsVisible(true);
         }
       },
@@ -72,15 +71,19 @@ export function PerformanceChartArea() {
   };
 
   return (
-    <div className="mx-auto mt-10 max-w-5xl pr-2 font-medium">
-      <div className="mb-5 flex items-center justify-end md:mb-0 md:justify-between">
+    <div className="relative mx-auto mt-10 max-w-5xl pr-2 font-medium">
+      <p className="absolute -left-5 top-1/2 origin-center -translate-y-1/2 -rotate-90 text-[9.5px] sm:-left-8 sm:text-[11px] md:-left-10 md:text-[12px] lg:text-[13px] xl:text-[14px]">
+        Monthly Returns
+      </p>
+
+      <div className="mb-5 flex items-center justify-end pl-2 md:mb-0 md:justify-between">
         <div className="my-10 hidden md:flex">
           <div className="mr-4 flex items-center">
             <div
               className="mr-1 h-2 w-2"
               style={{backgroundColor: chartConfig.fund.color}}
             />
-            <span>Fund</span>
+            <span>Hugging Trade</span>
           </div>
           <div className="flex items-center">
             <div
@@ -140,6 +143,7 @@ export function PerformanceChartArea() {
               setSelectedPeriod("");
             }}
             setSelectedPeriod={setSelectedPeriod}
+            selectedPeriod={selectedPeriod}
           />
         </div>
       </div>
@@ -168,11 +172,12 @@ export function PerformanceChartArea() {
           <YAxis
             axisLine={false}
             tickMargin={8}
-            width={45}
+            width={window.innerWidth < 768 ? 60 : 80}
             domain={[(dataMin: number) => Math.max(0, dataMin), "auto"]}
             tickFormatter={(value) => `${value}%`}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
           />
+
           <ChartTooltip
             cursor={{
               stroke: "hsl(var(--muted-background))",
@@ -189,7 +194,7 @@ export function PerformanceChartArea() {
                   <p className="font-medium">{`${data.month} ${year}`}</p>
                   <div className="flex items-center gap-1">
                     <div className="h-2 w-2 bg-[var(--color-fund)]" />
-                    Fund: {data.fund}%
+                    Hugging Trade: {data.fund}%
                   </div>
                   <div className="flex items-center gap-1">
                     <div className="h-2 w-2 bg-[var(--color-sp500)]" />

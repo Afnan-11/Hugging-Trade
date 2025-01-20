@@ -10,7 +10,11 @@ import SliderCalculator from "@/components/SliderCalculator";
 import VideoMembers from "@/components/VideoMembers";
 import AccordionHome from "@/components/AccordionHome";
 import {getTranslations} from "next-intl/server";
-import {PerformanceChartArea} from "./PerformanceChart";
+
+import dynamic from "next/dynamic";
+const PerformanceChartArea = dynamic(() => import("./PerformanceChart").then((mod) => mod.PerformanceChartArea), {
+  ssr: false,
+});
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
