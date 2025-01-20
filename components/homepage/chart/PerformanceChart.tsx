@@ -183,6 +183,7 @@ export function PerformanceChartArea() {
           />
 
           <ChartTooltip
+            animationDuration={100}
             cursor={{
               stroke: "hsl(var(--muted-background))",
               strokeWidth: 1,
