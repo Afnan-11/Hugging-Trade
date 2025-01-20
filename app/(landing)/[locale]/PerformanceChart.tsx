@@ -73,7 +73,7 @@ export function PerformanceChartArea() {
   return (
     <div className="relative mx-auto mt-10 max-w-5xl pr-2 font-medium">
       <p className="absolute -left-5 top-1/2 origin-center -translate-y-1/2 -rotate-90 text-[9.5px] sm:-left-8 sm:text-[11px] md:-left-10 md:text-[12px] lg:text-[13px] xl:text-[14px]">
-        Monthly Returns
+        Our Monthly Returns
       </p>
 
       <div className="mb-5 flex items-center justify-end pl-2 md:mb-0 md:justify-between">
@@ -172,7 +172,7 @@ export function PerformanceChartArea() {
           <YAxis
             axisLine={false}
             tickMargin={8}
-            width={window.innerWidth < 768 ? 60 : 80}
+            width={window.innerWidth < 768 ? 55 : 80}
             domain={[(dataMin: number) => Math.max(0, dataMin), "auto"]}
             tickFormatter={(value) => `${value}%`}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
