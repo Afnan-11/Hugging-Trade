@@ -20,9 +20,9 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function PerformanceChartArea() {
-  const [selectedPeriod, setSelectedPeriod] = useState<string>("1Y");
+  const [selectedPeriod, setSelectedPeriod] = useState("1Y");
   const [date, setDate] = useState<DateRange | undefined>({
-    from: addDays(new Date(), -180), // 6 months ago from today
+    from: addDays(new Date(), -365), // 1 year ago from today
     to: new Date(), // today
   });
 
@@ -36,15 +36,7 @@ export function PerformanceChartArea() {
 
     const now = new Date();
     const monthsToSubtract =
-      selectedPeriod === "6M"
-        ? 6
-        : selectedPeriod === "1Y"
-          ? 12
-          : selectedPeriod === "3Y"
-            ? 36
-            : selectedPeriod === "5Y"
-              ? 60
-              : 0; // "All" case - return all data by using 0 months subtraction
+      selectedPeriod === "6M" ? 6 : selectedPeriod === "1Y" ? 12 : selectedPeriod === "3Y" ? 36 : 0; // "All" case - return all data by using 0 months subtraction
 
     if (monthsToSubtract === 0) {
       return chartData;
@@ -55,8 +47,8 @@ export function PerformanceChartArea() {
   };
 
   return (
-    <div className="mx-auto mt-10 max-w-5xl px-2 font-medium">
-      <div className="mb-10 flex items-center justify-end md:justify-between">
+    <div className="mx-auto mt-10 max-w-5xl pr-2 font-medium">
+      <div className="mb-5 flex items-center justify-end md:mb-0 md:justify-between">
         <div className="my-10 hidden md:flex">
           <div className="mr-4 flex items-center">
             <div
@@ -106,16 +98,6 @@ export function PerformanceChartArea() {
             3Y
           </Button>
           <Button
-            variant={selectedPeriod === "5Y" ? "default" : "outline"}
-            className="h-8 w-8"
-            onClick={() => {
-              setSelectedPeriod("5Y");
-              setDate(undefined);
-            }}
-          >
-            5Y
-          </Button>
-          <Button
             variant={selectedPeriod === "All" ? "default" : "outline"}
             className="h-8 w-8"
             onClick={() => {
@@ -132,6 +114,7 @@ export function PerformanceChartArea() {
               setDate(newDate);
               setSelectedPeriod("");
             }}
+            setSelectedPeriod={setSelectedPeriod}
           />
         </div>
       </div>
@@ -152,7 +135,7 @@ export function PerformanceChartArea() {
             tickMargin={8}
             interval={selectedPeriod === "6M" || selectedPeriod === "1Y" ? 0 : Math.floor(getFilteredData().length / 6)}
             tickFormatter={(value) => value.slice(0, 3)}
-            height={100}
+            // height={50}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
           />
           <YAxis

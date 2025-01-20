@@ -12,9 +12,10 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
 type Props = {
   date: DateRange | undefined;
   setDate: any;
+  setSelectedPeriod: any;
 };
 
-export function DatePickerWithRange({date, setDate}: Props) {
+export function DatePickerWithRange({date, setDate, setSelectedPeriod}: Props) {
   return (
     <div className={cn("grid gap-2")}>
       <Popover>
@@ -41,8 +42,12 @@ export function DatePickerWithRange({date, setDate}: Props) {
             mode="range"
             defaultMonth={date?.from}
             selected={date}
-            onSelect={setDate}
+            onSelect={(newDate: any) => {
+              setDate(newDate);
+              setSelectedPeriod("");
+            }}
             numberOfMonths={2}
+            disabled={{after: new Date()}}
           />
         </PopoverContent>
       </Popover>
