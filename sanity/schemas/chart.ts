@@ -69,6 +69,20 @@ export const chart = {
               validation: (Rule: Rule) => Rule.required().error("S&P 500 performance is required"),
             },
           ],
+          preview: {
+            select: {
+              month: "month",
+              year: "year",
+              fund: "fund",
+              sp500: "sp500",
+            },
+            prepare(selection: any) {
+              const {month, year, fund, sp500} = selection;
+              return {
+                title: `${month} ${year} (Fund: ${fund}%, S&P500: ${sp500}%)`,
+              };
+            },
+          },
         },
       ],
       validation: (Rule: Rule) => Rule.required().min(1).error("At least one data point is required"),
