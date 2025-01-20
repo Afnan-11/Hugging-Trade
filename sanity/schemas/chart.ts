@@ -14,9 +14,9 @@ export const MONTHS = [
   "December",
 ];
 
-export const chart = {
-  name: "chart",
-  title: "CHART DATA",
+export const chartText = {
+  name: "chartText",
+  title: "CHART TEXT",
   type: "document",
   fields: [
     {
@@ -85,6 +85,14 @@ export const chart = {
       title: "Subheading (Portuguese)",
       type: "string",
     },
+  ],
+};
+
+export const chart = {
+  name: "chart",
+  title: "CHART DATA",
+  type: "document",
+  fields: [
     {
       name: "chartData",
       title: "Chart Data Points",

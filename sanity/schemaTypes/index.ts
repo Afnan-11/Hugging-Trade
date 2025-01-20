@@ -8,6 +8,7 @@ import {faqAffiliate} from "../schemas/faqAffiliate";
 import {video} from "../schemas/video";
 import {footer} from "../schemas/footer";
 import {chart} from "../schemas/chart";
+import {chartText} from "../schemas/chart";
 export const schema: {types: SchemaTypeDefinition[]} = {
-  types: [home, faqHome, pricing, faqPricing, affiliate, faqAffiliate, video, footer, chart],
+  types: [home, faqHome, pricing, faqPricing, affiliate, faqAffiliate, video, footer, chart, chartText],
 };
