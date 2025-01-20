@@ -14,31 +14,37 @@ type ChartDocument = {
 };
 
 export async function getChartData() {
-  const query = `*[_type == "chart"][0] {
-    title,
-    description,
-    chartData[] {
-      month,
-      year,
-      fund,
-      sp500
+  try {
+    const query = `*[_type == "chart"][0] {
+      chartData[] {
+        month,
+        year,
+        fund,
+        sp500
+      }
+    }`;
+    const chartDoc = await client.fetch<ChartDocument>(query);
+    if (!chartDoc) {
+      return null;
     }
-  }`;
-  const chartDoc = await client.fetch<ChartDocument>(query);
-  if (!chartDoc) {
+    return chartDoc.chartData
+      .filter(
+        (point: any) =>
+          point.month !== undefined &&
+          point.year !== undefined &&
+          point.fund !== undefined &&
+          point.sp500 !== undefined,
+      )
+      .map((point: any) => ({
+        date: new Date(point.year, MONTHS.indexOf(point.month)),
+        fund: point.fund,
+        sp500: point.sp500,
+        month: point.month,
+      }));
+  } catch (error) {
+    console.error("Failed to fetch chart data:", error);
     return null;
   }
-  return chartDoc.chartData
-    .filter(
-      (point: any) =>
-        point.month !== undefined && point.year !== undefined && point.fund !== undefined && point.sp500 !== undefined,
-    )
-    .map((point: any) => ({
-      month: point.month,
-      fund: point.fund,
-      sp500: point.sp500,
-      date: new Date(point.year, MONTHS.indexOf(point.month)),
-    }));
 }
 
 export const chartData = [

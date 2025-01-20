@@ -5,9 +5,8 @@ import {DateRange} from "react-day-picker";
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {toast} from "sonner";
-import {getChartData} from "./chartdata";
 import {MONTHS} from "@/sanity/schemas/chart";
 
 type Props = {
