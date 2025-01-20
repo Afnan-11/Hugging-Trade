@@ -3,7 +3,7 @@ import {Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, BarChart,
 import {ChartConfig, ChartContainer, ChartTooltip} from "@/components/ui/chart";
 import {chartData} from "./chartdata";
 import {Button} from "@/components/ui/button";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {DatePickerWithRange} from "./DatePicker";
 import {DateRange} from "react-day-picker";
 import {addDays} from "date-fns";
@@ -25,6 +25,31 @@ export function PerformanceChartArea() {
     from: addDays(new Date(), -365), // 1 year ago from today
     to: new Date(), // today
   });
+
+  const chartRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          console.log("INTERSECTING");
+          setIsVisible(true);
+        }
+      },
+      {threshold: 0.5},
+    );
+
+    if (chartRef.current) {
+      observer.observe(chartRef.current);
+    }
+
+    return () => {
+      if (chartRef.current) {
+        observer.unobserve(chartRef.current);
+      }
+    };
+  }, []);
 
   const getFilteredData = () => {
     if (date?.from && date?.to) {
@@ -118,7 +143,10 @@ export function PerformanceChartArea() {
           />
         </div>
       </div>
-      <ChartContainer config={chartConfig}>
+      <ChartContainer
+        ref={chartRef}
+        config={chartConfig}
+      >
         <AreaChart
           accessibilityLayer
           data={getFilteredData()}
@@ -135,7 +163,6 @@ export function PerformanceChartArea() {
             tickMargin={8}
             interval={selectedPeriod === "6M" || selectedPeriod === "1Y" ? 0 : Math.floor(getFilteredData().length / 6)}
             tickFormatter={(value) => value.slice(0, 3)}
-            // height={50}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
           />
           <YAxis
@@ -172,26 +199,30 @@ export function PerformanceChartArea() {
               );
             }}
           />
-          <Area
-            dataKey="sp500"
-            type="natural"
-            fill="var(--color-sp500)"
-            fillOpacity={0.4}
-            stroke="var(--color-sp500)"
-            stackId="a"
-            dot={false}
-            animationDuration={1000}
-          />
-          <Area
-            dataKey="fund"
-            type="natural"
-            fill="var(--color-fund)"
-            fillOpacity={0.4}
-            stroke="var(--color-fund)"
-            stackId="a"
-            dot={false}
-            animationDuration={1000}
-          />
+          {isVisible && (
+            <>
+              <Area
+                dataKey="sp500"
+                type="natural"
+                fill="var(--color-sp500)"
+                fillOpacity={0.4}
+                stroke="var(--color-sp500)"
+                stackId="a"
+                dot={false}
+                animationDuration={1200}
+              />
+              <Area
+                dataKey="fund"
+                type="natural"
+                fill="var(--color-fund)"
+                fillOpacity={0.4}
+                stroke="var(--color-fund)"
+                stackId="a"
+                dot={false}
+                animationDuration={1200}
+              />
+            </>
+          )}
         </AreaChart>
       </ChartContainer>
     </div>
