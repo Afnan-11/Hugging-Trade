@@ -14,12 +14,12 @@ type Props = {
   setDate: (date: DateRange | undefined) => void;
   setSelectedPeriod: (period: string) => void;
   selectedPeriod: string;
-  chartData: Array<{
+  chartData?: Array<{
     month: string;
     fund: number;
     sp500: number;
     date: Date;
-  }>;
+  }> | null;
 };
 
 export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedPeriod, chartData}: Props) {
@@ -29,7 +29,7 @@ export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedP
   const [toYear, setToYear] = useState<number>(date?.to?.getFullYear() || new Date().getFullYear());
 
   // Get unique years from chartData dates, sorted in descending order
-  const years = Array.from(new Set(chartData.map((item) => new Date(item.date).getFullYear()))).sort((a, b) => b - a);
+  const years = Array.from(new Set(chartData?.map((item) => new Date(item.date).getFullYear()))).sort((a, b) => b - a);
 
   const handleSelect = () => {
     const fromDate = new Date(fromYear, fromMonth, 1);

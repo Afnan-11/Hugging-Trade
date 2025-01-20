@@ -12,9 +12,12 @@ import AccordionHome from "@/components/AccordionHome";
 import {getTranslations} from "next-intl/server";
 
 import dynamic from "next/dynamic";
-const PerformanceChartArea = dynamic(() => import("./PerformanceChart").then((mod) => mod.PerformanceChartArea), {
-  ssr: false,
-});
+const PerformanceChartArea = dynamic(
+  () => import("../../../components/homepage/chart/PerformanceChart").then((mod) => mod.PerformanceChartArea),
+  {
+    ssr: false,
+  },
+);
 
 async function getHomeData(): Promise<HomeTypes | null> {
   try {

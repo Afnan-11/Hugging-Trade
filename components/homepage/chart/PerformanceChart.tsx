@@ -1,12 +1,13 @@
 "use client";
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis} from "recharts";
 import {ChartConfig, ChartContainer, ChartTooltip} from "@/components/ui/chart";
-import {chartData} from "./chartdata";
 import {Button} from "@/components/ui/button";
 import {useEffect, useRef, useState} from "react";
 import {DatePickerWithRange} from "./DatePicker";
 import {DateRange} from "react-day-picker";
 import {addDays} from "date-fns";
+import {getChartData} from "./chartdata";
+import {useQuery} from "@tanstack/react-query";
 
 const chartConfig = {
   sp500: {
@@ -28,6 +29,7 @@ export function PerformanceChartArea() {
 
   const chartRef = useRef<HTMLDivElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const {data: chartData} = useQuery({queryFn: getChartData, queryKey: ["chart"]});
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -51,8 +53,9 @@ export function PerformanceChartArea() {
   }, []);
 
   const getFilteredData = () => {
+    if (!chartData) return [];
     if (date?.from && date?.to) {
-      return chartData.filter((item) => {
+      return chartData?.filter((item) => {
         const itemDate = new Date(item.date);
         return itemDate >= (date?.from ?? new Date(0)) && itemDate <= (date?.to ?? new Date());
       });
@@ -67,7 +70,7 @@ export function PerformanceChartArea() {
     }
 
     const cutoffDate = new Date(now.getFullYear(), now.getMonth() - monthsToSubtract);
-    return chartData.filter((item) => new Date(item.date) >= cutoffDate);
+    return chartData?.filter((item) => new Date(item.date) >= cutoffDate);
   };
 
   return (
