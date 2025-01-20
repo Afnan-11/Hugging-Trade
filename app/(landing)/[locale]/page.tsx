@@ -10,7 +10,7 @@ import SliderCalculator from "@/components/SliderCalculator";
 import VideoMembers from "@/components/VideoMembers";
 import AccordionHome from "@/components/AccordionHome";
 import {getTranslations} from "next-intl/server";
-import {PerformanceChartArea, PerformanceChartBar, PerformanceChartLine} from "./PerformanceChart";
+import {PerformanceChartArea} from "./PerformanceChart";
 
 async function getHome(): Promise<HomeTypes | null> {
   try {
