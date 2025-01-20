@@ -1,9 +1,9 @@
 "use client";
 import {Area, AreaChart, CartesianGrid, XAxis, YAxis, Line, LineChart, BarChart, Bar} from "recharts";
-import {ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent} from "@/components/ui/chart";
+import {ChartConfig, ChartContainer, ChartTooltip} from "@/components/ui/chart";
 import {chartData} from "./chartdata";
 import {Button} from "@/components/ui/button";
-import {DatePickerWithRange} from "./DatePicker";
+import {useState} from "react";
 
 const chartConfig = {
   sp500: {
@@ -17,6 +17,29 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export function PerformanceChartArea() {
+  const [selectedPeriod, setSelectedPeriod] = useState<string>("1Y");
+
+  const getFilteredData = () => {
+    const now = new Date();
+    const monthsToSubtract =
+      selectedPeriod === "6M"
+        ? 6
+        : selectedPeriod === "1Y"
+          ? 12
+          : selectedPeriod === "3Y"
+            ? 36
+            : selectedPeriod === "5Y"
+              ? 60
+              : 0; // "All" case - return all data by using 0 months subtraction
+
+    if (monthsToSubtract === 0) {
+      return chartData;
+    }
+
+    const cutoffDate = new Date(now.getFullYear(), now.getMonth() - monthsToSubtract);
+    return chartData.filter((item) => new Date(item.date) >= cutoffDate);
+  };
+
   return (
     <div className="mx-auto mt-10 max-w-5xl px-2 font-medium">
       <div className="flex items-center justify-between">
@@ -39,36 +62,46 @@ export function PerformanceChartArea() {
 
         <div className="flex items-center gap-2">
           <Button
-            variant="outline"
+            variant={selectedPeriod === "6M" ? "default" : "outline"}
             className="h-8 w-8"
+            onClick={() => setSelectedPeriod("6M")}
           >
-            1M
+            6M
           </Button>
           <Button
+            variant={selectedPeriod === "1Y" ? "default" : "outline"}
             className="h-8 w-8"
-            variant="outline"
+            onClick={() => setSelectedPeriod("1Y")}
           >
-            3M
+            1Y
           </Button>
           <Button
-            variant="outline"
+            variant={selectedPeriod === "3Y" ? "default" : "outline"}
             className="h-8 w-8"
+            onClick={() => setSelectedPeriod("3Y")}
           >
-            1yr
+            3Y
           </Button>
           <Button
-            variant="outline"
+            variant={selectedPeriod === "5Y" ? "default" : "outline"}
             className="h-8 w-8"
+            onClick={() => setSelectedPeriod("5Y")}
+          >
+            5Y
+          </Button>
+          <Button
+            variant={selectedPeriod === "All" ? "default" : "outline"}
+            className="h-8 w-8"
+            onClick={() => setSelectedPeriod("All")}
           >
             All
           </Button>
-          <DatePickerWithRange />
         </div>
       </div>
       <ChartContainer config={chartConfig}>
         <AreaChart
           accessibilityLayer
-          data={chartData}
+          data={getFilteredData()}
           margin={{
             left: 12,
             right: 12,
@@ -80,7 +113,7 @@ export function PerformanceChartArea() {
             tickLine={false}
             axisLine={false}
             tickMargin={8}
-            interval={Math.floor(chartData.length / 6)}
+            interval={Math.floor(getFilteredData().length / 6)}
             tickFormatter={(value) => value.slice(0, 3)}
             height={100}
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
@@ -94,7 +127,11 @@ export function PerformanceChartArea() {
             className="text-[9.5px] sm:text-[11px] md:text-[12px] lg:text-[13px] xl:text-[14px]"
           />
           <ChartTooltip
-            cursor={false}
+            cursor={{
+              stroke: "hsl(var(--muted-background))",
+              strokeWidth: 1,
+              strokeDasharray: "5 5",
+            }}
             content={({active, payload}) => {
               if (!active || !payload?.length) return null;
               const data = payload[0].payload;
@@ -123,6 +160,7 @@ export function PerformanceChartArea() {
             stroke="var(--color-sp500)"
             stackId="a"
             dot={false}
+            animationDuration={1000}
           />
           <Area
             dataKey="fund"
@@ -132,6 +170,7 @@ export function PerformanceChartArea() {
             stroke="var(--color-fund)"
             stackId="a"
             dot={false}
+            animationDuration={1000}
           />
         </AreaChart>
       </ChartContainer>
