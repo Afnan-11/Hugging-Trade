@@ -1,3 +1,46 @@
+import {client} from "@/sanity/lib/client";
+import {MONTHS} from "@/sanity/schemas/chart";
+
+type ChartDataPoint = {
+  date: string;
+  fund: number;
+  sp500: number;
+};
+
+type ChartDocument = {
+  title: string;
+  description: string | null;
+  chartData: ChartDataPoint[];
+};
+
+export async function getChartData() {
+  const query = `*[_type == "chart"][0] {
+    title,
+    description,
+    chartData[] {
+      month,
+      year,
+      fund,
+      sp500
+    }
+  }`;
+  const chartDoc = await client.fetch<ChartDocument>(query);
+  if (!chartDoc) {
+    return null;
+  }
+  return chartDoc.chartData
+    .filter(
+      (point: any) =>
+        point.month !== undefined && point.year !== undefined && point.fund !== undefined && point.sp500 !== undefined,
+    )
+    .map((point: any) => ({
+      month: point.month,
+      fund: point.fund,
+      sp500: point.sp500,
+      date: new Date(point.year, MONTHS.indexOf(point.month)),
+    }));
+}
+
 export const chartData = [
   {month: "January", fund: 60, sp500: -0.98, date: new Date(2020, 0)},
   {month: "February", fund: 68, sp500: 8.37, date: new Date(2020, 1)},

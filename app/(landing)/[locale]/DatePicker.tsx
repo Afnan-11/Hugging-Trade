@@ -5,8 +5,10 @@ import {DateRange} from "react-day-picker";
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {toast} from "sonner";
+import {getChartData} from "./chartdata";
+import {MONTHS} from "@/sanity/schemas/chart";
 
 type Props = {
   date: DateRange | undefined;
@@ -29,21 +31,6 @@ export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedP
 
   // Get unique years from chartData dates, sorted in descending order
   const years = Array.from(new Set(chartData.map((item) => new Date(item.date).getFullYear()))).sort((a, b) => b - a);
-
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const handleSelect = () => {
     const fromDate = new Date(fromYear, fromMonth, 1);
@@ -75,7 +62,6 @@ export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedP
     }
   };
 
-  console.log({selectedPeriod, date});
   return (
     <div className={cn("grid gap-2")}>
       <Popover>
@@ -106,7 +92,7 @@ export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedP
                   onChange={(e) => setFromMonth(parseInt(e.target.value))}
                   className="w-full rounded-md border p-2"
                 >
-                  {months.map((month, index) => (
+                  {MONTHS.map((month, index) => (
                     <option
                       key={`from-${month}`}
                       value={index}
@@ -143,7 +129,7 @@ export function DatePickerWithRange({date, setDate, setSelectedPeriod, selectedP
                   onChange={(e) => setToMonth(parseInt(e.target.value))}
                   className="w-full rounded-md border p-2"
                 >
-                  {months.map((month, index) => (
+                  {MONTHS.map((month, index) => (
                     <option
                       key={`to-${month}`}
                       value={index}
