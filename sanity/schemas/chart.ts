@@ -20,15 +20,70 @@ export const chart = {
   type: "document",
   fields: [
     {
-      name: "title",
-      title: "Title",
+      name: "title_en",
+      title: "Title (English)",
       type: "string",
-      validation: (Rule: Rule) => Rule.required().error("Title is required"),
+      validation: (Rule: Rule) => Rule.required().error("English title is required"),
     },
     {
-      name: "description",
-      title: "Description",
-      type: "text",
+      name: "title_de",
+      title: "Title (German)",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("German title is required"),
+    },
+    {
+      name: "title_es",
+      title: "Title (Spanish)",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Spanish title is required"),
+    },
+    {
+      name: "title_fr",
+      title: "Title (French)",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("French title is required"),
+    },
+    {
+      name: "title_it",
+      title: "Title (Italian)",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Italian title is required"),
+    },
+    {
+      name: "title_pt",
+      title: "Title (Portuguese)",
+      type: "string",
+      validation: (Rule: Rule) => Rule.required().error("Portuguese title is required"),
+    },
+    {
+      name: "subheading_en",
+      title: "Subheading (English)",
+      type: "string",
+    },
+    {
+      name: "subheading_de",
+      title: "Subheading (German)",
+      type: "string",
+    },
+    {
+      name: "subheading_es",
+      title: "Subheading (Spanish)",
+      type: "string",
+    },
+    {
+      name: "subheading_fr",
+      title: "Subheading (French)",
+      type: "string",
+    },
+    {
+      name: "subheading_it",
+      title: "Subheading (Italian)",
+      type: "string",
+    },
+    {
+      name: "subheading_pt",
+      title: "Subheading (Portuguese)",
+      type: "string",
     },
     {
       name: "chartData",
