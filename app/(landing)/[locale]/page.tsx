@@ -479,6 +479,10 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
         </div>
 
+        {/*
+        <PerformanceChart />
+        */}
+
         {/* ----------------------------------------------------------------------- */}
 
         <div className="px-5 lg:hidden">
