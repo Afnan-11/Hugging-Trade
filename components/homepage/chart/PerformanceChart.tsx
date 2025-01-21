@@ -75,7 +75,7 @@ export function PerformanceChartArea() {
 
   return (
     <div className="relative mx-auto mt-10 max-w-5xl pr-2 font-medium">
-      <p className="absolute -left-5 top-1/2 origin-center -translate-y-1/2 -rotate-90 text-[9.5px] sm:-left-8 sm:text-[11px] md:-left-10 md:text-[12px] lg:text-[13px] xl:text-[14px]">
+      <p className="absolute -left-8 top-1/2 origin-center -translate-y-1/2 -rotate-90 text-[9.5px] sm:-left-12 sm:text-[11px] md:-left-14 md:text-[12px] lg:text-[13px] xl:text-[14px]">
         Our Monthly Returns
       </p>
 
