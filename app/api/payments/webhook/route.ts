@@ -41,7 +41,7 @@ async function handleSubscriptionEvent(
   const subscription = event.data.object as Stripe.Subscription;
   const customerEmail = await getCustomerEmail(subscription.customer as string);
   const slackMessage = `• User: ${customerEmail}\n started free trial.`;
-  await sendSlackNotification("#free-trial", slackMessage);
+  await sendSlackNotification("#broker-deposit", slackMessage);
 
   if (!customerEmail) {
     return NextResponse.json({

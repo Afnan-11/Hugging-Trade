@@ -81,7 +81,7 @@ export async function POST(req: Request) {
           `• Email: ${payload?.data?.email_addresses?.[0]?.email_address}\n`;
         `• Profile Image: ${payload?.data?.profile_image_url ? "✅" : "❌"}\n`;
 
-        await sendSlackNotification("#general", slackMessage);
+        await sendSlackNotification("#free-trial", slackMessage);
 
         return NextResponse.json({
           status: 200,
