@@ -169,21 +169,6 @@ export default function RootLayout({
               `,
             }}
           />
-        </head>
-        <body className={GeistSans.className}>
-          <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-MWQ5D3J4"
-              height="0"
-              width="0"
-              style={{display: "none", visibility: "hidden"}}
-            ></iframe>
-          </noscript>
-          <Script
-            id="front-chat"
-            strategy="afterInteractive"
-          />
-
           <script
             id="frontchat-script"
             // strategy="afterInteractive"
@@ -205,6 +190,20 @@ export default function RootLayout({
       })();
     `,
             }}
+          />
+        </head>
+        <body className={GeistSans.className}>
+          <noscript>
+            <iframe
+              src="https://www.googletagmanager.com/ns.html?id=GTM-MWQ5D3J4"
+              height="0"
+              width="0"
+              style={{display: "none", visibility: "hidden"}}
+            ></iframe>
+          </noscript>
+          <Script
+            id="front-chat"
+            strategy="afterInteractive"
           />
 
           <Provider>
