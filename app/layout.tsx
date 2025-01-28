@@ -183,10 +183,10 @@ export default function RootLayout({
             id="front-chat"
             strategy="afterInteractive"
           />
-          
-          <Script
+
+          <script
             id="frontchat-script"
-            strategy="afterInteractive"
+            // strategy="afterInteractive"
             dangerouslySetInnerHTML={{
               __html: `
       (function() {
