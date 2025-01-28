@@ -48,7 +48,7 @@ export const CopyFactoryUrl = "https://copyfactory-api-v1.new-york.agiliumtrade.
 // export const STRATEGY_ID_MT4 = "WSi3";
 export const STRATEGY_ID_MT4 = "7f8E";
 // export const STRATEGY_ID_MT5 = "Cm9L";
-export const STRATEGY_ID_MT5 = "UqQo";
+export const STRATEGY_ID_MT5 = "a3Xe";
 
 export const plans = [
   {
