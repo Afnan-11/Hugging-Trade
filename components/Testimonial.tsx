@@ -49,7 +49,7 @@ const Testimonial = ({ affiliateReviewTitle, reviewListItems, locale }: Props) =
           height={140}
           className="hidden lg:block"
         />
-        <h2 className="lg:text-[50px] text-h2M text-black font-bold text-center leading-tight lg:leading-none">
+        <h2 className="lg:text-[50px] text-[20px] md:text-h2M text-black font-bold text-center leading-tight lg:leading-none">
           {affiliateReviewTitle}
         </h2>
         <Image

@@ -31,7 +31,7 @@ export default async function LocaleLayout({children, params}: LocaleLayoutProps
       messages={messages}
     >
       <PageWrapper params={{locale}}>
-        <div className="my-[5rem]">{children}</div>
+        <div className=" md:my-[5rem]">{children}</div>
       </PageWrapper>
     </NextIntlClientProvider>
   );

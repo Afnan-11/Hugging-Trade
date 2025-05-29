@@ -245,7 +245,7 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                 className="mr-auto hidden -translate-y-[150px] translate-x-[45px] lg:block lg:-translate-y-0"
               />
               <div className="space-y-5 pb-5 text-center lg:w-[1107px]">
-                <h1 className="mt-10 text-[40px] font-black leading-tight lg:mt-20 lg:text-[48px]">
+                <h1 className="mt-10 text-[25px] md:text-[40px] font-black leading-tight lg:mt-20 lg:text-[48px]">
                   {locale === "en"
                     ? pricing?.pricingHeroTitle
                     : locale === "de"
@@ -258,7 +258,7 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                             ? pricing?.pricingHeroTitle_it
                             : pricing?.pricingHeroTitle_pt}
                 </h1>
-                <p className="pt-10 text-[22px] lg:pt-0">
+                <p className="pt-0 md:pt-10 text-pMobile md:text-[22px] lg:pt-0">
                   {locale === "en"
                     ? pricing?.pricingHeroText
                     : locale === "de"
@@ -287,10 +287,11 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                   alt="image"
                   width={61}
                   height={62.83}
+                  className="w-[30px] h-[31px] md:w-[61px] md:h-[62.83px]"
                 />
                 <div className="">
-                  <h2 className="text-center text-[32px] font-black lg:text-left">{t("depositMoneyTitle")}</h2>
-                  <p className="text-center text-[20px] lg:text-left">{t("depositMoneyText")}</p>
+                  <h2 className="text-center text-[20px] md:text-[32px] font-black lg:text-left">{t("depositMoneyTitle")}</h2>
+                  <p className="text-center text-[16px] md:text-[20px] lg:text-left">{t("depositMoneyText")}</p>
                 </div>
               </div>
 
@@ -300,10 +301,11 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                   alt="image"
                   width={75}
                   height={78.27}
+                  className="w-[37px] h-[41px] md:w-[75px] md:h-[78.27px]"
                 />
                 <div className="">
-                  <h2 className="text-center text-[32px] font-black lg:text-left">{t("withdrawProfitsTitle")}</h2>
-                  <p className="text-center text-[20px] lg:text-left">{t("withdrawProfitsText")}</p>
+                  <h2 className="text-center text-[20px] md:text-[32px] font-black lg:text-left">{t("withdrawProfitsTitle")}</h2>
+                  <p className="text-center text-[16px] md:text-[20px] lg:text-left">{t("withdrawProfitsText")}</p>
                 </div>
               </div>
 
@@ -313,10 +315,11 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                   alt="image"
                   width={86}
                   height={86}
+                  className="w-[37px] h-[40px] md:w-[86px]  md:h-[86]"
                 />
                 <div className="">
-                  <h2 className="text-center text-[32px] font-black lg:text-left">{t("safeAndSecureTitle")}</h2>
-                  <p className="text-center text-[20px] lg:text-left">{t("safeAndSecureText")}</p>
+                  <h2 className="text-center text-[20px] md:text-[32px] font-black lg:text-left">{t("safeAndSecureTitle")}</h2>
+                  <p className="text-center text-[16px] md:text-[20px] lg:text-left">{t("safeAndSecureText")}</p>
                 </div>
               </div>
 
@@ -326,10 +329,11 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                   alt="image"
                   width={88}
                   height={70.48}
+                  className="w-[37px] h-[35px] md:w-[88px] md:h-[70.48px]"
                 />
                 <div className="">
-                  <h2 className="text-center text-[32px] font-black lg:text-left">{t("noWorkRequiredTitle")}</h2>
-                  <p className="text-center text-[20px] lg:text-left">{t("noWorkRequiredText")}</p>
+                  <h2 className="text-center text-[20px] md:text-[32px] font-black lg:text-left">{t("noWorkRequiredTitle")}</h2>
+                  <p className="text-center text-[16px] md:text-[20px] lg:text-left">{t("noWorkRequiredText")}</p>
                 </div>
               </div>
             </div>

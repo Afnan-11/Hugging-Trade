@@ -57,10 +57,10 @@ const HomeCounter = ({
   return (
     <div
       ref={ref}
-      className="gradient-home flex flex-col items-center px-5 py-10 lg:mt-20 lg:py-20"
+      className="gradient-home flex flex-col items-center px-5 pt-2.5 md:py-10 lg:mt-20 lg:py-20"
     >
-      <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2">{sectionThreeTitle}</h2>
-      <p className="pt-5 text-center text-pMobile lg:w-[657px] lg:pt-0 lg:text-pMain">{sectionThreeText}</p>
+      <h2 className="text-center text-[20px] md:text-h2M font-bold leading-tight lg:text-h2">{sectionThreeTitle}</h2>
+      <p className="pt-2 md:pt-5 text-center text-pMobile lg:w-[657px] lg:pt-0 lg:text-pMain">{sectionThreeText}</p>
 
       <div className="flex flex-col items-center justify-center gap-5 pt-10 lg:flex-row">
         <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
@@ -69,8 +69,9 @@ const HomeCounter = ({
             alt="image"
             width={50}
             height={50}
+            className="w-[30px] h-[30px] md:w-[50px] md:h-[50px]"
           />
-          <p className="text-[64px] font-bold">
+          <p className="text-[33px] md:text-[64px] font-bold">
             $
             {isDesktop && startCounting ? (
               <CountUp
@@ -86,7 +87,7 @@ const HomeCounter = ({
             )}
             <span className="text-[#2563EB]">M</span>
           </p>
-          <p className="text-center text-[22px]">{sectionThreeTextUnderStarsNumber}</p>
+          <p className="text-center text-[16px] md:text-[22px]">{sectionThreeTextUnderStarsNumber}</p>
         </div>
 
         <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
@@ -95,8 +96,9 @@ const HomeCounter = ({
             alt="image"
             width={50}
             height={50}
+            className="w-[30px] h-[30px] md:w-[50px] md:[50px]"
           />
-          <p className="text-[64px] font-bold">
+          <p className="text-[33px] md:text-[64px] font-bold">
             {isDesktop && startCounting ? (
               <CountUp
                 start={0}
@@ -111,7 +113,7 @@ const HomeCounter = ({
             )}
             <span className="text-[#2563EB]">K</span>
           </p>
-          <p className="text-center text-[22px]">{sectionThreeTextUnderUsersNumber}</p>
+          <p className="text-center text-[16px] md:text-[22px]">{sectionThreeTextUnderUsersNumber}</p>
         </div>
 
         <div className="flex w-[350px] flex-col items-center justify-center rounded-3xl bg-white p-5 lg:w-[397.33px]">
@@ -120,8 +122,9 @@ const HomeCounter = ({
             alt="image"
             width={50}
             height={50}
+            className="w-[30px] h-[30px] md:w-[50px] md:h-[50px]"
           />
-          <p className="text-[64px] font-bold">
+          <p className="text-[33px] md:text-[64px] font-bold">
             $
             {isDesktop && startCounting ? (
               <CountUp
@@ -137,7 +140,7 @@ const HomeCounter = ({
             )}
             <span className="text-[#2563EB]">M</span>
           </p>
-          <p className="text-center text-[22px]">{sectionThreeTextUnderTimeNumber}</p>
+          <p className="text-center text-[16px] md:text-[22px]">{sectionThreeTextUnderTimeNumber}</p>
         </div>
       </div>
 
@@ -147,7 +150,7 @@ const HomeCounter = ({
           scroll={true}
           className="block w-full"
         >
-          <div className="my-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[20px] text-white hover:bg-[#4977db] lg:w-[348px]">
+          <div className="my-10  w-full rounded-2xl bg-[#2563EB] py-2  md:py-3 text-center  md:text-[20px] text-white hover:bg-[#4977db] lg:w-[348px]">
           {t("startFreeTrial")}
           </div>
         </Link>

@@ -100,7 +100,7 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
     <div className={areOnlyCardsShown ? "" : "py-10 lg:py-40"}>
       {!areOnlyCardsShown && (
         <div className="space-y-5 px-5 lg:px-20">
-          <h2 className="text-center text-[40px] font-bold leading-tight lg:text-[56px] lg:leading-none">
+          <h2 className="text-center text-[20px] md:text-[40px] font-bold leading-tight lg:text-[56px] lg:leading-none">
             {locale === "en"
               ? pricing.pricingSectionTwoTitle
               : locale === "de"
@@ -113,7 +113,7 @@ const PricingContent: React.FC<PricingContentProps> = ({user, pricing, areOnlyCa
                       ? pricing.pricingSectionTwoTitle_it
                       : pricing.pricingSectionTwoTitle_pt}
           </h2>
-          <p className="text-center text-[22px]">
+          <p className="text-center text-[16px] md:text-[22px]">
             {locale === "en"
               ? pricing.pricingSectionTwoText
               : locale === "de"

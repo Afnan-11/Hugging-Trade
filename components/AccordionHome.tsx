@@ -60,6 +60,8 @@ export default function AccordionHome({locale}: {locale: string}) {
   if (faqs.length === 0) return <p>No FAQs available.</p>;
 
   return (
+
+    
     <div className="mb-40 flex flex-col items-center justify-center gap-2">
       {faqs.map((faq, index) => (
         <AccordionComponent

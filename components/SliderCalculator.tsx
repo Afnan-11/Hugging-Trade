@@ -54,7 +54,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
   }, [calculateBalance]);
   return (
     <div className="gradient-pricing flex flex-col items-center justify-center px-5 lg:h-[775px] lg:px-0">
-      <div className="h-[780px] rounded-xl bg-white p-5 shadow-2xl lg:h-[490px] lg:w-[1152px] lg:p-0 lg:px-10">
+      <div className="h-[650px] md:h-[780px] rounded-xl bg-white p-5 shadow-2xl lg:h-[490px] lg:w-[1152px] lg:p-0 lg:px-10">
         <Image
           src={"/Images/HomePage/bg_affiliate-program-reviews_desktop.svg.svg"}
           alt="image"
@@ -72,26 +72,26 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
         />
 
         <div className="text-center">
-          <div className="space-y-5">
-            <h2 className="px-5 text-h2M font-bold leading-10 lg:px-0 lg:text-h2 lg:leading-none">{sliderTitle}</h2>
-            <p className="px-5 text-pMobile lg:px-0 lg:text-pMain">{sliderText}</p>
+          <div className="space-y-0 md:space-y-5">
+            <h2 className="px-5 text-[22px] md:text-h2M font-bold leading-10 lg:px-0 lg:text-h2 lg:leading-none">{sliderTitle}</h2>
+            <p className="px-5 text-[18px] md:text-pMobile lg:px-0 lg:text-pMain">{sliderText}</p>
           </div>
         </div>
 
         <div className="mt-10 flex flex-col items-center justify-center lg:flex-row lg:items-start">
           <div className="flex flex-col items-center justify-center lg:w-1/2 lg:items-start lg:justify-start">
             <div className="w-[400px] rounded-xl bg-[#EFF6FF] p-2 lg:w-[528px] lg:p-0">
-              <p className="text-center text-[35px] font-bold text-[#2563EB] lg:text-[60px]">
+              <p className="text-center text-[24px] md:text-[35px] font-bold text-[#2563EB] lg:text-[60px]">
                 $
                 {balance.toLocaleString(undefined, {
                   minimumFractionDigits: 2,
                   maximumFractionDigits: 2,
                 })}
-                <span className="text-[28.13px]"> USD</span>
+                <span className="text-[24.13px] md:text-[28.13px]"> USD</span>
               </p>
             </div>
             <div className="flex w-full items-center justify-center">
-              <p className="px-5 pt-3 text-center text-[16px] text-[#6B7280]">{sliderAverageMonthlyIncome}</p>
+              <p className="px-5 pt-3 text-center text-[18px] md:text-[16px] text-[#6B7280]">{sliderAverageMonthlyIncome}</p>
             </div>
           </div>
           <div className="flex flex-col items-start justify-start pt-5 lg:w-1/2 lg:pl-5 lg:pt-0">
@@ -99,7 +99,7 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
               {t("investmentPeriod")} {months} {t("months")}
             </p>
 
-            <div className="w-full max-w-md">
+            {/* <div className="w-full max-w-md">
               <Slider
                 value={months}
                 marks
@@ -145,7 +145,9 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
                 <p className="pr-6">6m</p>
                 <p>12m</p>
               </div>
-            </div>
+            </div> */}
+
+            
 
             <div className="flex items-center justify-center gap-5 pt-3">
               <div className="mt-3 flex flex-col items-start justify-start gap-2 lg:-mt-3">
@@ -185,13 +187,13 @@ const SliderCalculator = ({sliderTitle, sliderText, sliderAverageMonthlyIncome}:
         />
 
         <div className="my-10 flex justify-center px-10 lg:px-0">
-          <div className="w-full lg:w-auto">
+          <div className="w-[250px] lg:w-auto">
             <Link
               href="/sign-up"
               scroll={true}
               className="block w-full"
             >
-              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:text-[20px]">
+              <div className="w-full rounded-2xl bg-[#2563EB]  py-2 md:py-3 text-center text-white hover:bg-[#4977db] lg:w-[348px] lg:text-[20px]">
                 {t("startFreeTrial")}
               </div>
             </Link>

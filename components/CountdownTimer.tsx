@@ -106,7 +106,7 @@ export default function CountdownTimer() {
             className="z-[55] ml-auto translate-y-4 cursor-pointer"
           />
 
-          <div className="mx-5 flex flex-col items-center justify-center rounded-3xl bg-[#2563eb] p-2 lg:mx-0 lg:h-[72px] lg:w-[1240px] lg:flex-row lg:justify-between lg:rounded-full">
+          <div className=" mx-5 flex flex-col items-center justify-center rounded-3xl bg-[#2563eb] p-2 lg:mx-0 lg:h-[72px] lg:w-[1240px] lg:flex-row lg:justify-between lg:rounded-full">
             <span className="px-6 pt-2 text-center text-[22px] font-semibold text-white lg:pt-0">
             {t("yourExclusive")}
             </span>

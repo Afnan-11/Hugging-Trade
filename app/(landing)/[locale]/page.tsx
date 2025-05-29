@@ -527,9 +527,11 @@ export default async function Home({params}: {params: {locale: string}}) {
         {/* ----------------------------------------------------------------------- */}
 
         <div className="px-5 lg:hidden">
-          <div className="pt-10">
-            <div className="flex flex-col items-center justify-center gap-10 text-center lg:gap-10">
-              <h2 className={`w-full text-[44px] font-black leading-[50px] text-black lg:leading-none`}>
+          <div className="pt-0 md:pt-10">
+            <div className="flex flex-col items-center justify-center gap-4 text-center lg:gap-10">
+              <h2
+                className={`w-full text-[30px] font-black leading-[32px] text-black sm:text-[34px] sm:leading-[40px] md:text-[38px] md:leading-[44px] lg:text-[44px] lg:leading-[50px] lg:leading-none`}
+              >
                 {locale === "en"
                   ? home?.heroTitle
                   : locale === "de"
@@ -556,15 +558,15 @@ export default async function Home({params}: {params: {locale: string}}) {
                           ? home?.heroText_it
                           : home?.heroText_pt}
               </p>
-
-              <div className="flex w-[328px] flex-col items-center justify-center">
+              {/* ------------ START FREE TRAIL START-------------- */}
+              <div className="flex w-[280px] flex-col items-center justify-center sm:w-[300px] lg:w-[328px]">
                 <div className="w-full">
                   <Link
                     href="/sign-up"
                     scroll={true}
                     className="block"
                   >
-                    <div className="rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white">
+                    <div className="rounded-2xl bg-[#2563EB] py-2 text-center text-[18px] text-white sm:py-2.5 sm:text-[20px] lg:py-3 lg:text-[22px]">
                       {t("startFreeTrial")}
                     </div>
                   </Link>
@@ -575,12 +577,12 @@ export default async function Home({params}: {params: {locale: string}}) {
                       alt="image"
                       width={43}
                       height={63}
-                      className="z-50 -mt-7 ml-auto"
+                      className="z-50 -mt-5 ml-auto scale-75 sm:-mt-6 sm:scale-90 lg:-mt-7 lg:scale-100"
                       loading="eager"
                     />
                   </div>
                 </div>
-                <p className="-mt-3 text-[14px]">
+                <p className="-mt-5 text-[12px] sm:-mt-2.5 sm:text-[13px] lg:-mt-3 lg:text-[14px]">
                   {locale === "en"
                     ? home?.heroTextUnderButton
                     : locale === "de"
@@ -594,19 +596,20 @@ export default async function Home({params}: {params: {locale: string}}) {
                             : home?.heroTextUnderButton_pt}
                 </p>
               </div>
+              {/* ---------- START FREE TRAIL BUTTON END ------ */}
             </div>
 
-            <div className="mt-5 flex w-full flex-col items-center justify-center lg:-mt-5 lg:flex-row lg:gap-2">
-              <p className="text-[20px]">{t("excellent")}</p>
+            <div className="mt-6 flex w-full flex-col items-center justify-center sm:mt-4 lg:-mt-5 lg:mt-5 lg:flex-row lg:gap-2">
+              <p className="text-[16px] sm:text-[18px] lg:text-[20px]">{t("excellent")}</p>
               <Image
                 src={"/Images/HomePage/Frame 1261155460.svg"}
                 alt="image"
                 width={174}
                 height={31}
-                className="scale-50"
+                className="scale-[0.35] sm:scale-[0.42] lg:scale-50"
                 loading="eager"
               />
-              <p className="text-center text-[20px]">
+              <p className="text-center text-[14px] sm:text-[18px] lg:text-[20px]">
                 <span className="font-bold">4.9</span> {t("outOfFive")}{" "}
                 <span className="font-bold">{t("reviews")}</span>
               </p>
@@ -618,7 +621,7 @@ export default async function Home({params}: {params: {locale: string}}) {
       {/* ----------------------------------------------------------------------------------- */}
 
       <h1
-        className={`mx-auto my-5 w-fit px-5 text-center text-[44px] font-black leading-tight text-black lg:text-7xl lg:text-h1`}
+        className={`mx-auto my-3 mt-[2.6rem] w-fit px-3 text-center text-[22px] font-black leading-tight text-black sm:my-4 sm:px-4 sm:text-[34px] md:text-[40px] lg:my-5 lg:px-5 lg:text-7xl lg:text-[44px] lg:text-h1`}
       >
         {locale === "en"
           ? home?.chartText?.title_en
@@ -633,7 +636,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                   : home?.chartText?.title_pt}
       </h1>
 
-      <p className="mx-auto max-w-3xl px-4 text-center text-pMobile">
+      <p className="mx-auto -mt-1 max-w-3xl px-4 text-center text-pMobile md:text-[20px]">
         {locale === "en"
           ? home?.chartText?.subheading_en
           : locale === "de"
@@ -649,16 +652,16 @@ export default async function Home({params}: {params: {locale: string}}) {
 
       <PerformanceChartArea />
 
-      <div className="flex flex-col items-center px-5 py-10 pt-20 lg:px-0">
-        <h2 className="w-full pb-7 text-center text-h2M font-bold leading-[50px] lg:w-[700px] lg:pb-0 lg:text-h2 lg:leading-none">
+      <div className="pt-15 flex flex-col items-center px-5 py-10 lg:px-0">
+        <h2 className="w-full pb-5 text-center text-[20px] font-bold leading-[25px] sm:pb-6 sm:text-[32px] sm:leading-[42px] lg:w-[700px] lg:pb-0 lg:pb-7 lg:text-h2   lg:leading-none">
           {t("countdownTitle")}
         </h2>
-        <p className="w-full text-center text-pMobile lg:w-[600px] lg:pt-10 lg:text-pMain">
+        <p className="-mt-2 w-full text-center text-pMobile lg:w-[600px] lg:pt-10 lg:text-pMain">
           {t("countdownDescription")}
         </p>
 
         <div className="relative">
-          <div className="flex items-center justify-center pt-14">
+          <div className="flex items-center justify-center pt-7 md:pt-14">
             <Image
               src={"/Images/HomePage/Group 59495 (1).svg"}
               alt="img"
@@ -668,14 +671,14 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-            <h3 className={`pt-14 text-[20px] font-bold text-white lg:w-[470px] lg:text-[30px]`}>
+            <h3 className={`pt-7 text-[16px] font-bold text-white md:pt-14 md:text-[20px] lg:w-[470px] lg:text-[30px]`}>
               {t("pitfallsTitle")}
             </h3>
           </div>
         </div>
 
-        <div className="space-y-6 pt-10 text-left text-[20px]">
-          <div className="flex items-center gap-2">
+        <div className="space-y-2 pt-7 text-left text-[20px] md:space-y-6 md:pt-10">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/x-circle.svg"}
               alt="img"
@@ -685,7 +688,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
             <p>{t("pitfall1")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/x-circle.svg"}
               alt="img"
@@ -695,7 +698,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
             <p>{t("pitfall2")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/x-circle.svg"}
               alt="img"
@@ -705,7 +708,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
             <p>{t("pitfall3")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/x-circle.svg"}
               alt="img"
@@ -728,7 +731,7 @@ export default async function Home({params}: {params: {locale: string}}) {
         </div>
 
         <div className="relative">
-          <div className="flex items-center justify-center pt-14">
+          <div className="flex items-center justify-center pt-7 md:pt-14">
             <Image
               src={"/Images/HomePage/Group 59494.svg"}
               alt="img"
@@ -738,12 +741,14 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
           </div>
           <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-            <h3 className="pt-14 text-[20px] font-bold text-white lg:w-[570px] lg:text-[30px]">{t("benefitsTitle")}</h3>
+            <h3 className="pt-7 text-[16px] font-bold text-white md:pt-14 lg:w-[570px] lg:text-[30px]">
+              {t("benefitsTitle")}
+            </h3>
           </div>
         </div>
 
-        <div className="space-y-6 pt-10 text-left text-[20px]">
-          <div className="flex items-center gap-2">
+        <div className="space-y-2 pt-7 text-left text-[20px] md:space-y-6 md:pt-10">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/checkmark.svg.svg"}
               alt="img"
@@ -754,7 +759,7 @@ export default async function Home({params}: {params: {locale: string}}) {
 
             <p>{t("benefit1")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/checkmark.svg.svg"}
               alt="img"
@@ -764,7 +769,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
             <p>{t("benefit2")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/checkmark.svg.svg"}
               alt="img"
@@ -774,7 +779,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             />
             <p>{t("benefit3")}</p>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 text-pMobile md:text-[20px]">
             <Image
               src={"/Images/HomePage/checkmark.svg.svg"}
               alt="img"
@@ -908,8 +913,8 @@ export default async function Home({params}: {params: {locale: string}}) {
 
       {/* ---------------------------------------------------------------------------- */}
 
-      <div className="px-5 py-20 lg:-mt-20 lg:px-0">
-        <h2 className="text-center text-h2M font-bold leading-10 lg:text-h2">
+      <div className="px-5 py-9 md:py-20 lg:-mt-20 lg:px-0">
+        <h2 className="text-center text-[21px] font-bold leading-10 md:text-h2M lg:text-h2">
           {locale === "en"
             ? home?.sectionSixTitle
             : locale === "de"
@@ -923,10 +928,10 @@ export default async function Home({params}: {params: {locale: string}}) {
                     : home?.sectionSixTitle_pt}
         </h2>
 
-        <div className="flex flex-col items-center justify-center gap-20 pt-10 lg:flex-row lg:pt-20">
+        <div className="flex flex-col items-center justify-center gap-10 md:gap-20 md:pt-10 lg:flex-row lg:pt-20">
           <div>
             <p className="text-pMobile">{t("costText")}</p>
-            <div className="space-y-3 pt-10 text-left text-pMobile">
+            <div className="space-y-3 pt-2 text-left text-pMobile md:pt-10">
               <div className="flex items-center gap-2">
                 <Image
                   src={"/Images/HomePage/checkmark.svg.svg"}
@@ -983,8 +988,10 @@ export default async function Home({params}: {params: {locale: string}}) {
               scroll={true}
               className="block w-full"
             >
-              <div className="mt-10 w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:-mt-5 lg:w-[348px]">
+              <div className="flex items-center justify-center">
+              <div className="text:[18px] mt-6 w-[250px] md:w-full rounded-2xl bg-[#2563EB] py-2 text-center text-white hover:bg-[#4977db] md:mt-10 md:py-3 md:text-[22px] lg:-mt-5 lg:w-[348px]">
                 {t("startFreeTrial")}
+              </div>
               </div>
             </Link>
           </div>
@@ -1003,7 +1010,7 @@ export default async function Home({params}: {params: {locale: string}}) {
       {/* ---------------------------------------------------------------------------------- */}
 
       <div className="px-5 lg:px-0 lg:py-20 xl:px-20">
-        <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">
+        <h2 className="text-center text-[20px] font-bold leading-tight md:text-h2M lg:text-h2 lg:leading-none">
           {locale === "en"
             ? home?.sectionSevenTitle
             : locale === "de"
@@ -1016,7 +1023,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                     ? home?.sectionSevenTitle_it
                     : home?.sectionSevenTitle_pt}
         </h2>
-        <p className="pt-10 text-center text-pMobile lg:pt-5 lg:text-pMain">
+        <p className="pt-2 text-center text-pMobile md:pt-10 lg:pt-5 lg:text-pMain">
           {locale === "en"
             ? home?.sectionSevenText
             : locale === "de"
@@ -1031,8 +1038,8 @@ export default async function Home({params}: {params: {locale: string}}) {
         </p>
 
         <div className="flex flex-col items-center justify-center gap-5 lg:flex-row">
-          <div className="py-20">
-            <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">
+          <div className="pt-5 md:py-20">
+            <h3 className="pb-3 text-center text-[20px] font-bold md:text-h3 lg:text-left">
               {locale === "en"
                 ? home?.sectionSevenSubTitleOne
                 : locale === "de"
@@ -1047,7 +1054,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             </h3>
             <p className="pb-10 text-center text-pMobile lg:w-[800px] lg:text-left">{t("investmentStep")}</p>
 
-            <div className="space-y-5">
+            <div className="-mt-4 space-y-3 md:mt-0 md:space-y-5">
               <div className="flex items-center justify-start gap-5">
                 <Image
                   src={"/Images/HomePage/scribble final version-109.svg"}
@@ -1082,7 +1089,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               </div>
             </div>
           </div>
-          <div>
+          <div className="mt-[5rem] md:mt-0">
             <Image
               src={"/Images/HomePage/SVG.svg"}
               alt="image"
@@ -1104,7 +1111,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             loading="lazy"
           />
           <div className="flex items-center justify-center">
-            <div className="w-full space-y-10 rounded-[48px] border-[1px] border-gray-200 px-10 py-10 shadow-md lg:w-[1000px]">
+            <div className="w-full space-y-4 rounded-[48px] border-[1px] border-gray-200 px-5 py-6 shadow-md md:space-y-10 md:px-10 md:py-10 lg:w-[1000px]">
               <div className="flex items-center lg:justify-center lg:gap-5">
                 <Image
                   src={"/Images/HomePage/scribble final version-27.svg"}
@@ -1114,7 +1121,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                   className="-mt-5"
                   loading="lazy"
                 />
-                <p className="text-center text-[25px] font-black leading-7 lg:text-[32px] lg:font-bold lg:leading-none">
+                <p className="text-center text-[20px] font-black leading-7 md:text-[25px] lg:text-[32px] lg:font-bold lg:leading-none">
                   {t("investmentReminder")}
                 </p>
 
@@ -1127,7 +1134,9 @@ export default async function Home({params}: {params: {locale: string}}) {
                   loading="lazy"
                 />
               </div>
-              <p className="text-center text-pMobile font-medium lg:text-pMain">{t("investmentGuide")}</p>
+              <p className="text-center text-[13px] font-medium md:text-pMobile lg:text-pMain">
+                {t("investmentGuide")}
+              </p>
             </div>
           </div>
         </div>
@@ -1143,85 +1152,86 @@ export default async function Home({params}: {params: {locale: string}}) {
           loading="lazy"
         />
         <div className="flex flex-col items-center justify-center px-2 lg:flex-row">
-          <div className="flex w-full flex-wrap items-center justify-center gap-2 lg:w-[490px] lg:justify-start">
-            <div className="group flex w-[150px] items-center justify-center gap-2 rounded-xl bg-[#FAE4F9] p-3 hover:bg-[#945CA4] lg:w-[185px]">
+          <div className="grid w-full grid-cols-2 items-center justify-center gap-2 px-7 md:flex md:flex-wrap md:px-0 lg:w-[490px] lg:justify-start">
+            <div className="group flex w-[140px] items-center justify-center gap-2 rounded-xl bg-[#FAE4F9] p-3 hover:bg-[#945CA4] md:w-[150px] lg:w-[185px]">
               <Image
                 src={"/Images/HomePage/Mask Group.svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#945CA4] group-hover:text-white">Limit</p>
+
+              <p className="text-[20px] text-[#945CA4] group-hover:text-white md:text-[36px]">Limit</p>
             </div>
 
-            <div className="group flex w-[175px] items-center justify-center gap-2 rounded-xl bg-[#E4E1FF] p-3 hover:bg-[#2563EB] lg:w-[210px]">
+            <div className="group flex w-[155px] items-center justify-center gap-2 rounded-xl bg-[#E4E1FF] p-3 hover:bg-[#2563EB] md:w-[175px] lg:w-[210px]">
               <Image
                 src={"/Images/HomePage/Mask Group (1).svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#2563EB] group-hover:text-white">TWAP</p>
+              <p className="text-[20px] text-[#2563EB] group-hover:text-white md:text-[36px]">TWAP</p>
             </div>
 
-            <div className="group flex w-[239px] items-center justify-center gap-2 rounded-xl bg-[#E1FEF3] p-3 hover:bg-[#029747]">
+            <div className="group flex w-[150px] items-center justify-center gap-2 rounded-xl bg-[#E1FEF3] p-3 hover:bg-[#029747] md:w-[239px]">
               <Image
                 src={"/Images/HomePage/Mask Group (2).svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#029747] group-hover:text-white">Market</p>
+              <p className="text-[20px] text-[#029747] group-hover:text-white md:text-[36px]">Market</p>
             </div>
 
-            <div className="group flex w-[279px] items-center justify-center gap-2 rounded-xl bg-[#CCFAFE] p-3 hover:bg-[#2563EB]">
+            <div className="group flex w-[150px] items-center justify-center gap-2 rounded-xl bg-[#CCFAFE] p-3 hover:bg-[#2563EB] md:w-[279px]">
               <Image
                 src={"/Images/HomePage/Mask Group (3).svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#2563EB] group-hover:text-white">Stop limit</p>
+              <p className="text-[20px] text-[#2563EB] group-hover:text-white md:text-[36px]">Stop limit</p>
             </div>
 
-            <div className="group flex w-[174px] items-center justify-center gap-2 rounded-xl bg-[#E3EEFC] p-3 hover:bg-[#2563EB] lg:w-[209px]">
+            <div className="group flex w-[150px] items-center justify-center gap-2 rounded-xl bg-[#E3EEFC] p-3 hover:bg-[#2563EB] md:w-[174px] lg:w-[209px]">
               <Image
                 src={"/Images/HomePage/Mask Group (4).svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#2563EB] group-hover:text-white">Scaled</p>
+              <p className="text-[20px] text-[#2563EB] group-hover:text-white md:text-[36px]">Scaled</p>
             </div>
 
-            <div className="group flex w-[150px] items-center justify-center gap-2 rounded-xl bg-[#FCE9E3] p-3 hover:bg-[#E04515] lg:w-[185px]">
+            <div className="group flex w-[120px] items-center justify-center gap-2 rounded-xl bg-[#FCE9E3] p-3 hover:bg-[#E04515] md:w-[150px] lg:w-[185px]">
               <Image
                 src={"/Images/HomePage/Mask Group (5).svg"}
                 alt="image"
                 width={42}
                 height={42}
-                className="group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter"
+                className="h-[25px] w-[25px] group-hover:brightness-0 group-hover:contrast-200 group-hover:invert group-hover:filter md:h-[42px] md:w-[42px]"
                 loading="lazy"
               />
-              <p className="text-[36px] text-[#E04515] group-hover:text-white">Stop</p>
+              <p className="text-[20px] text-[#E04515] group-hover:text-white md:text-[36px]">Stop</p>
             </div>
           </div>
           <div className="px-5 pt-10 lg:px-0 lg:pt-0">
-            <h3 className="pb-3 text-center text-h3 font-bold leading-tight lg:text-left lg:leading-none">
+            <h3 className="pb-3 text-center text-[21px] font-bold leading-tight md:text-h3 lg:text-left lg:leading-none">
               {t("step2Title")}
             </h3>
-            <p className="pt-5 text-center text-pMobile lg:w-[775px] lg:text-left">{t("step2Description")}</p>
-            <p className="py-6 text-center text-pMobile lg:text-left">{t("step2Reminder")}</p>
+            <p className="text-center text-pMobile md:pt-5 lg:w-[775px] lg:text-left">{t("step2Description")}</p>
+            <p className="py-1 text-center text-pMobile md:py-6 lg:text-left">{t("step2Reminder")}</p>
             <div className="space-y-3 text-left text-pMobile">
               <div className="flex items-center gap-2">
                 <Image
@@ -1241,7 +1251,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                   height={29}
                   loading="lazy"
                 />
-                <p className="text-[20px]">{t("step2Reminder2")}</p>
+                <p className="text-pMobile md:text-[20px]">{t("step2Reminder2")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <Image
@@ -1251,7 +1261,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                   height={29}
                   loading="lazy"
                 />
-                <p className="text-[20px]">{t("step2Reminder3")}</p>
+                <p className="text-pMobile md:text-[20px]">{t("step2Reminder3")}</p>
               </div>
             </div>
           </div>
@@ -1274,7 +1284,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               className="z-50 -mt-8 -translate-x-32"
               loading="lazy"
             />
-            <div className="mt-5 w-full space-y-10 rounded-[48px] border-[1px] border-gray-200 px-5 py-5 shadow-md lg:mt-0 lg:w-[1000px] lg:px-10 lg:py-10">
+            <div className="mt-5 w-full space-y-2 rounded-[48px] border-[1px] border-gray-200 px-5 py-5 shadow-md md:space-y-10 lg:mt-0 lg:w-[1000px] lg:px-10 lg:py-10">
               <div className="flex items-center justify-center lg:gap-5">
                 <Image
                   src={"/Images/HomePage/scribble final version-27.svg"}
@@ -1284,7 +1294,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                   className="-mt-10 lg:-mt-5"
                   loading="lazy"
                 />
-                <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
+                <p className="text-center text-[20px] font-bold leading-7 md:text-[25px] lg:text-[32px] lg:leading-none">
                   {t("step2Reminder4")}
                 </p>
 
@@ -1315,8 +1325,8 @@ export default async function Home({params}: {params: {locale: string}}) {
 
       <div className="mt-10 flex flex-col items-center justify-center px-5 lg:mt-20 lg:flex-row lg:gap-40 lg:px-0">
         <div className="">
-          <h3 className="pb-3 text-center text-h3 font-bold lg:text-left">{t("step3Title")}</h3>
-          <p className="pb-10 text-center text-pMobile lg:w-[640px] lg:text-left">{t("step3Description")}</p>
+          <h3 className="pb-3 text-center text-[20px] font-bold md:text-h3 lg:text-left">{t("step3Title")}</h3>
+          <p className="pb-5 text-center text-pMobile md:pb-10 lg:w-[640px] lg:text-left">{t("step3Description")}</p>
 
           <div className="space-y-4 text-left text-[20px]">
             <div className="flex items-center gap-2">
@@ -1327,7 +1337,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                 height={29}
                 loading="lazy"
               />
-              <p>{t("step3Description1")}</p>
+              <p className="text-pMobile md:text-[0]">{t("step3Description1")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Image
@@ -1337,7 +1347,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                 height={29}
                 loading="lazy"
               />
-              <p>{t("step3Description2")}</p>
+              <p className="text-pMobile md:text-[0]">{t("step3Description2")}</p>
             </div>
             <div className="flex items-center gap-2">
               <Image
@@ -1347,7 +1357,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                 height={29}
                 loading="lazy"
               />
-              <p>{t("step3Description3")}</p>
+              <p className="text-pMobile md:text-[0]">{t("step3Description3")}</p>
             </div>
           </div>
         </div>
@@ -1380,7 +1390,7 @@ export default async function Home({params}: {params: {locale: string}}) {
             className="z-50 -mt-8 hidden -translate-x-32 lg:block"
             loading="lazy"
           />
-          <div className="space-y-10 rounded-[48px] border-[1px] border-gray-200 px-5 py-10 shadow-md lg:w-[1000px] lg:px-10">
+          <div className="-mt-10 space-y-3 rounded-[48px] border-[1px] border-gray-200 px-5 py-10 shadow-md md:mt-0 md:space-y-10 lg:w-[1000px] lg:px-10">
             <div className="flex items-center justify-center gap-5">
               <Image
                 src={"/Images/HomePage/scribble final version-27.svg"}
@@ -1390,7 +1400,7 @@ export default async function Home({params}: {params: {locale: string}}) {
                 className="-mt-5"
                 loading="lazy"
               />
-              <p className="text-center text-[25px] font-bold leading-7 lg:text-[32px] lg:leading-none">
+              <p className="text-center text-[20px] font-bold leading-[1.5rem] md:text-[25px] md:leading-7 lg:text-[32px] lg:leading-none">
                 {t("investmentProfits")}
               </p>
 
@@ -1427,7 +1437,7 @@ export default async function Home({params}: {params: {locale: string}}) {
       {/* -------------------------------------------------------------------- */}
 
       <div className="gradient-home my-20 px-5 pb-10 lg:px-0 xl:px-20">
-        <div className="relative pt-20">
+        <div className="relative pt-2 md:pt-20">
           <div className="flex justify-center">
             <Image
               src={"/Images/HomePage/Vector (2).svg"}
@@ -1439,7 +1449,7 @@ export default async function Home({params}: {params: {locale: string}}) {
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-end">
             <h2
-              className={`text-center font-bold lg:w-[500px] lg:text-h2 ${locale === "en" ? "text-h2M" : "text-[30px]"}`}
+              className={`text-center font-bold lg:w-[500px] lg:text-h2 ${locale === "en" ? "text-[21px] md:text-h2M" : "text-[30px]"}`}
             >
               {t("secure")}
               <span className="text-[#2563EB]">.</span>
@@ -1451,8 +1461,11 @@ export default async function Home({params}: {params: {locale: string}}) {
             <p className="text-center text-pMobile lg:pt-1 lg:text-pMain">{t("secureFastEasyDescription")}</p>
           </div>
         </div>
-        <div className="flex flex-col items-center justify-center gap-5 pt-10 lg:flex-row">
-          <div className="flex h-[370px] w-[397.33px] flex-col items-center justify-center rounded-3xl bg-white p-5">
+        <div className="flex flex-col items-center justify-center gap-5 pt-2 md:pt-10 lg:flex-row">
+          <div className="flex h-[310px] w-[330.33px] flex-col items-center justify-center rounded-3xl bg-white p-5 md:h-[370px] md:w-[397.33px]"
+          style={{
+              boxShadow: "4px 4px 10px rgba(0, 0, 0, 0.1), -4px 4px 10px rgba(0, 0, 0, 0.1)",
+            }}>
             <Image
               src={"/Images/HomePage/Image.svg"}
               alt="image"
@@ -1460,11 +1473,16 @@ export default async function Home({params}: {params: {locale: string}}) {
               height={124}
               loading="lazy"
             />
-            <p className="text-[28px] font-bold">{t("secureFundsTitle")}</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">{t("secureFundsDescription")}</p>
+            <p className="text-[22px] font-bold md:text-[28px]">{t("secureFundsTitle")}</p>
+            <p className="w-[303px] pt-1 text-center text-[18px] md:pt-4 md:text-[17px]">
+              {t("secureFundsDescription")}
+            </p>
           </div>
 
-          <div className="flex h-[370px] w-[397.33px] flex-col items-center justify-center rounded-3xl bg-white p-5">
+          <div className="flex h-[310px] w-[330.33px] flex-col items-center justify-center rounded-3xl bg-white p-5 md:h-[370px] md:w-[397.33px]"
+          style={{
+              boxShadow: "4px 4px 10px rgba(0, 0, 0, 0.1), -4px 4px 10px rgba(0, 0, 0, 0.1)",
+            }}>
             <Image
               src={"/Images/HomePage/61.svg"}
               alt="image"
@@ -1472,11 +1490,16 @@ export default async function Home({params}: {params: {locale: string}}) {
               height={105}
               loading="lazy"
             />
-            <p className="pt-5 text-[28px] font-bold">{t("apiKeyTitle")}</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">{t("apiKeyDescription")}</p>
+            <p className="pt-5 text-[22px] font-bold md:text-[28px]">{t("apiKeyTitle")}</p>
+            <p className="w-[303px] pt-1 text-center text-[17px] md:pt-4">{t("apiKeyDescription")}</p>
           </div>
 
-          <div className="flex h-[370px] w-[397.33px] flex-col items-center justify-center rounded-3xl bg-white p-5">
+          <div
+            className="flex h-[310px] w-[330.33px] flex-col items-center justify-center rounded-3xl bg-white p-5 md:h-[370px] md:w-[397.33px]"
+            style={{
+              boxShadow: "4px 4px 10px rgba(0, 0, 0, 0.1), -4px 4px 10px rgba(0, 0, 0, 0.1)",
+            }}
+          >
             <Image
               src={"/Images/HomePage/08.svg"}
               alt="image"
@@ -1484,8 +1507,8 @@ export default async function Home({params}: {params: {locale: string}}) {
               height={96.25}
               loading="lazy"
             />
-            <p className="pt-5 text-[28px] font-bold">{t("fastTradingTitle")}</p>
-            <p className="w-[303px] pt-4 text-center text-[17px]">{t("fastTradingDescription")}</p>
+            <p className="pt-5 text-[22px] font-bold md:text-[28px]">{t("fastTradingTitle")}</p>
+            <p className="w-[303px] pt-1 text-center text-[17px] md:pt-4">{t("fastTradingDescription")}</p>
           </div>
         </div>
       </div>
@@ -1493,7 +1516,7 @@ export default async function Home({params}: {params: {locale: string}}) {
       <VideoMembers locale={locale} />
       {/* ------------------------------------------------------------------------------------------------- */}
 
-      <div className="relative mt-20 pt-20 lg:mt-0 xl:px-20">
+      <div className="relative mt-5 md:mt-20 pt-20 lg:mt-0 xl:px-20">
         <div className="flex justify-center">
           <Image
             src={"/Images/HomePage/Vector (2).svg"}
@@ -1505,7 +1528,7 @@ export default async function Home({params}: {params: {locale: string}}) {
           />
         </div>
         <div className="absolute inset-0 flex flex-col items-center justify-end">
-          <h2 className="pb-10 text-center text-h2M font-bold lg:text-h2">{t("faqTitle")}</h2>
+          <h2 className="pb-6 md:pb-10 text-center text-[25px] md:text-h2M font-bold lg:text-h2">{t("faqTitle")}</h2>
         </div>
       </div>
 
@@ -1514,22 +1537,23 @@ export default async function Home({params}: {params: {locale: string}}) {
       </div>
       {/* ------------------------------------------------------------------------------------------------------ */}
 
-      <div className="mx-5 -mt-20 mb-10 rounded-2xl bg-[#F3F4F6] lg:mx-20 lg:my-10 lg:-mt-0 lg:rounded-[56px]">
+      <div className="mx-5 -mt-28 md:-mt-20 mb-10 rounded-2xl bg-[#F3F4F6] lg:mx-20 lg:my-10 lg:-mt-0 lg:rounded-[56px]">
         <div className="flex flex-col items-center justify-center gap-5 px-5 py-10 pb-20 lg:px-0">
-          <h2 className="text-center text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">{t("toolsTitle")}</h2>
-          <p className="text-center text-pMobile text-[#374151] lg:w-[868px] lg:text-pMain">{t("toolsDescription")}</p>
+          <h2 className="text-center text-[20px] md:text-h2M font-bold leading-tight lg:text-h2 lg:leading-none">{t("toolsTitle")}</h2>
+          <p className="text-center text-pMobile text-[#374151] -mt-4 md:mt-0 lg:w-[868px] lg:text-pMain">{t("toolsDescription")}</p>
           <Image
             src={"/Images/HomePage/Tablist.svg"}
             alt="image"
             width={385}
             height={56}
             loading="lazy"
+            className="-mt-3 md:mt-0"
           />
         </div>
 
         <div className="flex flex-col items-center justify-center px-5 lg:flex-row lg:px-0 lg:pl-32">
           <div className="lg:-mt-[120px]">
-            <h3 className="pb-10 text-center text-[25px] font-bold lg:w-[500px] lg:text-left lg:text-[20px]">
+            <h3 className="pb-2 md:pb-10 text-center text-[20px] md:text-[25px] font-bold -mt-16 md:mt-0 lg:w-[500px] lg:text-left lg:text-[20px]">
               {t("sliderTitle")}
             </h3>
 
@@ -1617,11 +1641,11 @@ export default async function Home({params}: {params: {locale: string}}) {
         alt="image"
         width={115.62}
         height={113.39}
-        className="z-[60] block translate-x-[20px] translate-y-[335px] lg:hidden"
+        className="z-[60] block translate-x-[5px] translate-y-[255px] md:translate-x-[20px] md:translate-y-[335px] lg:hidden"
         loading="lazy"
       />
 
-      <div className="-mb-[200px] -mt-20 h-[1000px] scale-75 transform lg:hidden">
+      <div className="-mb-[200px] -mt-40 md:-mt-20 h-[1000px] scale-75 transform lg:hidden">
         <div className="">
           <Image
             src={"/Images/HomePage/Vector (9).svg"}
@@ -1659,7 +1683,7 @@ export default async function Home({params}: {params: {locale: string}}) {
               />
             </div>
             <div className="absolute inset-1 flex flex-col items-center justify-center gap-5 text-center">
-              <h2 className={`w-full pt-12 text-[30px] font-bold text-white`}>
+              <h2 className={`w-full pt-12 text-[20px] md:text-[30px] font-bold text-white`}>
                 {locale === "en"
                   ? home?.sectionFourteenTitle
                   : locale === "de"

@@ -124,7 +124,7 @@ export default function VideoMembers({locale}: {locale: string}) {
     return null;
   }
   return (
-    <div className="-mt-10 px-5 lg:my-20 lg:-mt-0 lg:px-0">
+    <div className="-mt-10 md:-mt-10 px-5 lg:my-20 lg:-mt-0 lg:px-0">
       <div className="flex flex-col items-center justify-start gap-5 lg:flex-row lg:pl-40">
         <Image
           src={"/Images/HomePage/Frame 1261155437.svg"}
@@ -132,7 +132,7 @@ export default function VideoMembers({locale}: {locale: string}) {
           width={172}
           height={28}
         />
-        <p className="text-[20px]">
+        <p className="text-[16px] md:text-[20px]">
           {/* {video.reviewsText} */}
           {locale === "en"
                   ? video.reviewsText
@@ -167,10 +167,10 @@ export default function VideoMembers({locale}: {locale: string}) {
               className="pt-10 lg:-mt-24 lg:-translate-x-20 lg:pt-0"
             />
           </div>
-          <h2 className="w-[384px] pb-10 text-center text-h2M font-bold leading-tight lg:pb-20 lg:text-left lg:text-[44px]">
+          <h2 className="w-[384px] pb-10 text-center text-[22px] md:text-h2M font-bold leading-tight lg:pb-20 lg:text-left lg:text-[44px]">
           {t("videoMembers")}
           </h2>
-          <div className="flex items-end justify-center lg:-ml-40 lg:flex-none lg:-translate-y-8">
+          <div className="flex items-end justify-center mt-0 lg:-ml-40 lg:flex-none lg:-translate-y-8">
             <Image
               src={"/Images/HomePage/14.svg"}
               alt="image"
@@ -183,7 +183,7 @@ export default function VideoMembers({locale}: {locale: string}) {
               href="/sign-up"
               className="block"
             >
-              <div className="w-[330px] rounded-[20px] border-[2px] border-[#111827] py-3 text-center text-[22px] text-[#111827] hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white">
+              <div className="w-[280px] md:w-[330px] rounded-[20px] border-[2px] border-[#111827] py-3 text-center text-[19px] md:text-[22px] text-[#111827] hover:border-[#2563EB] hover:bg-[#2563EB] hover:text-white">
               {t("startFreeTrial")}
               </div>
             </Link>

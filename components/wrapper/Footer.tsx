@@ -44,9 +44,9 @@ export default async function Footer({locale="en"}: {locale: string}) {
   const t = await getTranslations("Footer");
   
   return (
-    <div className="px-5 lg:mb-20 lg:space-y-20 lg:px-0 lg:pl-72">
+    <div className="-mt-10 md:mt-0 px-5 lg:mb-20 lg:space-y-20 lg:px-0 lg:pl-72">
       <div className="flex flex-col items-center justify-center lg:flex-row lg:items-start lg:justify-start lg:gap-80">
-        <div className="flex flex-col items-center justify-center space-y-5 lg:flex-none">
+        <div className="flex flex-col items-center justify-center space-y-2 md:space-y-5 lg:flex-none">
           <div className="lg:mr-auto">
             <Link href={`/`}>
               <Image
@@ -62,7 +62,7 @@ export default async function Footer({locale="en"}: {locale: string}) {
           <p className="text-center text-[16px] lg:w-[215px] lg:text-left">{footer?.address}</p>
         </div>
 
-        <div className="mt-5 space-y-5 lg:mt-0">
+        <div className="mt-2 md:mt-5 space-y-2 md:space-y-5 lg:mt-0">
           <h2 className="text-center text-[20px] font-bold lg:text-left">{t("follow")}</h2>
           <p className="text-center text-[16px] lg:text-left">
             {/* {footer?.textAboveIcons} */}
@@ -103,7 +103,7 @@ export default async function Footer({locale="en"}: {locale: string}) {
         </div>
       </div>
 
-      <div className="mb-20 flex flex-col justify-start gap-10 pt-10 lg:mb-0 lg:flex-row lg:items-center lg:gap-60">
+      <div className="mb-20 flex flex-col justify-start gap-5 md:gap-10 pt-5 md:pt-10 lg:mb-0 lg:flex-row lg:items-center lg:gap-60">
         <div className="space-y-2 lg:h-40">
           <h3 className="text-[20px] font-bold">{t("resources")}</h3>
           <div className="flex flex-col space-y-2">

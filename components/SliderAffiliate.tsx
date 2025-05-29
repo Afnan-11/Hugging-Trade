@@ -34,13 +34,13 @@ const SliderAffiliate: React.FC<SliderAffiliateProps> = ({ averageUSD, percent }
   return (
     <div className="flex flex-col justify-center items-center ">
       <div className="bg-[#EFF6FF] p-10 lg:w-[505px] lg:h-[466px] rounded-xl">
-        <h2 className="text-[32px] font-bold lg:text-left text-center">
+        <h2 className="text-[20px] md:text-[32px] font-bold lg:text-left text-center">
         {t("yourAverage")}
         </h2>
-        <div className="text-center  mt-10">
-          <p className="text-[100px] text-black font-bold leading-[60px] lg:leading-none">
+        <div className="text-center mt-5 md:mt-10">
+          <p className=" text-[45px] md:text-[100px] text-black font-bold leading-[60px] lg:leading-none">
             {averageIncome.toFixed(0)}{" "}
-            <span className="text-[50px] text-[#2563EB] font-bold">USD</span>
+            <span className="text-[25px] md:text-[50px] text-[#2563EB] font-bold">USD</span>
           </p>
         </div>
 

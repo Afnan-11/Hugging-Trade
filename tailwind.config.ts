@@ -84,7 +84,7 @@ const config: Config = {
         h3: "32px",
         h2M: "40px",
         pMain: "24px",
-        pMobile: "20px",
+        pMobile: "16px",
       },
 
       keyframes: {

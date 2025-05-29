@@ -158,7 +158,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
   const t = await getTranslations("AffiliatePage");
   const locale = params.locale;
   return (
-    <div className="mt-20 overflow-hidden px-5 lg:-mt-7 lg:px-0">
+    <div className="mt-10 overflow-hidden px-5 lg:-mt-7 lg:px-0">
       <div className="flex flex-col items-center justify-start lg:px-10 lg:pt-28">
         <div>
           <Image
@@ -173,7 +173,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
           <div className="flex flex-col items-center justify-center gap-5 lg:flex-row">
             <div className={`w-full lg:h-[442px] lg:space-y-10 ${locale === "en" ? "lg:w-[642px]" : "lg:w-[802px]"}`}>
               <h1
-                className={`text-center font-black leading-tight lg:text-left lg:text-[64px] lg:font-bold lg:leading-[60px] ${locale === "en" ? "text-[44px]" : "text-[35px]"}`}
+                className={`text-center font-black leading-tight lg:text-left lg:text-[64px] lg:font-bold lg:leading-[60px] ${locale === "en" ? "text-[30px] md:text-[44px]" : "text-[35px]"}`}
               >
                 {locale === "en"
                   ? affiliate?.affiliateHeroTitle || ""
@@ -187,7 +187,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
                           ? affiliate?.affiliateHeroTitle_it || ""
                           : affiliate?.affiliateHeroTitle_pt || ""}
               </h1>
-              <p className="w-full py-10 text-center text-[23px] lg:w-[631px] lg:py-0 lg:text-left">
+              <p className="w-full py-2 md:py-10 text-center text-[16px] md:text-[23px] lg:w-[631px] lg:py-0 lg:text-left">
                 {locale === "en"
                   ? affiliate?.affiliateHeroText || ""
                   : locale === "de"
@@ -227,7 +227,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:w-[348px]">
+                <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[17px] md:text-[22px] text-white hover:bg-[#4977db] lg:w-[348px]">
                   {t("getLink")}
                 </div>
               </a>
@@ -256,7 +256,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
           height={70}
           className="hidden translate-x-44 lg:block"
         />
-        <h2 className="pb-10 text-center text-[50px] font-bold leading-tight text-black lg:pb-0 lg:leading-none">
+        <h2 className="pb-10 text-center text-[25px] md:text-[50px] font-bold leading-tight text-black lg:pb-0 lg:leading-none">
           {t("howToStart")}
         </h2>
         <Image
@@ -275,8 +275,9 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
                 alt="img"
                 width={32}
                 height={32}
+                className="w-[22px] h-[22px] md:w-[32px] md:h-[32px]"
               />
-              <h3 className="text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("getLink")}</h3>
+              <h3 className="text-[18px] md:text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("getLink")}</h3>
             </div>
             <p className="text-[16px] lg:text-left">{t("start1")}</p>
           </div>
@@ -288,8 +289,9 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
                 alt="img"
                 width={32}
                 height={32}
+                className="w-[22px] h-[22px] md:w-[32px] md:h-[32px]"
               />
-              <h3 className="text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("start2")}</h3>
+              <h3 className="text-[18px] md:text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("start2")}</h3>
             </div>
             <p className="text-[16px] lg:text-left">{t("start3")}</p>
           </div>
@@ -301,21 +303,22 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
                 alt="img"
                 width={32}
                 height={32}
+                className="w-[22px] h-[22px] md:w-[32px] md:h-[32px]"
               />
-              <h3 className="text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("start4")}</h3>
+              <h3 className="text-[18px] md:text-[24px] font-bold leading-tight lg:text-[26px] lg:leading-none">{t("start4")}</h3>
             </div>
             <p className="text-[16px] lg:text-left">{t("start5")}</p>
           </div>
         </div>
 
         <div className="mt-10 flex items-center justify-center lg:mt-20">
-          <div className="block w-full lg:w-auto">
+          <div className="block items-center w-full lg:w-auto ">
             <a
               href="https://affiliates.huggingtrade.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[22px] text-white hover:bg-[#4977db] lg:w-[348px]">
+              <div className="w-full rounded-2xl bg-[#2563EB] py-3 text-center text-[18px] md:text-[22px] text-white hover:bg-[#4977db] lg:w-[348px]">
                 {t("getLink")}
               </div>
             </a>
