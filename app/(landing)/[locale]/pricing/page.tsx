@@ -245,7 +245,7 @@ export default async function Pricing({params}: {params: {locale: string}}) {
                 className="mr-auto hidden -translate-y-[150px] translate-x-[45px] lg:block lg:-translate-y-0"
               />
               <div className="space-y-5 pb-5 text-center lg:w-[1107px]">
-                <h1 className="mt-10 text-[25px] md:text-[40px] font-black leading-tight lg:mt-20 lg:text-[48px]">
+                <h1 className="mt-7 md:mt-0 text-[30px] md:text-[40px] font-black leading-tight lg:mt-20 lg:text-[48px]">
                   {locale === "en"
                     ? pricing?.pricingHeroTitle
                     : locale === "de"

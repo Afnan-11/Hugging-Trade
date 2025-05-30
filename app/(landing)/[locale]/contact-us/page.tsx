@@ -28,7 +28,7 @@ export default async function ContactUs() {
   const footer: FooterTypes = await getFooter();
   const t = await getTranslations("ContactUsPage");
   return (
-    <div className="mb-10 overflow-hidden lg:-mt-[40px] lg:mb-20">
+    <div className="pt-7 md:pt-0 mb-10 overflow-hidden lg:-mt-[40px] lg:mb-20">
       <Image
         src={"/Images/Contact Us/Vector (7).svg"}
         alt="img"
@@ -47,7 +47,7 @@ export default async function ContactUs() {
       />
       <div className="flex flex-col items-center justify-center gap-10 lg:flex-row">
         <div className="space-y-4 text-center lg:text-left">
-          <h1 className="text-[40px] font-black lg:text-[64px]">{t("letConnect")}</h1>
+          <h1 className="text-[30px] md:text-[40px] font-black lg:text-[64px]">{t("letConnect")}</h1>
           <div className="space-y-1 px-5 lg:px-0 lg:text-left">
             <h2 className="text-[24px] font-semibold">{t("logo")}</h2>
             <p className="16px lg:w-[400px]">{footer.address}</p>

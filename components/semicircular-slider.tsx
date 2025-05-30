@@ -38,7 +38,7 @@ export function SemicircularSlider({ value, min, max, onChange, className = "" }
   const thumbX = centerX - radius * Math.cos(thumbAngle)
   const thumbY = centerY - radius * Math.sin(thumbAngle)
 
-  // Handle mouse/touch events
+  // Handle mouse
   const handlePointerDown = useCallback((e: React.PointerEvent) => {
     setIsDragging(true)
     e.preventDefault()
@@ -99,14 +99,55 @@ export function SemicircularSlider({ value, min, max, onChange, className = "" }
     return `M ${x1} ${y1} A ${arcRadius} ${arcRadius} 0 ${largeArcFlag} 1 ${x2} ${y2}`
   }
 
+  // Handle click on the track
+  const handleTrackClick = useCallback(
+    (e: React.MouseEvent<SVGPathElement>) => {
+      if (!svgRef.current) return
+
+      const rect = svgRef.current.getBoundingClientRect()
+      const x = e.clientX - rect.left - centerX
+      const y = e.clientY - rect.top - centerY
+
+      // Calculate angle from center
+      let angle = Math.atan2(-y, -x) * (180 / Math.PI)
+
+      // Normalize angle to 0-180 range
+      if (angle < 0) angle += 360
+      if (angle > 180) {
+        angle = angle > 270 ? 0 : 180
+      }
+
+      const newValue = angleToValue(angle)
+      onChange(newValue)
+    },
+    [onChange],
+  )
+
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} style={{ userSelect: "none" }}>
       <svg ref={svgRef} width="240" height="140" className="overflow-visible" style={{ touchAction: "none" }}>
-        {/* Background track */}
-        <path d={createArcPath(0, 180)} fill="none" stroke="#D1D5DB" strokeWidth="8" strokeLinecap="round" />
+        {/* Background track - now clickable */}
+        <path
+          d={createArcPath(0, 180)}
+          fill="none"
+          stroke="#D1D5DB"
+          strokeWidth="16"
+          strokeLinecap="round"
+          onClick={handleTrackClick}
+          className="cursor-pointer"
+          style={{ strokeOpacity: 0.8 }}
+        />
 
         {/* Active track */}
-        <path d={createArcPath(0, currentAngle)} fill="none" stroke="#2563EB" strokeWidth="8" strokeLinecap="round" />
+        <path
+          d={createArcPath(0, currentAngle)}
+          fill="none"
+          stroke="#2563EB"
+          strokeWidth="8"
+          strokeLinecap="round"
+          onClick={handleTrackClick}
+          className="cursor-pointer"
+        />
 
         {/* Marker at 12m position */}
         <circle
@@ -127,13 +168,31 @@ export function SemicircularSlider({ value, min, max, onChange, className = "" }
         />
 
         {/* Labels */}
-        <text x="40" y="135" textAnchor="middle" className="text-sm fill-gray-600 font-medium">
+        <text
+          x="40"
+          y="135"
+          textAnchor="middle"
+          className="text-sm fill-gray-600 font-medium select-none pointer-events-none"
+          style={{ userSelect: "none" }}
+        >
           1m
         </text>
-        <text x="120" y="145" textAnchor="middle" className="text-sm fill-gray-600 font-medium">
+        <text
+          x="120"
+          y="145"
+          textAnchor="middle"
+          className="text-sm fill-gray-600 font-medium select-none pointer-events-none"
+          style={{ userSelect: "none" }}
+        >
           6m
         </text>
-        <text x="200" y="135" textAnchor="middle" className="text-sm fill-gray-600 font-medium">
+        <text
+          x="200"
+          y="135"
+          textAnchor="middle"
+          className="text-sm fill-gray-600 font-medium select-none pointer-events-none"
+          style={{ userSelect: "none" }}
+        >
           12m
         </text>
       </svg>

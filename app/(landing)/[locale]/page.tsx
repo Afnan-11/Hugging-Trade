@@ -527,7 +527,7 @@ export default async function Home({params}: {params: {locale: string}}) {
         {/* ----------------------------------------------------------------------- */}
 
         <div className="px-5 lg:hidden">
-          <div className="pt-0 md:pt-10">
+          <div className="pt-7  md:pt-10">
             <div className="flex flex-col items-center justify-center gap-4 text-center lg:gap-10">
               <h2
                 className={`w-full text-[30px] font-black leading-[32px] text-black sm:text-[34px] sm:leading-[40px] md:text-[38px] md:leading-[44px] lg:text-[44px] lg:leading-[50px] lg:leading-none`}

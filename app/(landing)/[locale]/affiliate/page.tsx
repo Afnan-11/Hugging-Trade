@@ -158,7 +158,7 @@ export default async function Affiliate({params}: {params: {locale: string}}) {
   const t = await getTranslations("AffiliatePage");
   const locale = params.locale;
   return (
-    <div className="mt-10 overflow-hidden px-5 lg:-mt-7 lg:px-0">
+    <div className="mt-7 md:mt-0 overflow-hidden px-5 lg:-mt-7 lg:px-0">
       <div className="flex flex-col items-center justify-start lg:px-10 lg:pt-28">
         <div>
           <Image

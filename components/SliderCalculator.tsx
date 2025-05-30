@@ -303,11 +303,11 @@ const SliderCalculator = ({ sliderTitle, sliderText, sliderAverageMonthlyIncome 
         />
 
         <div className="text-center">
-          <div className="space-y-0 md:space-y-5">
-            <h2 className="px-5 text-[22px] md:text-h2M font-bold leading-10 lg:px-0 lg:text-h2 lg:leading-none">
+          <div className="space-y-2 md:space-y-5">
+            <h2 className="px-5 text-[30px] md:text-h2M font-black md:font-bold leading-[32px] md:leading-10 lg:px-0 lg:text-h2 lg:leading-none">
               {sliderTitle}
             </h2>
-            <p className="px-5 text-[18px] md:text-pMobile lg:px-0 lg:text-pMain">{sliderText}</p>
+            <p className="m px-5 text-[18px] md:text-pMobile lg:px-0 lg:text-pMain">{sliderText}</p>
           </div>
         </div>
 
